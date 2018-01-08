@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -34,7 +34,7 @@ namespace ComponentFactory.Krypton.Toolkit
         #region Static Fields
 
         private const int DEFAULT_COMPOSITION_HEIGHT = 30;
-        private static bool _themedApp;
+        private static readonly bool _themedApp;
         #endregion
 
         #region Instance Fields
@@ -52,7 +52,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private IPalette _localPalette;
         private IPalette _palette;
         private PaletteMode _paletteMode;
-        private IntPtr _screenDC;
+        private readonly IntPtr _screenDC;
         #endregion
 
         #region Events
@@ -103,7 +103,7 @@ namespace ComponentFactory.Krypton.Toolkit
             _screenDC = PI.CreateCompatibleDC(IntPtr.Zero);
 
             // Setup the need paint delegate
-            NeedPaintDelegate = new NeedPaintHandler(OnNeedPaint);
+            NeedPaintDelegate = OnNeedPaint;
 
             // Set the palette and renderer to the defaults as specified by the manager
             _localPalette = null;
@@ -120,8 +120,8 @@ namespace ComponentFactory.Krypton.Toolkit
             Redirector = CreateRedirector();
 
             // Hook into global static events
-            KryptonManager.GlobalPaletteChanged += new EventHandler(OnGlobalPaletteChanged);
-            SystemEvents.UserPreferenceChanged += new UserPreferenceChangedEventHandler(OnUserPreferenceChanged);
+            KryptonManager.GlobalPaletteChanged += OnGlobalPaletteChanged;
+            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
         }
 
         /// <summary>
@@ -137,16 +137,16 @@ namespace ComponentFactory.Krypton.Toolkit
                 // Must unhook from the palette paint events
                 if (_palette != null)
                 {
-                    _palette.PalettePaint -= new EventHandler<PaletteLayoutEventArgs>(OnNeedPaint);
-                    _palette.ButtonSpecChanged -= new EventHandler(OnButtonSpecChanged);
-                    _palette.AllowFormChromeChanged -= new EventHandler(OnAllowFormChromeChanged);
-                    _palette.BasePaletteChanged -= new EventHandler(OnBaseChanged);
-                    _palette.BaseRendererChanged -= new EventHandler(OnBaseChanged);
+                    _palette.PalettePaint -= OnNeedPaint;
+                    _palette.ButtonSpecChanged -= OnButtonSpecChanged;
+                    _palette.AllowFormChromeChanged -= OnAllowFormChromeChanged;
+                    _palette.BasePaletteChanged -= OnBaseChanged;
+                    _palette.BaseRendererChanged -= OnBaseChanged;
                 }
 
                 // Unhook from global static events
-                KryptonManager.GlobalPaletteChanged -= new EventHandler(OnGlobalPaletteChanged);
-                SystemEvents.UserPreferenceChanged -= new UserPreferenceChangedEventHandler(OnUserPreferenceChanged);
+                KryptonManager.GlobalPaletteChanged -= OnGlobalPaletteChanged;
+                SystemEvents.UserPreferenceChanged -= OnUserPreferenceChanged;
             }
 
             base.Dispose(disposing);
@@ -960,10 +960,22 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // We do not process the message if on an MDI child, because doing so prevents the 
             // LayoutMdi call on the parent from working and cascading/tiling the children
-            if ((m.Msg == (int)PI.WM_NCCALCSIZE) && _themedApp &&
-                ((MdiParent == null) || ApplyCustomChrome))
+            //if ((m.Msg == (int)PI.WM_NCCALCSIZE) && _themedApp &&
+            //    ((MdiParent == null) || ApplyCustomChrome))
+            if (_themedApp && ((MdiParent == null) || ApplyCustomChrome))
             {
-                processed = OnWM_NCCALCSIZE(ref m);
+                switch (m.Msg)
+                {
+                    case PI.WM_NCCALCSIZE:
+                        processed = OnWM_NCCALCSIZE(ref m);
+                        break;
+                    case PI.WM_GETMINMAXINFO:
+                        OnWM_GETMINMAXINFO(ref m);
+                        /* Setting handled to false enables the application to process it's own Min/Max requirements,
+                * as mentioned by jason.bullard (comment from September 22, 2011) on http://gallery.expression.microsoft.com/ZuneWindowBehavior/ */
+                        processed = false;
+                        break;
+                }
             }
 
             // Do we need to override message processing?
@@ -1076,10 +1088,42 @@ namespace ComponentFactory.Krypton.Toolkit
             }
 
             // If the message has not been handled, let base class process it
-            if (!processed)
+            if (!processed && m.Msg != PI.WM_GETMINMAXINFO)
             {
                 base.WndProc(ref m);
             }
+        }
+
+        /// <summary>
+        /// Creates and populates the MINMAXINFO structure for a maximized window.
+        /// Puts the structure into memory address given by lParam.
+        /// Only used to process a WM_GETMINMAXINFO message.
+        /// </summary>
+        /// <param name="m">A Windows-based message.</param>
+        /// <returns>True if the message was processed; otherwise false.</returns>
+        protected virtual void OnWM_GETMINMAXINFO(ref Message m)
+        {
+
+            PI.MINMAXINFO mmi = (PI.MINMAXINFO)Marshal.PtrToStructure(m.LParam, typeof(PI.MINMAXINFO));
+
+            // Adjust the maximized size and position to fit the work area of the correct monitor
+            const int MONITOR_DEFAULTTONEAREST = 0x00000002;
+            System.IntPtr monitor = PI.MonitorFromWindow(m.HWnd, MONITOR_DEFAULTTONEAREST);
+
+            if (monitor != System.IntPtr.Zero)
+            {
+
+                PI.MONITORINFO monitorInfo = new PI.MONITORINFO();
+                PI.GetMonitorInfo(monitor, monitorInfo);
+                PI.RECT rcWorkArea = monitorInfo.rcWork;
+                PI.RECT rcMonitorArea = monitorInfo.rcMonitor;
+                mmi.ptMaxPosition.x = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
+                mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
+                mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
+                mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
+            }
+
+            Marshal.StructureToPtr(mmi, m.LParam, true);
         }
 
         /// <summary>
@@ -1753,11 +1797,11 @@ namespace ComponentFactory.Krypton.Toolkit
                 // Unhook from current palette events
                 if (_palette != null)
                 {
-                    _palette.PalettePaint -= new EventHandler<PaletteLayoutEventArgs>(OnNeedPaint);
-                    _palette.ButtonSpecChanged -= new EventHandler(OnButtonSpecChanged);
-                    _palette.AllowFormChromeChanged -= new EventHandler(OnAllowFormChromeChanged);
-                    _palette.BasePaletteChanged -= new EventHandler(OnBaseChanged);
-                    _palette.BaseRendererChanged -= new EventHandler(OnBaseChanged);
+                    _palette.PalettePaint -= OnNeedPaint;
+                    _palette.ButtonSpecChanged -= OnButtonSpecChanged;
+                    _palette.AllowFormChromeChanged -= OnAllowFormChromeChanged;
+                    _palette.BasePaletteChanged -= OnBaseChanged;
+                    _palette.BaseRendererChanged -= OnBaseChanged;
                 }
 
                 // Remember the new palette
@@ -1769,11 +1813,11 @@ namespace ComponentFactory.Krypton.Toolkit
                 // Hook to new palette events
                 if (_palette != null)
                 {
-                    _palette.PalettePaint += new EventHandler<PaletteLayoutEventArgs>(OnNeedPaint);
-                    _palette.ButtonSpecChanged += new EventHandler(OnButtonSpecChanged);
-                    _palette.AllowFormChromeChanged += new EventHandler(OnAllowFormChromeChanged);
-                    _palette.BasePaletteChanged += new EventHandler(OnBaseChanged);
-                    _palette.BaseRendererChanged += new EventHandler(OnBaseChanged);
+                    _palette.PalettePaint += OnNeedPaint;
+                    _palette.ButtonSpecChanged += OnButtonSpecChanged;
+                    _palette.AllowFormChromeChanged += OnAllowFormChromeChanged;
+                    _palette.BasePaletteChanged += OnBaseChanged;
+                    _palette.BaseRendererChanged += OnBaseChanged;
                 }
             }
         }

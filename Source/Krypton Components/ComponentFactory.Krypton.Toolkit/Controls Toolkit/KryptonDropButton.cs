@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -32,14 +32,14 @@ namespace ComponentFactory.Krypton.Toolkit
     public class KryptonDropButton : VisualSimpleBase, IButtonControl, IContentValues
 	{
 		#region Instance Fields
-        private ViewDrawButton _drawButton;
+        private readonly ViewDrawButton _drawButton;
         private ButtonStyle _style;
-	    private ButtonController _buttonController;
-        private PaletteRedirectDropDownButton _paletteDropDownButtonImages;
-	    private PaletteTripleOverride _overrideFocus;
-		private PaletteTripleOverride _overrideNormal;
-		private PaletteTripleOverride _overrideTracking;
-		private PaletteTripleOverride _overridePressed;
+	    private readonly ButtonController _buttonController;
+        private readonly PaletteRedirectDropDownButton _paletteDropDownButtonImages;
+	    private readonly PaletteTripleOverride _overrideFocus;
+		private readonly PaletteTripleOverride _overrideNormal;
+		private readonly PaletteTripleOverride _overrideTracking;
+		private readonly PaletteTripleOverride _overridePressed;
 	    private KryptonCommand _command;
         private bool _isDefault;
 		private bool _useMnemonic;
@@ -80,7 +80,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Create content storage
             Values = CreateButtonValues(NeedPaintDelegate);
-            Values.TextChanged += new EventHandler(OnButtonTextChanged);
+            Values.TextChanged += OnButtonTextChanged;
             Images = new DropDownButtonImages(NeedPaintDelegate);
 
             // Image need an extra redirector to check the local images first
@@ -131,8 +131,8 @@ namespace ComponentFactory.Krypton.Toolkit
             _drawButton.SourceController = _buttonController;
 
             // Need to know when user clicks the button view or mouse selects it
-            _buttonController.Click += new MouseEventHandler(OnButtonClick);
-            _buttonController.MouseSelect += new MouseEventHandler(OnButtonSelect);
+            _buttonController.Click += OnButtonClick;
+            _buttonController.MouseSelect += OnButtonSelect;
 
             // Create the view manager instance
             ViewManager = new ViewManager(this, _drawButton);
@@ -259,7 +259,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
             set
             {
-                VisualOrientation converted = value;
+                VisualOrientation converted;
                 switch (value)
                 {
                     default:
@@ -476,7 +476,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 {
                     if (_command != null)
                     {
-                        _command.PropertyChanged -= new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged -= OnCommandPropertyChanged;
                     }
                     else
                     {
@@ -488,7 +488,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
                     if (_command != null)
                     {
-                        _command.PropertyChanged += new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged += OnCommandPropertyChanged;
                     }
                     else
                     {
@@ -971,7 +971,7 @@ namespace ComponentFactory.Krypton.Toolkit
                         showingContextMenu = true;
 
                         // Show relative to the screen rectangle
-                        cpma.KryptonContextMenu.Closed += new ToolStripDropDownClosedEventHandler(OnKryptonContextMenuClosed);
+                        cpma.KryptonContextMenu.Closed += OnKryptonContextMenuClosed;
                         cpma.KryptonContextMenu.Show(this, screenRect, cpma.PositionH, cpma.PositionV);
                     }
                 }
@@ -987,7 +987,7 @@ namespace ComponentFactory.Krypton.Toolkit
                         //...show the context menu below and at th left of the button
                         VisualPopupManager.Singleton.ShowContextMenuStrip(cpma.ContextMenuStrip,
                                                                           new Point(screenRect.X, screenRect.Bottom + 1),
-                                                                          new EventHandler(OnContextMenuClosed));
+                                                                          OnContextMenuClosed);
                     }
                 }
             }
@@ -1033,7 +1033,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private void OnKryptonContextMenuClosed(object sender, EventArgs e)
         {
             KryptonContextMenu kcm = (KryptonContextMenu)sender;
-            kcm.Closed -= new ToolStripDropDownClosedEventHandler(OnKryptonContextMenuClosed);
+            kcm.Closed -= OnKryptonContextMenuClosed;
             ContextMenuClosed();
         }
 

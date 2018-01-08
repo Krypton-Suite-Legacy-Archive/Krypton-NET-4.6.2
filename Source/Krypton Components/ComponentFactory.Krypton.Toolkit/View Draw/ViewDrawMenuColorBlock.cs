@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -21,10 +21,10 @@ namespace ComponentFactory.Krypton.Toolkit
     public class ViewDrawMenuColorBlock : ViewLeaf
     {
         #region Instance Fields
-        private IContextMenuProvider _provider;
-        private Size _blockSize;
-        private bool _first;
-        private bool _last;
+        private readonly IContextMenuProvider _provider;
+        private readonly Size _blockSize;
+        private readonly bool _first;
+        private readonly bool _last;
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Use context menu specific version of the radio button controller
             MenuColorBlockController mcbc = new MenuColorBlockController(provider.ProviderViewManager, this, this, provider.ProviderNeedPaintDelegate);
-            mcbc.Click += new EventHandler(OnClick);
+            mcbc.Click += OnClick;
             MouseController = mcbc;
             KeyController = mcbc;
         }

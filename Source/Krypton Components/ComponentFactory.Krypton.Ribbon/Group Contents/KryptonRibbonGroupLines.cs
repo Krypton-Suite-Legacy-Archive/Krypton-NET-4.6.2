@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -174,10 +174,10 @@ namespace ComponentFactory.Krypton.Ribbon
 
             // Create collection for holding triple items
             Items = new KryptonRibbonGroupLinesCollection();
-            Items.Clearing += new EventHandler(OnRibbonGroupLineClearing);
-            Items.Cleared += new EventHandler(OnRibbonGroupLineCleared);
-            Items.Inserted += new TypedHandler<KryptonRibbonGroupItem>(OnRibbonGroupLineInserted);
-            Items.Removed += new TypedHandler<KryptonRibbonGroupItem>(OnRibbonGroupLineRemoved);
+            Items.Clearing += OnRibbonGroupLineClearing;
+            Items.Cleared += OnRibbonGroupLineCleared;
+            Items.Inserted += OnRibbonGroupLineInserted;
+            Items.Removed += OnRibbonGroupLineRemoved;
         }
 
         /// <summary>

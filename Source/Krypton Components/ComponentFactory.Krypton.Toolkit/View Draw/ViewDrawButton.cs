@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -28,14 +28,14 @@ namespace ComponentFactory.Krypton.Toolkit
         private IPaletteTriple _paletteCheckedNormal;
         private IPaletteTriple _paletteCheckedTracking;
         private IPaletteTriple _paletteCheckedPressed;
-        private PaletteBorderEdgeRedirect _edgeRedirect;
-        private ViewDrawSplitCanvas _drawCanvas;
-        private ViewDrawContent _drawContent;
-        private ViewDrawBorderEdge _drawSplitBorder;
-        private ViewLayoutCenter _drawDropDown;
-        private ViewDrawDropDownButton _drawDropDownButton;
+        private readonly PaletteBorderEdgeRedirect _edgeRedirect;
+        private readonly ViewDrawSplitCanvas _drawCanvas;
+        private readonly ViewDrawContent _drawContent;
+        private readonly ViewDrawBorderEdge _drawSplitBorder;
+        private readonly ViewLayoutCenter _drawDropDown;
+        private readonly ViewDrawDropDownButton _drawDropDownButton;
 	    private VisualOrientation _dropDownPosition;
-        private ViewLayoutSeparator _drawOuterSeparator;
+        private readonly ViewLayoutSeparator _drawOuterSeparator;
         private Rectangle _splitRectangle;
         private Rectangle _nonSplitRectangle;
         private bool _dropDown;

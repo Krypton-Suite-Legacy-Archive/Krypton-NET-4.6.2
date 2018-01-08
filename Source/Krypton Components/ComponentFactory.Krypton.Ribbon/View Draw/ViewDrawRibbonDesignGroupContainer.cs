@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -27,7 +27,7 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbonGroup _ribbonGroup;
+        private readonly KryptonRibbonGroup _ribbonGroup;
         private ContextMenuStrip _cms;
         #endregion
 
@@ -112,10 +112,10 @@ namespace ComponentFactory.Krypton.Ribbon
                 };
 
                 // Create child items
-                ToolStripMenuItem menuTriple = new ToolStripMenuItem("Add Triple", null, new EventHandler(OnAddTriple));
-                ToolStripMenuItem menuLines = new ToolStripMenuItem("Add Lines", null, new EventHandler(OnAddLines));
-                ToolStripMenuItem menuSeparator = new ToolStripMenuItem("Add Separator", null, new EventHandler(OnAddSeparator));
-                ToolStripMenuItem menuGallery = new ToolStripMenuItem("Add Gallery", null, new EventHandler(OnAddGallery));
+                ToolStripMenuItem menuTriple = new ToolStripMenuItem("Add Triple", null, OnAddTriple);
+                ToolStripMenuItem menuLines = new ToolStripMenuItem("Add Lines", null, OnAddLines);
+                ToolStripMenuItem menuSeparator = new ToolStripMenuItem("Add Separator", null, OnAddSeparator);
+                ToolStripMenuItem menuGallery = new ToolStripMenuItem("Add Gallery", null, OnAddGallery);
 
                 // Assign correct images
                 menuTriple.ImageIndex = 0;

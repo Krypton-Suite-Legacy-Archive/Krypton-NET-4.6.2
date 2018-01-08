@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -48,7 +48,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private PaletteButtonStyle _style;
         private PaletteButtonOrientation _orientation;
         private PaletteRelativeEdgeAlign _edge;
-        private CheckButtonImageStates _imageStates;
+        private readonly CheckButtonImageStates _imageStates;
 
         #endregion
         
@@ -95,7 +95,7 @@ namespace ComponentFactory.Krypton.Toolkit
             _edge = PaletteRelativeEdgeAlign.Inherit;
             _imageStates = new CheckButtonImageStates
             {
-                NeedPaint = new NeedPaintHandler(OnImageStateChanged)
+                NeedPaint = OnImageStateChanged
             };
             ContextMenuStrip = null;
             KryptonContextMenu = null;
@@ -840,7 +840,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 {
                     if (_command != null)
                     {
-                        _command.PropertyChanged -= new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged -= OnCommandPropertyChanged;
                     }
 
                     _command = value;
@@ -848,7 +848,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
                     if (_command != null)
                     {
-                        _command.PropertyChanged += new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged += OnCommandPropertyChanged;
                     }
                 }
             }

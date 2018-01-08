@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -112,7 +112,8 @@ namespace ComponentFactory.Krypton.Toolkit
                                                                       Color.Violet,                     // LinkVisitedOverridePanel
                                                                       Color.FromArgb(255,  90,  90),    // LinkPressedOverridePanel
                                                                       Color.White,                      // TextLabelPanel
-                                                                      Color.FromArgb(226, 226, 226),    // RibbonTabTextNormal
+                                                                      //Color.FromArgb(226, 226, 226),    // RibbonTabTextNormal
+                                                                      Color.White,                      // RibbonTabTextNormal
                                                                       Color.Black,                      // RibbonTabTextChecked
                                                                       Color.FromArgb( 94,  94,  94),    // RibbonTabSelected1
                                                                       Color.FromArgb(201, 201, 201),    // RibbonTabSelected2

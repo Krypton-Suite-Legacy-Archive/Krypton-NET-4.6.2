@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -25,7 +25,7 @@ namespace ComponentFactory.Krypton.Ribbon
         #region Instance Fields
 
         private NeedPaintHandler _needPaint;
-        private DesignTextToContent _contentProvider;
+        private readonly DesignTextToContent _contentProvider;
         #endregion
 
 		#region Identity
@@ -50,7 +50,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
             // Use a controller to change state because of mouse movement
             ViewHightlightController controller = new ViewHightlightController(this, needPaint);
-            controller.Click += new EventHandler(OnClick);
+            controller.Click += OnClick;
             MouseController = controller;
         }
 

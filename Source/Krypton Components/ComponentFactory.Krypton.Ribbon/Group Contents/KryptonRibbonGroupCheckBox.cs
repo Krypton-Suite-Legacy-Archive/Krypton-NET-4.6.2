@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -431,7 +431,7 @@ namespace ComponentFactory.Krypton.Ribbon
                 {
                     if (_command != null)
                     {
-                        _command.PropertyChanged -= new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged -= OnCommandPropertyChanged;
                     }
 
                     _command = value;
@@ -439,7 +439,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
                     if (_command != null)
                     {
-                        _command.PropertyChanged += new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged += OnCommandPropertyChanged;
                     }
                 }
             }
@@ -586,15 +586,7 @@ namespace ComponentFactory.Krypton.Ribbon
                     if (AutoCheck)
                     {
                         // Find current state
-                        CheckState checkState = CheckState.Unchecked;
-                        if (KryptonCommand != null)
-                        {
-                            checkState = KryptonCommand.CheckState;
-                        }
-                        else
-                        {
-                            checkState = CheckState;
-                        }
+                        CheckState checkState = KryptonCommand?.CheckState ?? CheckState;
 
                         // Find new state based on the current state
                         switch (checkState)

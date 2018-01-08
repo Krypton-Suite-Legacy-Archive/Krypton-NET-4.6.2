@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -13,18 +13,18 @@ using System.Diagnostics;
 
 namespace ComponentFactory.Krypton.Ribbon
 {
-	/// <summary>
-	/// Draws a small image from a group cluster color button.
-	/// </summary>
+    /// <summary>
+    /// Draws a small image from a group cluster color button.
+    /// </summary>
     internal class ViewDrawRibbonGroupClusterColorButtonImage : ViewDrawRibbonGroupImageBase
-                                              
+
     {
         #region Static Fields
-        private static readonly Size _smallSize = new Size(16, 16);
+        private static Size _smallSize;// = new Size(16, 16);
         #endregion
 
         #region Instance Fields
-        private KryptonRibbonGroupClusterColorButton _ribbonColorButton;
+        private readonly KryptonRibbonGroupClusterColorButton _ribbonColorButton;
         private Image _compositeImage;
         private Color _selectedColor;
         private Color _emptyBorderColor;
@@ -46,17 +46,20 @@ namespace ComponentFactory.Krypton.Ribbon
             _selectedColor = ribbonColorButton.SelectedColor;
             _emptyBorderColor = ribbonColorButton.EmptyBorderColor;
             _selectedRect = ribbonColorButton.SelectedRect;
-        }        
 
-		/// <summary>
-		/// Obtains the String representation of this instance.
-		/// </summary>
-		/// <returns>User readable name of the instance.</returns>
-		public override string ToString()
-		{
-			// Return the class name and instance identifier
+            //Seb dpi aware
+            _smallSize = new Size((int)(16 * FactorDpiX), (int)(16 * FactorDpiY));
+        }
+
+        /// <summary>
+        /// Obtains the String representation of this instance.
+        /// </summary>
+        /// <returns>User readable name of the instance.</returns>
+        public override string ToString()
+        {
+            // Return the class name and instance identifier
             return "ViewDrawRibbonGroupClusterColorButtonImage:" + Id;
-		}
+        }
 
         /// <summary>
         /// Clean up any resources being used.
@@ -92,14 +95,17 @@ namespace ComponentFactory.Krypton.Ribbon
         /// <summary>
         /// Gets the size to draw the image.
         /// </summary>
-        protected override Size DrawSize => _smallSize;
+        protected override Size DrawSize
+        {
+            get { return _smallSize; }
+        }
 
         /// <summary>
         /// Gets the image to be drawn.
         /// </summary>
-        protected override Image DrawImage 
+        protected override Image DrawImage
         {
-            get 
+            get
             {
                 Image newImage = null;
                 if (_ribbonColorButton.KryptonCommand != null)
@@ -126,12 +132,12 @@ namespace ComponentFactory.Krypton.Ribbon
                             // Indicate the absense of a color by drawing a border around 
                             // the selected color area, thus indicating the area inside the
                             // block is blank/empty.
-                            using(Pen borderPen = new Pen(_emptyBorderColor))
+                            using (Pen borderPen = new Pen(_emptyBorderColor))
                             {
                                 g.DrawRectangle(borderPen, new Rectangle(_selectedRect.X,
-                                    _selectedRect.Y,
-                                    _selectedRect.Width - 1,
-                                    _selectedRect.Height - 1));
+                                                                         _selectedRect.Y,
+                                                                         _selectedRect.Width - 1,
+                                                                         _selectedRect.Height - 1));
                             }
                         }
                         else
@@ -154,3 +160,4 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
     }
 }
+

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -23,12 +23,12 @@ namespace ComponentFactory.Krypton.Navigator
     {
         #region Instance Fields
 
-        private IPaletteRibbonBack _primaryBack;
-        private IPaletteRibbonBack _backupBack;
-        private IPaletteRibbonText _primaryText;
-        private IPaletteRibbonText _backupText;
-        private IPaletteContent _primaryContent;
-        private IPaletteContent _backupContent;
+        private readonly IPaletteRibbonBack _primaryBack;
+        private readonly IPaletteRibbonBack _backupBack;
+        private readonly IPaletteRibbonText _primaryText;
+        private readonly IPaletteRibbonText _backupText;
+        private readonly IPaletteContent _primaryContent;
+        private readonly IPaletteContent _backupContent;
         #endregion
 
         #region Identity
@@ -446,12 +446,7 @@ namespace ComponentFactory.Krypton.Navigator
         {
             if (Apply)
             {
-                Font ret = _primaryContent.GetContentShortTextFont(Override ? OverrideState : state);
-
-                if (ret == null)
-                {
-                    ret = _backupContent.GetContentShortTextFont(state);
-                }
+                Font ret = _primaryContent.GetContentShortTextFont(Override ? OverrideState : state) ?? _backupContent.GetContentShortTextFont(state);
 
                 return ret;
             }
@@ -470,12 +465,8 @@ namespace ComponentFactory.Krypton.Navigator
         {
             if (Apply)
             {
-                Font ret = _primaryContent.GetContentShortTextNewFont(Override ? OverrideState : state);
-
-                if (ret == null)
-                {
-                    ret = _backupContent.GetContentShortTextNewFont(state);
-                }
+                Font ret = _primaryContent.GetContentShortTextNewFont(Override ? OverrideState : state) ??
+                           _backupContent.GetContentShortTextNewFont(state);
 
                 return ret;
             }
@@ -782,12 +773,7 @@ namespace ComponentFactory.Krypton.Navigator
         {
             if (Apply)
             {
-                Image ret = _primaryContent.GetContentShortTextImage(Override ? OverrideState : state);
-
-                if (ret == null)
-                {
-                    ret = _backupContent.GetContentShortTextImage(state);
-                }
+                Image ret = _primaryContent.GetContentShortTextImage(Override ? OverrideState : state) ?? _backupContent.GetContentShortTextImage(state);
 
                 return ret;
             }
@@ -854,12 +840,7 @@ namespace ComponentFactory.Krypton.Navigator
         {
             if (Apply)
             {
-                Font ret = _primaryContent.GetContentLongTextFont(Override ? OverrideState : state);
-
-                if (ret == null)
-                {
-                    ret = _backupContent.GetContentLongTextFont(state);
-                }
+                Font ret = _primaryContent.GetContentLongTextFont(Override ? OverrideState : state) ?? _backupContent.GetContentLongTextFont(state);
 
                 return ret;
             }
@@ -878,12 +859,7 @@ namespace ComponentFactory.Krypton.Navigator
         {
             if (Apply)
             {
-                Font ret = _primaryContent.GetContentLongTextNewFont(Override ? OverrideState : state);
-
-                if (ret == null)
-                {
-                    ret = _backupContent.GetContentLongTextNewFont(state);
-                }
+                Font ret = _primaryContent.GetContentLongTextNewFont(Override ? OverrideState : state) ?? _backupContent.GetContentLongTextNewFont(state);
 
                 return ret;
             }
@@ -1190,12 +1166,7 @@ namespace ComponentFactory.Krypton.Navigator
         {
             if (Apply)
             {
-                Image ret = _primaryContent.GetContentLongTextImage(Override ? OverrideState : state);
-
-                if (ret == null)
-                {
-                    ret = _backupContent.GetContentLongTextImage(state);
-                }
+                Image ret = _primaryContent.GetContentLongTextImage(Override ? OverrideState : state) ?? _backupContent.GetContentLongTextImage(state);
 
                 return ret;
             }

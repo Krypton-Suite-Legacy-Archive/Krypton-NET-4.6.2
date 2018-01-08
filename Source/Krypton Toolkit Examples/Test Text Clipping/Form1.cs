@@ -120,5 +120,31 @@ namespace ThreePaneApplication
                 kryptonManager.GlobalPalette = kryptonPaletteCustom;
             }
         }
+
+        private void OnClick(object sender, EventArgs e)
+        {
+            KryptonMessageBox.Show(this, ((Control)sender).Name, @"Single click detected on ...");
+        }
+
+        private void OnMouseClick(object sender, MouseEventArgs e)
+        {
+            KryptonMessageBox.Show(this, ((Control)sender).Name, @"Mouse click detected on ...");
+        }
+
+        private void kryptonOffice2013_CheckedChanged(object sender, EventArgs e)
+        {
+            if (kryptonOffice2013.Checked)
+            {
+                kryptonManager.GlobalPaletteMode = PaletteModeManager.Office2013;
+            }
+        }
+
+        private void kryptonOffice2013White_CheckedChanged(object sender, EventArgs e)
+        {
+            if (kryptonOffice2013White.Checked)
+            {
+                kryptonManager.GlobalPaletteMode = PaletteModeManager.Office2013White;
+            }
+        }
     }
 }

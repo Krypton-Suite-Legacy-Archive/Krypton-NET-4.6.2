@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -20,7 +20,7 @@ namespace ComponentFactory.Krypton.Toolkit
     public class PaletteRedirectCheckBox : PaletteRedirect
     {
         #region Instance Fields
-        private CheckBoxImages _images;
+        private readonly CheckBoxImages _images;
 		#endregion
 
 		#region Identity
@@ -63,7 +63,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                bool tracking, 
                                                bool pressed)
         {
-            Image retImage = null;
+            Image retImage;
 
             // Get the state specific image
             switch (checkState)
@@ -135,12 +135,7 @@ namespace ComponentFactory.Krypton.Toolkit
             }
 
             // Not found, then inherit from target
-            if (retImage == null)
-            {
-                retImage = Target.GetCheckBoxImage(enabled, checkState, tracking, pressed);
-            }
-
-            return retImage;
+            return retImage ?? Target.GetCheckBoxImage(enabled, checkState, tracking, pressed);
         }
         #endregion
     }

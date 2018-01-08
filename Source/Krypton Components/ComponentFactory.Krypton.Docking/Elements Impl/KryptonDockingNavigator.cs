@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -27,7 +27,7 @@ namespace ComponentFactory.Krypton.Docking
     public class KryptonDockingNavigator : DockingElementClosedCollection
     {
         #region Instance Fields
-        private string _storeName;
+        private readonly string _storeName;
 
         #endregion
 
@@ -55,10 +55,10 @@ namespace ComponentFactory.Krypton.Docking
             _storeName = storeName;
             DockableNavigatorControl = navigator ?? throw new ArgumentNullException("navigator");
 
-            DockableNavigatorControl.Disposed += new EventHandler(OnDockableNavigatorDisposed);
-            DockableNavigatorControl.CellPageInserting += new EventHandler<KryptonPageEventArgs>(OnDockableNavigatorPageInserting);
-            DockableNavigatorControl.BeforePageDrag += new EventHandler<PageDragCancelEventArgs>(OnDockableNavigatorBeforePageDrag);
-            DockableNavigatorControl.PageDrop += new EventHandler<PageDropEventArgs>(OnDockableNavigatorPageDrop);
+            DockableNavigatorControl.Disposed += OnDockableNavigatorDisposed;
+            DockableNavigatorControl.CellPageInserting += OnDockableNavigatorPageInserting;
+            DockableNavigatorControl.BeforePageDrag += OnDockableNavigatorBeforePageDrag;
+            DockableNavigatorControl.PageDrop += OnDockableNavigatorPageDrop;
         }
         #endregion
 
@@ -811,6 +811,7 @@ namespace ComponentFactory.Krypton.Docking
             if (count > 0)
             {
                 KryptonDockingManager manager = DockingManager;
+                KryptonPage page = null;
                 for (int i = 0; i < count; i++)
                 {
                     // Read past this element
@@ -829,8 +830,6 @@ namespace ComponentFactory.Krypton.Docking
                     string uniqueName = CommonHelper.XmlAttributeToText(xmlReader, "UN");
                     bool boolStore = CommonHelper.StringToBool(CommonHelper.XmlAttributeToText(xmlReader, "S"));
                     bool boolVisible = CommonHelper.StringToBool(CommonHelper.XmlAttributeToText(xmlReader, "V", "True"));
-
-                    KryptonPage page = null;
 
                     // If the entry is for just a placeholder...
                     if (boolStore)
@@ -929,10 +928,10 @@ namespace ComponentFactory.Krypton.Docking
         private void OnDockableNavigatorDisposed(object sender, EventArgs e)
         {
             // Unhook from events to prevent memory leaking
-            DockableNavigatorControl.Disposed -= new EventHandler(OnDockableNavigatorDisposed);
-            DockableNavigatorControl.CellPageInserting -= new EventHandler<KryptonPageEventArgs>(OnDockableNavigatorPageInserting);
-            DockableNavigatorControl.BeforePageDrag -= new EventHandler<PageDragCancelEventArgs>(OnDockableNavigatorBeforePageDrag);
-            DockableNavigatorControl.PageDrop -= new EventHandler<PageDropEventArgs>(OnDockableNavigatorPageDrop);
+            DockableNavigatorControl.Disposed -= OnDockableNavigatorDisposed;
+            DockableNavigatorControl.CellPageInserting -= OnDockableNavigatorPageInserting;
+            DockableNavigatorControl.BeforePageDrag -= OnDockableNavigatorBeforePageDrag;
+            DockableNavigatorControl.PageDrop -= OnDockableNavigatorPageDrop;
 
             // Generate event so the any dockable navigator customization can be reversed.
             KryptonDockingManager dockingManager = DockingManager;

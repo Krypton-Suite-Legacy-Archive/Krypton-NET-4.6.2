@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -28,9 +28,9 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbon _ribbon;
+        private readonly KryptonRibbon _ribbon;
         private KryptonRibbonGroupSeparator _ribbonSeparator;
-        private NeedPaintHandler _needPaint;
+        private readonly NeedPaintHandler _needPaint;
         private Size _preferredSize;
         private PaletteRibbonShape _lastShape;
         #endregion
@@ -61,7 +61,7 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 // At design time we need to know when the user right clicks the label
                 ContextClickController controller = new ContextClickController();
-                controller.ContextClick += new MouseEventHandler(OnContextClick);
+                controller.ContextClick += OnContextClick;
                 MouseController = controller;
             }
 
@@ -69,7 +69,7 @@ namespace ComponentFactory.Krypton.Ribbon
             _ribbonSeparator.SeparatorView = this;
 
             // Hook into changes in the ribbon separator definition
-            _ribbonSeparator.PropertyChanged += new PropertyChangedEventHandler(OnSeparatorPropertyChanged);
+            _ribbonSeparator.PropertyChanged += OnSeparatorPropertyChanged;
 
             // Default the preferred size
             _lastShape = PaletteRibbonShape.Office2007;
@@ -95,7 +95,7 @@ namespace ComponentFactory.Krypton.Ribbon
             if (disposing)
             {
                 // Must unhook to prevent memory leaks
-                _ribbonSeparator.PropertyChanged -= new PropertyChangedEventHandler(OnSeparatorPropertyChanged);
+                _ribbonSeparator.PropertyChanged -= OnSeparatorPropertyChanged;
 
                 // Remove association with definition
                 _ribbonSeparator.SeparatorView = null;

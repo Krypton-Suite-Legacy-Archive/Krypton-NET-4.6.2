@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -28,8 +28,8 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbon _ribbon;
-        private NeedPaintHandler _needPaint;
+        private readonly KryptonRibbon _ribbon;
+        private readonly NeedPaintHandler _needPaint;
         private ViewLayoutDocker _viewLarge;
         private ViewLayoutRibbonCenterPadding _viewLargeImage;
         private ViewDrawRibbonGroupLabelImage _viewLargeLabelImage;
@@ -80,7 +80,7 @@ namespace ComponentFactory.Krypton.Ribbon
             UpdateItemSizeState();
 
             // Hook into changes in the ribbon button definition
-            GroupLabel.PropertyChanged += new PropertyChangedEventHandler(OnLabelPropertyChanged);
+            GroupLabel.PropertyChanged += OnLabelPropertyChanged;
         }
 
 		/// <summary>
@@ -107,7 +107,7 @@ namespace ComponentFactory.Krypton.Ribbon
                     GroupLabel.ViewPaintDelegate = null;
 
                     // Must unhook to prevent memory leaks
-                    GroupLabel.PropertyChanged -= new PropertyChangedEventHandler(OnLabelPropertyChanged);
+                    GroupLabel.PropertyChanged -= OnLabelPropertyChanged;
 
                     // Remove association with definition
                     GroupLabel.LabelView = null;
@@ -289,7 +289,7 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 // At design time we need to know when the user right clicks the label
                 ContextClickController controller = new ContextClickController();
-                controller.ContextClick += new MouseEventHandler(OnContextClick);
+                controller.ContextClick += OnContextClick;
                 _viewLarge.MouseController = controller;
             }
 
@@ -326,7 +326,7 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 // At design time we need to know when the user right clicks the label
                 ContextClickController controller = new ContextClickController();
-                controller.ContextClick += new MouseEventHandler(OnContextClick);
+                controller.ContextClick += OnContextClick;
                 _viewMediumSmall.MouseController = controller;
             }
 

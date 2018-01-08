@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -40,7 +40,7 @@ namespace ComponentFactory.Krypton.Toolkit
         public class KryptonCheckButtonCollection : CollectionBase
         {
             #region Instance Fields
-            private KryptonCheckSet _owner;
+            private readonly KryptonCheckSet _owner;
             #endregion
 
             #region Identity
@@ -450,15 +450,15 @@ namespace ComponentFactory.Krypton.Toolkit
             }
 
             // Need to monitor and control the change of checked state
-            checkButton.CheckedChanging += new CancelEventHandler(OnCheckedChanging);
-            checkButton.CheckedChanged += new EventHandler(OnCheckedChanged);
+            checkButton.CheckedChanging += OnCheckedChanging;
+            checkButton.CheckedChanged += OnCheckedChanged;
         }
 
         private void CheckButtonRemoved(KryptonCheckButton checkButton)
         {
             // Unhook from monitoring events
-            checkButton.CheckedChanging -= new CancelEventHandler(OnCheckedChanging);
-            checkButton.CheckedChanged -= new EventHandler(OnCheckedChanged);
+            checkButton.CheckedChanging -= OnCheckedChanging;
+            checkButton.CheckedChanged -= OnCheckedChanged;
 
             // If the removed button is the currently checked one
             if (_checkedButton == checkButton)

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -25,10 +25,10 @@ namespace ComponentFactory.Krypton.Navigator
         #region LineDetails
         private struct LineDetails
         {
-            public int InlineLength;
-            public int CrossLength;
-            public int StartIndex;
-            public int ItemCount;
+            public readonly int InlineLength;
+            public readonly int CrossLength;
+            public readonly int StartIndex;
+            public readonly int ItemCount;
 
             public LineDetails(int inlineLength,
                                int crossLength,
@@ -319,28 +319,14 @@ namespace ComponentFactory.Krypton.Navigator
             if (Count > 0)
             {
                 // Default to no space between each child item
-                int gap = 0;
-
                 // If we have a metric provider then get the child gap to use
-                if (_paletteMetric != null)
-                {
-                    gap = _paletteMetric.GetMetricInt(State, _metricGap);
-                }
-                else
-                {
-                    gap = context.Renderer.RenderTabBorder.GetTabBorderSpacingGap(TabBorderStyle);
-                }
+                int gap = _paletteMetric?.GetMetricInt(State, _metricGap) ?? context.Renderer.RenderTabBorder.GetTabBorderSpacingGap(TabBorderStyle);
 
                 // Line spacing gap can never be less than zero
                 int lineGap = (gap < 0 ? 0 : gap);
                 
-                bool reversed = false;
-
                 // Do we need to apply right to left by positioning children in reverse order?
-                if (IsOneLine && !BarVertical && (context.Control.RightToLeft == RightToLeft.Yes))
-                {
-                    reversed = true;
-                }
+                bool reversed = (IsOneLine && !BarVertical && (context.Control.RightToLeft == RightToLeft.Yes));
 
                 // Allocate caching for size of each child element
                 _childSizes = new Size[Count];
@@ -857,17 +843,8 @@ namespace ComponentFactory.Krypton.Navigator
             if (Count > 0)
             {
                 // Default to no space between each child item
-                int gap = 0;
-
                 // If we have a metric provider then get the child gap to use
-                if (_paletteMetric != null)
-                {
-                    gap = _paletteMetric.GetMetricInt(State, _metricGap);
-                }
-                else
-                {
-                    gap = context.Renderer.RenderTabBorder.GetTabBorderSpacingGap(TabBorderStyle);
-                }
+                int gap = _paletteMetric?.GetMetricInt(State, _metricGap) ?? context.Renderer.RenderTabBorder.GetTabBorderSpacingGap(TabBorderStyle);
 
                 // Line spacing gap can never be less than zero
                 int lineGap = (gap < 0 ? 0 : gap);

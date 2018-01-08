@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -26,8 +26,8 @@ namespace ComponentFactory.Krypton.Ribbon
                                            IRibbonKeyTipTarget
 	{
 		#region Instance Fields
-        private KryptonRibbon _ribbon;
-        private ViewDrawRibbonGroupButtonBackBorder _target;
+        private readonly KryptonRibbon _ribbon;
+        private readonly ViewDrawRibbonGroupButtonBackBorder _target;
         private NeedPaintHandler _needPaint;
 	    private Rectangle _splitRectangle;
         private bool _rightButtonDown;
@@ -535,7 +535,7 @@ namespace ComponentFactory.Krypton.Ribbon
         protected void UpdateTargetState(Point pt)
         {
             // By default the button is in the normal state
-            PaletteState newState;
+            PaletteState newState = PaletteState.Normal;
 
             // When disabled the button itself is shown as normal, the 
             // content is expected to draw itself as disbled though
@@ -545,8 +545,6 @@ namespace ComponentFactory.Krypton.Ribbon
             }
             else
             {
-                newState = PaletteState.Normal;
-
                 // If capturing input....
                 if (Captured)
                 {
@@ -638,30 +636,19 @@ namespace ComponentFactory.Krypton.Ribbon
                 case Keys.Tab | Keys.Shift:
                 case Keys.Left:
                     // Get the previous focus item for the currently selected page
-                    newView = ribbon.GroupsArea.ViewGroups.GetPreviousFocusItem(_target);
+                    newView = ribbon.GroupsArea.ViewGroups.GetPreviousFocusItem(_target) ?? ribbon.TabsArea.LayoutTabs.GetViewForRibbonTab(ribbon.SelectedTab);
 
                     // Got to the actual tab header
-                    if (newView == null)
-                    {
-                        newView = ribbon.TabsArea.LayoutTabs.GetViewForRibbonTab(ribbon.SelectedTab);
-                    }
                     break;
                 case Keys.Tab:
                 case Keys.Right:
                     // Get the next focus item for the currently selected page
-                    newView = ribbon.GroupsArea.ViewGroups.GetNextFocusItem(_target);
+                    newView = (ribbon.GroupsArea.ViewGroups.GetNextFocusItem(_target) ?? ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Far)) ??
+                              ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Inherit);
 
                     // Move across to any far defined buttons
-                    if (newView == null)
-                    {
-                        newView = ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Far);
-                    }
 
                     // Move across to any inherit defined buttons
-                    if (newView == null)
-                    {
-                        newView = ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Inherit);
-                    }
 
                     // Rotate around to application button
                     if (newView == null)

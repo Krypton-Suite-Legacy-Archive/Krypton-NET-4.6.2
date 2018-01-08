@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -28,7 +28,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
         #region Instance Fields
 
-        private NeedPaintHandler _needPaint;
+        private readonly NeedPaintHandler _needPaint;
         private QATButtonToView _qatButtonToView;
         private ViewDrawRibbonQATExtraButton _extraButton;
 
@@ -58,7 +58,7 @@ namespace ComponentFactory.Krypton.Ribbon
             if (showExtraButton)
             {
                 _extraButton = new ViewDrawRibbonQATExtraButton(ribbon, needPaint);
-                _extraButton.ClickAndFinish += new ClickAndFinishHandler(OnExtraButtonClick);
+                _extraButton.ClickAndFinish += OnExtraButtonClick;
             }
         }
 
@@ -91,7 +91,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
                 if (_extraButton != null)
                 {
-                    _extraButton.ClickAndFinish -= new ClickAndFinishHandler(OnExtraButtonClick);
+                    _extraButton.ClickAndFinish -= OnExtraButtonClick;
                     _extraButton = null;
                 }
             }

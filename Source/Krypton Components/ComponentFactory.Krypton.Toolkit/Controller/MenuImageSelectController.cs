@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -26,9 +26,9 @@ namespace ComponentFactory.Krypton.Toolkit
 
 	{
 		#region Instance Fields
-        private ViewDrawMenuImageSelectItem _target;
-        private ViewLayoutMenuItemSelect _layout;
-        private ViewContextMenuManager _viewManager;
+        private readonly ViewDrawMenuImageSelectItem _target;
+        private readonly ViewLayoutMenuItemSelect _layout;
+        private readonly ViewContextMenuManager _viewManager;
         private NeedPaintHandler _needPaint;
 	    private bool _mouseOver;
         #endregion
@@ -496,7 +496,7 @@ namespace ComponentFactory.Krypton.Toolkit
         protected virtual void UpdateTargetState(Point pt)
         {
             // By default the button is in the normal state
-            PaletteState newState;
+            PaletteState newState = PaletteState.Normal;
 
             // If the button is disabled then show as disabled
             if (!_target.Enabled)
@@ -505,8 +505,6 @@ namespace ComponentFactory.Krypton.Toolkit
             }
             else
             {
-                newState = PaletteState.Normal;
-
                 // If capturing input....
                 if (Captured)
                 {

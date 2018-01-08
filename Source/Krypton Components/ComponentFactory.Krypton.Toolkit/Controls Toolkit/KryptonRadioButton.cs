@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -35,14 +35,14 @@ namespace ComponentFactory.Krypton.Toolkit
 		#region Instance Fields
 		private LabelStyle _style;
 	    private VisualOrientation _orientation;
-        private RadioButtonController _controller;
-        private ViewLayoutDocker _layoutDocker;
-        private ViewLayoutCenter _layoutCenter;
-        private ViewDrawRadioButton _drawRadioButton;
-        private ViewDrawContent _drawContent;
-		private PaletteContentInheritRedirect _paletteCommonRedirect;
-        private PaletteRedirectRadioButton _paletteRadioButtonImages;
-	    private PaletteContentInheritOverride _overrideNormal;
+        private readonly RadioButtonController _controller;
+        private readonly ViewLayoutDocker _layoutDocker;
+        private readonly ViewLayoutCenter _layoutCenter;
+        private readonly ViewDrawRadioButton _drawRadioButton;
+        private readonly ViewDrawContent _drawContent;
+		private readonly PaletteContentInheritRedirect _paletteCommonRedirect;
+        private readonly PaletteRedirectRadioButton _paletteRadioButtonImages;
+	    private readonly PaletteContentInheritOverride _overrideNormal;
 	    private VisualOrientation _checkPosition;
         private bool _checked;
         private bool _useMnemonic;
@@ -102,7 +102,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
 			// Create content storage
             Values = new LabelValues(NeedPaintDelegate);
-            Values.TextChanged += new EventHandler(OnRadioButtonTextChanged);
+            Values.TextChanged += OnRadioButtonTextChanged;
             Images = new RadioButtonImages(NeedPaintDelegate);
 
 			// Create palette redirector
@@ -146,7 +146,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Need a controller for handling mouse input
             _controller = new RadioButtonController(_drawRadioButton, _layoutDocker, NeedPaintDelegate);
-            _controller.Click += new EventHandler(OnControllerClick);
+            _controller.Click += OnControllerClick;
             _controller.Enabled = true;
             _layoutDocker.MouseController = _controller;
             _layoutDocker.KeyController = _controller;

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -26,9 +26,9 @@ namespace ComponentFactory.Krypton.Toolkit
                                            IContextMenuTarget
     {
         #region Instance Fields
-        private KryptonContextMenuMonthCalendar _monthCalendar;
-        private ViewLayoutMonths _months;
-        private NeedPaintHandler _needPaint;
+        private readonly KryptonContextMenuMonthCalendar _monthCalendar;
+        private readonly ViewLayoutMonths _months;
+        private readonly NeedPaintHandler _needPaint;
         private DateTime _selectionStart;
         private bool _mouseOver;
         private bool _captured;

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -31,9 +31,9 @@ namespace ComponentFactory.Krypton.Toolkit
         #endregion
 
         #region Instance Fields
-        private string _prompt;
-        private string _caption;
-        private string _defaultResponse;
+        private readonly string _prompt;
+        private readonly string _caption;
+        private readonly string _defaultResponse;
         private KryptonPanel _panelMessage;
         private KryptonWrapLabel _labelPrompt;
         private KryptonTextBox _textBoxResponse;
@@ -153,38 +153,15 @@ namespace ComponentFactory.Krypton.Toolkit
                                            string caption,
                                            string defaultResponse)
         {
-            IWin32Window showOwner = null;
-
             // If do not have an owner passed in then get the active window and use that instead
-            if (owner == null)
-            {
-                showOwner = Control.FromHandle(PI.GetActiveWindow());
-            }
-            else
-            {
-                showOwner = owner;
-            }
+            IWin32Window showOwner = owner ?? Control.FromHandle(PI.GetActiveWindow());
 
             // Show input box window as a modal dialog and then dispose of it afterwards
             using (KryptonInputBox ib = new KryptonInputBox(prompt, caption, defaultResponse))
             {
-                if (showOwner == null)
-                {
-                    ib.StartPosition = FormStartPosition.CenterScreen;
-                }
-                else
-                {
-                    ib.StartPosition = FormStartPosition.CenterParent;
-                }
+                ib.StartPosition = showOwner == null ? FormStartPosition.CenterScreen : FormStartPosition.CenterParent;
 
-                if (ib.ShowDialog(showOwner) == DialogResult.OK)
-                {
-                    return ib.InputResponse;
-                }
-                else
-                {
-                    return string.Empty;
-                }
+                return ib.ShowDialog(showOwner) == DialogResult.OK ? ib.InputResponse : string.Empty;
             }
         }
 
@@ -323,7 +300,7 @@ namespace ComponentFactory.Krypton.Toolkit
             this._buttonCancel.Size = new System.Drawing.Size(50, 26);
             this._buttonCancel.TabIndex = 2;
             this._buttonCancel.Values.Text = "Cancel";
-            this._buttonCancel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_keyDown);
+            this._buttonCancel.KeyDown += this.button_keyDown;
             // 
             // _buttonOK
             // 
@@ -337,7 +314,7 @@ namespace ComponentFactory.Krypton.Toolkit
             this._buttonOK.Size = new System.Drawing.Size(50, 26);
             this._buttonOK.TabIndex = 1;
             this._buttonOK.Values.Text = "OK";
-            this._buttonOK.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_keyDown);
+            this._buttonOK.KeyDown += this.button_keyDown;
             // 
             // KryptonInputBox
             // 

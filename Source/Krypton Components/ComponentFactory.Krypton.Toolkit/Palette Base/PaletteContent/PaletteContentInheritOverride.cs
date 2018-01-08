@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -280,14 +280,9 @@ namespace ComponentFactory.Krypton.Toolkit
 		{
 			if (Apply)
 			{
-                Font ret = _primary.GetContentShortTextFont(Override ? OverrideState : state);
+                Font ret = _primary.GetContentShortTextFont(Override ? OverrideState : state) ?? _backup.GetContentShortTextFont(state);
 
-				if (ret == null)
-                {
-                    ret = _backup.GetContentShortTextFont(state);
-                }
-
-                return ret;
+			    return ret;
 			}
 			else
             {
@@ -304,14 +299,9 @@ namespace ComponentFactory.Krypton.Toolkit
 		{
 			if (Apply)
 			{
-                Font ret = _primary.GetContentShortTextNewFont(Override ? OverrideState : state);
+                Font ret = _primary.GetContentShortTextNewFont(Override ? OverrideState : state) ?? _backup.GetContentShortTextNewFont(state);
 
-				if (ret == null)
-                {
-                    ret = _backup.GetContentShortTextNewFont(state);
-                }
-
-                return ret;
+			    return ret;
 			}
 			else
             {
@@ -616,12 +606,7 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             if (Apply)
             {
-                Image ret = _primary.GetContentShortTextImage(Override ? OverrideState : state);
-
-                if (ret == null)
-                {
-                    ret = _backup.GetContentShortTextImage(state);
-                }
+                Image ret = _primary.GetContentShortTextImage(Override ? OverrideState : state) ?? _backup.GetContentShortTextImage(state);
 
                 return ret;
             }
@@ -688,14 +673,9 @@ namespace ComponentFactory.Krypton.Toolkit
 		{
 			if (Apply)
 			{
-                Font ret = _primary.GetContentLongTextFont(Override ? OverrideState : state);
+                Font ret = _primary.GetContentLongTextFont(Override ? OverrideState : state) ?? _backup.GetContentLongTextFont(state);
 
-				if (ret == null)
-                {
-                    ret = _backup.GetContentLongTextFont(state);
-                }
-
-                return ret;
+			    return ret;
 			}
 			else
             {
@@ -712,14 +692,9 @@ namespace ComponentFactory.Krypton.Toolkit
 		{
 			if (Apply)
 			{
-                Font ret = _primary.GetContentLongTextNewFont(Override ? OverrideState : state);
+                Font ret = _primary.GetContentLongTextNewFont(Override ? OverrideState : state) ?? _backup.GetContentLongTextNewFont(state);
 
-				if (ret == null)
-                {
-                    ret = _backup.GetContentLongTextNewFont(state);
-                }
-
-                return ret;
+			    return ret;
 			}
 			else
             {
@@ -1024,12 +999,7 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             if (Apply)
             {
-                Image ret = _primary.GetContentLongTextImage(Override ? OverrideState : state);
-
-                if (ret == null)
-                {
-                    ret = _backup.GetContentLongTextImage(state);
-                }
+                Image ret = _primary.GetContentLongTextImage(Override ? OverrideState : state) ?? _backup.GetContentLongTextImage(state);
 
                 return ret;
             }

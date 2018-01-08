@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -27,7 +27,7 @@ namespace ComponentFactory.Krypton.Ribbon
 	    private bool _pressed;
         private bool _mouseOver;
 		private NeedPaintHandler _needPaint;
-        private Timer _repeatTimer;
+        private readonly Timer _repeatTimer;
         #endregion
 
 		#region Events
@@ -59,7 +59,7 @@ namespace ComponentFactory.Krypton.Ribbon
                 {
                     Interval = 250
                 };
-                _repeatTimer.Tick += new EventHandler(OnRepeatTick);
+                _repeatTimer.Tick += OnRepeatTick;
             }
         }
 		#endregion

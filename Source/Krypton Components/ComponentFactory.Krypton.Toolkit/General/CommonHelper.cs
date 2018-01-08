@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //  The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -65,11 +65,11 @@ namespace ComponentFactory.Krypton.Toolkit
         private static PropertyInfo _cachedDesignModePI;
         private static MethodInfo _cachedShortcutMI;
         private static NullContentValues _nullContentValues;
-        private static DoubleConverter _dc = new DoubleConverter();
-        private static SizeConverter _sc = new SizeConverter();
-        private static PointConverter _pc = new PointConverter();
-        private static BooleanConverter _bc = new BooleanConverter();
-        private static ColorConverter _cc = new ColorConverter();
+        private static readonly DoubleConverter _dc = new DoubleConverter();
+        private static readonly SizeConverter _sc = new SizeConverter();
+        private static readonly PointConverter _pc = new PointConverter();
+        private static readonly BooleanConverter _bc = new BooleanConverter();
+        private static readonly ColorConverter _cc = new ColorConverter();
 
         #endregion
 
@@ -197,12 +197,7 @@ namespace ComponentFactory.Krypton.Toolkit
             get
             {
                 // Only create the instance when it is first needed
-                if (_nullContentValues == null)
-                {
-                    _nullContentValues = new NullContentValues();
-                }
-
-                return _nullContentValues;
+                return _nullContentValues ?? (_nullContentValues = new NullContentValues());
             }
         }
 
@@ -461,7 +456,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 OperationThread opThread = new OperationThread(op, parameter);
 
                 // Create the actual thread and provide thread entry point
-                Thread thread = new Thread(new ThreadStart(opThread.Run));
+                Thread thread = new Thread(opThread.Run);
 
                 // Kick off the thread action
                 thread.Start();
@@ -1279,7 +1274,7 @@ namespace ComponentFactory.Krypton.Toolkit
             // WindowState property as it can be slightly out of date)
             uint style = PI.GetWindowLong(f.Handle, PI.GWL_STYLE);
 
-            return ((style &= PI.WS_MINIMIZE) != 0);
+            return ((style & PI.WS_MINIMIZE) != 0);
         }
 
         /// <summary>
@@ -1293,7 +1288,7 @@ namespace ComponentFactory.Krypton.Toolkit
             // WindowState property as it can be slightly out of date)
             uint style = PI.GetWindowLong(f.Handle, PI.GWL_STYLE);
 
-            return ((style &= PI.WS_MAXIMIZE) != 0);
+            return ((style & PI.WS_MAXIMIZE) != 0);
         }
 
 
@@ -1442,7 +1437,7 @@ namespace ComponentFactory.Krypton.Toolkit
         /// <returns>Reference to new instance.</returns>
         public static object CreateInstance(Type itemType, IDesignerHost host)
         {
-            object retObj = null;
+            object retObj;
 
             // Cannot use the designer host to create component unless the type implements IComponent
             if (typeof(IComponent).IsAssignableFrom(itemType) && (host != null))
@@ -1726,12 +1721,7 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             try
             {
-                string ret = xmlReader.GetAttribute(name);
-                
-                if (ret == null)
-                {
-                    ret = def;
-                }
+                string ret = xmlReader.GetAttribute(name) ?? def;
 
                 return ret;
             }

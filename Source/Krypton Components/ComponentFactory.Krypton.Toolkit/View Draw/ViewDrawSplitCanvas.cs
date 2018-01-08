@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -25,9 +25,9 @@ namespace ComponentFactory.Krypton.Toolkit
 
 	    private IPaletteBack _paletteBackNormal;
         private IPaletteBorder _paletteBorderNormal;
-        private PaletteMetricPadding _metricPadding;
-        private PaletteBackInheritForced _paletteBackDraw;
-        private PaletteBackLightenColors _paletteBackLight;
+        private readonly PaletteMetricPadding _metricPadding;
+        private readonly PaletteBackInheritForced _paletteBackDraw;
+        private readonly PaletteBackLightenColors _paletteBackLight;
         private IDisposable _mementoBack;
         private PaletteBorderInheritForced _borderForced;
 	    private Region _clipRegion;
@@ -420,6 +420,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 if (child is ViewDrawContent viewContent)
                 {
                     viewContent.DrawContentOnComposition = DrawCanvasOnComposition;
+                    viewContent.Glowing = viewContent.DrawContentOnComposition;
                 }
             }
 
@@ -498,6 +499,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
                     // Update the content accordingly
                     viewContent.DrawContentOnComposition = DrawCanvasOnComposition && !drawBackground;
+                    viewContent.Glowing = viewContent.DrawContentOnComposition;
                 }
             }
 

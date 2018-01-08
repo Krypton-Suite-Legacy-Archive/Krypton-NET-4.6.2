@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -27,7 +27,7 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbonGroupCluster _ribbonCluster;
+        private readonly KryptonRibbonGroupCluster _ribbonCluster;
         private ContextMenuStrip _cms;
         #endregion
 
@@ -110,8 +110,8 @@ namespace ComponentFactory.Krypton.Ribbon
                 };
 
                 // Create child items
-                ToolStripMenuItem menuButton = new ToolStripMenuItem("Add Cluster Button", null, new EventHandler(OnAddButton));
-                ToolStripMenuItem menuColorButton = new ToolStripMenuItem("Add Cluster Color Button", null, new EventHandler(OnAddColorButton));
+                ToolStripMenuItem menuButton = new ToolStripMenuItem("Add Cluster Button", null, OnAddButton);
+                ToolStripMenuItem menuColorButton = new ToolStripMenuItem("Add Cluster Color Button", null, OnAddColorButton);
 
                 // Assign correct images
                 menuButton.ImageIndex = 0;

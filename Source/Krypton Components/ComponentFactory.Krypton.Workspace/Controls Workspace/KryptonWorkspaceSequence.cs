@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -72,8 +72,8 @@ namespace ComponentFactory.Krypton.Workspace
 
             // Create the child collection for holding items
             Children = new KryptonWorkspaceCollection(this);
-            Children.PropertyChanged += new PropertyChangedEventHandler(OnChildrenPropertyChanged);
-            Children.MaximizeRestoreClicked += new EventHandler(OnChildrenMaximizeRestoreClicked);
+            Children.PropertyChanged += OnChildrenPropertyChanged;
+            Children.MaximizeRestoreClicked += OnChildrenMaximizeRestoreClicked;
 
             // Default properties
             _setVisible = true;
@@ -97,7 +97,7 @@ namespace ComponentFactory.Krypton.Workspace
                         Children[i].Dispose();
                     }
 
-                    Children.PropertyChanged -= new PropertyChangedEventHandler(OnChildrenPropertyChanged);
+                    Children.PropertyChanged -= OnChildrenPropertyChanged;
                     Children.Clear();
                 }
             }
@@ -566,7 +566,7 @@ namespace ComponentFactory.Krypton.Workspace
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void DebugOutput(int indent)
         {
-            Console.WriteLine("{0}Sequence Count:{1} Visible:{2}", new string(' ', indent * 2), Children.Count, Visible);
+            Console.WriteLine("{0}Sequence Count:{1} Visible:{2} Orientation:{3}", new string(' ', indent * 2), Children.Count, Visible, Orientation.ToString());
 
             foreach (object child in Children)
             {

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -321,8 +321,8 @@ namespace ComponentFactory.Krypton.Docking
 
             // Hook into events on the target control
             Control = control;
-            Control.SizeChanged += new EventHandler(OnControlSizeChanged);
-            Control.Disposed += new EventHandler(OnControlDisposed);
+            Control.SizeChanged += OnControlSizeChanged;
+            Control.Disposed += OnControlDisposed;
 
             // Create and add a control we use to obscure the client area during multi-part operations
             _obscure = new ObscureControl
@@ -342,8 +342,8 @@ namespace ComponentFactory.Krypton.Docking
         private void OnControlDisposed(object sender, EventArgs e)
         {
             // Unhook events to allow garbage collection
-            Control.SizeChanged -= new EventHandler(OnControlSizeChanged);
-            Control.Disposed -= new EventHandler(OnControlDisposed);
+            Control.SizeChanged -= OnControlSizeChanged;
+            Control.Disposed -= OnControlDisposed;
         }
 
         private void OnControlSizeChanged(object sender, EventArgs e)

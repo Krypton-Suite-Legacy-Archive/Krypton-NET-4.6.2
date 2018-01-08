@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -26,29 +26,29 @@ namespace ComponentFactory.Krypton.Ribbon
     {
         #region Static Fields
         private static readonly string _empty = "<Empty>";
-        private static Padding _preferredBorder2007 = new Padding(12, 3, 12, 1);
-        private static Padding _preferredBorder2010 = new Padding(8, 4, 8, 3);
-        private static Padding _layoutBorder2007 = new Padding(4, 3, 4, 1);
-        private static Padding _layoutBorder2010 = new Padding(1, 4, 0, 3);
-        private static Blend _contextBlend2007;
-        private static Blend _contextBlend2010;
+        private static readonly Padding _preferredBorder2007 = new Padding(12, 3, 12, 1);
+        private static readonly Padding _preferredBorder2010 = new Padding(8, 4, 8, 3);
+        private static readonly Padding _layoutBorder2007 = new Padding(4, 3, 4, 1);
+        private static readonly Padding _layoutBorder2010 = new Padding(1, 4, 0, 3);
+        private static readonly Blend _contextBlend2007;
+        private static readonly Blend _contextBlend2010;
         #endregion
 
         #region Instance Fields
 
         private KryptonRibbonTab _ribbonTab;
-        private PaletteRibbonGeneral _paletteGeneral;
-        private PaletteRibbonDoubleInheritOverride _overrideStateNormal;
-        private PaletteRibbonDoubleInheritOverride _overrideStateTracking;
-        private PaletteRibbonDoubleInheritOverride _overrideStateCheckedNormal;
-        private PaletteRibbonDoubleInheritOverride _overrideStateCheckedTracking;
-        private PaletteRibbonDoubleInheritOverride _overrideStateContextTracking;
-        private PaletteRibbonDoubleInheritOverride _overrideStateContextCheckedNormal;
-        private PaletteRibbonDoubleInheritOverride _overrideStateContextCheckedTracking;
+        private readonly PaletteRibbonGeneral _paletteGeneral;
+        private readonly PaletteRibbonDoubleInheritOverride _overrideStateNormal;
+        private readonly PaletteRibbonDoubleInheritOverride _overrideStateTracking;
+        private readonly PaletteRibbonDoubleInheritOverride _overrideStateCheckedNormal;
+        private readonly PaletteRibbonDoubleInheritOverride _overrideStateCheckedTracking;
+        private readonly PaletteRibbonDoubleInheritOverride _overrideStateContextTracking;
+        private readonly PaletteRibbonDoubleInheritOverride _overrideStateContextCheckedNormal;
+        private readonly PaletteRibbonDoubleInheritOverride _overrideStateContextCheckedTracking;
         private PaletteRibbonDoubleInheritOverride _overrideCurrent;
-        private PaletteRibbonContextDouble _paletteContextCurrent;
-        private RibbonTabToContent _contentProvider;
-        private NeedPaintHandler _needPaint;
+        private readonly PaletteRibbonContextDouble _paletteContextCurrent;
+        private readonly RibbonTabToContent _contentProvider;
+        private readonly NeedPaintHandler _needPaint;
         private IDisposable[] _mementos;
         private Size _preferredSize;
         private Rectangle _displayRect;
@@ -112,8 +112,8 @@ namespace ComponentFactory.Krypton.Ribbon
 
             // Use a controller to change state because of mouse movement
             RibbonTabController controller = new RibbonTabController(Ribbon, this, _needPaint);
-            controller.Click += new MouseEventHandler(OnTabClicked);
-            controller.ContextClick += new MouseEventHandler(OnTabContextClicked);
+            controller.Click += OnTabClicked;
+            controller.ContextClick += OnTabContextClicked;
             MouseController = controller;
             SourceController = controller;
             KeyController = controller;
@@ -122,7 +122,7 @@ namespace ComponentFactory.Krypton.Ribbon
             Component = _ribbonTab;
 
             // Create and add the draw content for display inside the tab
-            Add(new ViewDrawContent(_contentProvider, this, VisualOrientation.Top));
+            Add(new ViewDrawContent(_contentProvider, this, VisualOrientation.Top, true, false));
 
             // Create the state specific memento array
             _mementos = new IDisposable[Enum.GetValues(typeof(PaletteState)).Length];
@@ -148,7 +148,7 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 if (_ribbonTab != null)
                 {
-                    _ribbonTab.PropertyChanged -= new System.ComponentModel.PropertyChangedEventHandler(OnTabPropertyChanged);
+                    _ribbonTab.PropertyChanged -= OnTabPropertyChanged;
                     _ribbonTab.TabView = null;
                 }
 
@@ -239,7 +239,7 @@ namespace ComponentFactory.Krypton.Ribbon
                     // Unhook from current event handler
                     if (_ribbonTab != null)
                     {
-                        _ribbonTab.PropertyChanged -= new PropertyChangedEventHandler(OnTabPropertyChanged);
+                        _ribbonTab.PropertyChanged -= OnTabPropertyChanged;
                         _ribbonTab.TabView = null;
                     }
 
@@ -251,7 +251,7 @@ namespace ComponentFactory.Krypton.Ribbon
                     // Hook into new tab changes
                     if (_ribbonTab != null)
                     {
-                        _ribbonTab.PropertyChanged += new PropertyChangedEventHandler(OnTabPropertyChanged);
+                        _ribbonTab.PropertyChanged += OnTabPropertyChanged;
                         _ribbonTab.TabView = this;
                     }
 
@@ -288,6 +288,8 @@ namespace ComponentFactory.Krypton.Ribbon
                         return _preferredBorder2007;
                     case PaletteRibbonShape.Office2010:
                         return _preferredBorder2010;
+                    case PaletteRibbonShape.Office2013:
+                        return _preferredBorder2010;
                 }
             }
         }
@@ -307,6 +309,8 @@ namespace ComponentFactory.Krypton.Ribbon
                     case PaletteRibbonShape.Office2007:
                         return _layoutBorder2007;
                     case PaletteRibbonShape.Office2010:
+                        return _layoutBorder2010;
+                    case PaletteRibbonShape.Office2013:
                         return _layoutBorder2010;
                 }
             }
@@ -409,6 +413,7 @@ namespace ComponentFactory.Krypton.Ribbon
             switch (Ribbon.RibbonShape)
             {
                 default:
+                case PaletteRibbonShape.Office2013:
                 case PaletteRibbonShape.Office2007:
                     if (cts != null)
                     {
@@ -423,7 +428,9 @@ namespace ComponentFactory.Krypton.Ribbon
                         RenderBefore2010ContextTab(context, cts);
                     }
 
-                    _paletteContextCurrent.LightBackground = Ribbon.CaptionArea.DrawCaptionOnComposition;
+                    //_paletteContextCurrent.LightBackground = _ribbon.CaptionArea.DrawCaptionOnComposition;
+                    _paletteContextCurrent.LightBackground = Ribbon.CaptionArea.DrawCaptionOnComposition 
+                                                             && (KryptonManager.CurrentGlobalPalette != KryptonManager.PaletteOffice2010Black);
                     break;
             }
 
@@ -486,7 +493,7 @@ namespace ComponentFactory.Krypton.Ribbon
             // an empty string because it makes the tab useless!
             if ((_ribbonTab != null) && (_ribbonTab.Text.Length > 0))
             {
-                return _ribbonTab.Text;
+                return Ribbon.RibbonShape == PaletteRibbonShape.Office2013 ? _ribbonTab.Text.ToUpper() : _ribbonTab.Text;
             }
 
             return _empty;

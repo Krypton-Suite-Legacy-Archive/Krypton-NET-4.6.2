@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -30,8 +30,8 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbon _ribbon;
-        private KryptonRibbonGroup _ribbonGroup;
+        private readonly KryptonRibbon _ribbon;
+        private readonly KryptonRibbonGroup _ribbonGroup;
         private IDisposable _mementoBack;
         #endregion
 
@@ -55,7 +55,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
             // Attach a controller to this element for the pressing of the button
             DialogLauncherButtonController controller = new DialogLauncherButtonController(ribbon, this, needPaint);
-            controller.Click += new MouseEventHandler(OnClick);
+            controller.Click += OnClick;
             MouseController = controller;
             SourceController = controller;
             KeyController = controller;

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -25,13 +25,15 @@ namespace ComponentFactory.Krypton.Ribbon
         #region Static Fields
         private static readonly Padding _borderPadding2007 = new Padding(3, 3, 3, 2);
         private static readonly Padding _borderPadding2010 = new Padding(1, 1, 1, 3);
+        //TODO checkseb
+        private static readonly Padding _borderPadding2013 = new Padding(1, 1, 1, 0);
         #endregion
 
         #region Instance Fields
 
         private IPaletteRibbonBack _inherit;
         private IDisposable _memento;
-        private bool _borderOutside;
+        private readonly bool _borderOutside;
         #endregion
 
         #region Identity
@@ -104,6 +106,8 @@ namespace ComponentFactory.Krypton.Ribbon
                         return _borderPadding2007;
                     case PaletteRibbonShape.Office2010:
                         return _borderPadding2010;
+                    case PaletteRibbonShape.Office2013 :
+                        return _borderPadding2013;
                 }
             }
         }

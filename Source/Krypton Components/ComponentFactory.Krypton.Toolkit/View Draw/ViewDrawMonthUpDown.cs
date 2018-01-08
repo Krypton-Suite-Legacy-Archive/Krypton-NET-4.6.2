@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -44,8 +44,8 @@ namespace ComponentFactory.Krypton.Toolkit
         #endregion
 
         #region Instance Fields
-        private DrawMonthCalendarGlyph _glyph;
-        private ButtonController _controller;
+        private readonly DrawMonthCalendarGlyph _glyph;
+        private readonly ButtonController _controller;
         #endregion
 
         #region Events
@@ -81,8 +81,8 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Assign a controller to handle visual interaction
             _controller = new ButtonController(this, needPaintHandler);
-            _controller.Click += new MouseEventHandler(OnButtonClick);
-            _controller.MouseSelect += new MouseEventHandler(OnButtonMouseSelect);
+            _controller.Click += OnButtonClick;
+            _controller.MouseSelect += OnButtonMouseSelect;
             _controller.Repeat = true;
             _controller.ClickOnDown = true;
             MouseController = _controller;

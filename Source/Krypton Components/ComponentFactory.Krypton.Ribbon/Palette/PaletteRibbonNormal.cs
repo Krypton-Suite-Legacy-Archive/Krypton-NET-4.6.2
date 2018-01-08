@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.ComponentModel;
@@ -19,10 +19,10 @@ namespace ComponentFactory.Krypton.Ribbon
     public class PaletteRibbonNormal : PaletteRibbonAppGroupTab
 	{
 		#region Instance Fields
-        private PaletteRibbonText _ribbonGroupCheckBoxText;
-        private PaletteRibbonText _ribbonGroupButtonText;
-        private PaletteRibbonText _ribbonGroupLabelText;
-        private PaletteRibbonText _ribbonGroupRadioButtonText;
+        private readonly PaletteRibbonText _ribbonGroupCheckBoxText;
+        private readonly PaletteRibbonText _ribbonGroupButtonText;
+        private readonly PaletteRibbonText _ribbonGroupLabelText;
+        private readonly PaletteRibbonText _ribbonGroupRadioButtonText;
         #endregion
 
 		#region Identity

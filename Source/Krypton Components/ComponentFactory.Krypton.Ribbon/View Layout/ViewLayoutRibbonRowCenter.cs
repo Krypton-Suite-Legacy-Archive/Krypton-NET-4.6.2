@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -28,9 +28,9 @@ namespace ComponentFactory.Krypton.Ribbon
 
         #region Instance Fields
 
-        private ViewToSize _viewToSmall;
-        private ViewToSize _viewToMedium;
-        private ViewToSize _viewToLarge;
+        private readonly ViewToSize _viewToSmall;
+        private readonly ViewToSize _viewToMedium;
+        private readonly ViewToSize _viewToLarge;
         private Size _preferredSizeSmall;
         private Size _preferredSizeMedium;
         private Size _preferredSizeLarge;

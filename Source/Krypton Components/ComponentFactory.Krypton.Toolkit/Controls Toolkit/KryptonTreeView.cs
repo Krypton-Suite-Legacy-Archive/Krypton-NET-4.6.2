@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -20,10 +20,10 @@ using System.Reflection;
 
 namespace ComponentFactory.Krypton.Toolkit
 {
-	/// <summary>
+    /// <summary>
     /// Provide a TreeView with Krypton styling applied.
-	/// </summary>
-	[ToolboxItem(true)]
+    /// </summary>
+    [ToolboxItem(true)]
     [ToolboxBitmap(typeof(KryptonTreeView), "ToolboxBitmaps.KryptonTreeView.bmp")]
     [DefaultEvent("AfterSelect")]
     [DefaultProperty("Nodes")]
@@ -44,9 +44,9 @@ namespace ComponentFactory.Krypton.Toolkit
             #endregion
 
             #region Instance Fields
-            private ViewManager _viewManager;
-            private KryptonTreeView _kryptonTreeView;
-            private IntPtr _screenDC;
+            private readonly ViewManager _viewManager;
+            private readonly KryptonTreeView _kryptonTreeView;
+            private readonly IntPtr _screenDC;
             private bool _mouseOver;
             #endregion
 
@@ -323,32 +323,32 @@ namespace ComponentFactory.Krypton.Toolkit
 
         #region Instance Fields
 
-        private PaletteTripleOverride _overrideNormal;
-        private PaletteTripleOverride _overrideTracking;
-        private PaletteTripleOverride _overridePressed;
-        private PaletteTripleOverride _overrideCheckedNormal;
-        private PaletteTripleOverride _overrideCheckedTracking;
-        private PaletteTripleOverride _overrideCheckedPressed;
-        private PaletteNodeOverride _overrideNormalNode;
-        private PaletteRedirectTreeView _redirectImages;
-        private ViewLayoutDocker _drawDockerInner;
-        private ViewDrawDocker _drawDockerOuter;
-        private ViewLayoutFill _layoutFill;
-        private ViewDrawButton _drawButton;
-        private ViewDrawCheckBox _drawCheckBox;
-        private ViewLayoutCenter _layoutCheckBox;
-        private ViewLayoutDocker _layoutDocker;
-        private ViewLayoutStack _layoutImageStack;
-        private ViewLayoutCenter _layoutImageCenter;
-        private ViewLayoutCenter _layoutImageCenterState;
-        private ViewLayoutSeparator _layoutImage;
-        private ViewLayoutSeparator _layoutImageState;
-        private ViewLayoutSeparator _layoutImageAfter;
-        private InternalTreeView _treeView;
-        private FixedContentValue _contentValues;
+        private readonly PaletteTripleOverride _overrideNormal;
+        private readonly PaletteTripleOverride _overrideTracking;
+        private readonly PaletteTripleOverride _overridePressed;
+        private readonly PaletteTripleOverride _overrideCheckedNormal;
+        private readonly PaletteTripleOverride _overrideCheckedTracking;
+        private readonly PaletteTripleOverride _overrideCheckedPressed;
+        private readonly PaletteNodeOverride _overrideNormalNode;
+        private readonly PaletteRedirectTreeView _redirectImages;
+        private readonly ViewLayoutDocker _drawDockerInner;
+        private readonly ViewDrawDocker _drawDockerOuter;
+        private readonly ViewLayoutFill _layoutFill;
+        private readonly ViewDrawButton _drawButton;
+        private readonly ViewDrawCheckBox _drawCheckBox;
+        private readonly ViewLayoutCenter _layoutCheckBox;
+        private readonly ViewLayoutDocker _layoutDocker;
+        private readonly ViewLayoutStack _layoutImageStack;
+        private readonly ViewLayoutCenter _layoutImageCenter;
+        private readonly ViewLayoutCenter _layoutImageCenterState;
+        private readonly ViewLayoutSeparator _layoutImage;
+        private readonly ViewLayoutSeparator _layoutImageState;
+        private readonly ViewLayoutSeparator _layoutImageAfter;
+        private readonly InternalTreeView _treeView;
+        private readonly FixedContentValue _contentValues;
         private Nullable<bool> _fixedActive;
         private ButtonStyle _style;
-        private IntPtr _screenDC;
+        private readonly IntPtr _screenDC;
         private bool _itemHeightDefault;
         private bool _mouseOver;
         private bool _alwaysActive;
@@ -370,91 +370,91 @@ namespace ComponentFactory.Krypton.Toolkit
         [Category("Behavior")]
         [Description("Occurs when a node has been collapsed.")]
         public event TreeViewEventHandler AfterCollapse;
-        
+
         /// <summary>
         /// Occurs when a node has been expanded.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when a node has been expanded.")]
         public event TreeViewEventHandler AfterExpand;
-        
+
         /// <summary>
         /// Occurs when the text of node has been edited by the user.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when the text of node has been edited by the user.")]
         public event NodeLabelEditEventHandler AfterLabelEdit;
-        
+
         /// <summary>
         /// Occurs when the selected has been changed.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when the selection has been changed.")]
         public event TreeViewEventHandler AfterSelect;
-        
+
         /// <summary>
         /// Occurs when a checkbox is about to be checked or unchecked.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when a checkbox is about to be checked or unchecked.")]
         public event TreeViewCancelEventHandler BeforeCheck;
-        
+
         /// <summary>
         /// Occurs when a node is about to be collapsed.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when a node is about to be collapsed.")]
         public event TreeViewCancelEventHandler BeforeCollapse;
-        
+
         /// <summary>
         /// Occurs when a node is about to be expanded.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when a node is about to be expanded.")]
         public event TreeViewCancelEventHandler BeforeExpand;
-        
+
         /// <summary>
         /// Occurs when the text of node is about to be edited by the user.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when the text of node is about to be edited by the user.")]
         public event NodeLabelEditEventHandler BeforeLabelEdit;
-        
+
         /// <summary>
         /// Occurs when the selection is about to be changed.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when the selection is about to be changed.")]
         public event TreeViewCancelEventHandler BeforeSelect;
-        
+
         /// <summary>
         /// Occurs when the user begins dragging an item.
         /// </summary>
         [Category("Action")]
         [Description("Occurs when the user begins dragging an item.")]
         public event ItemDragEventHandler ItemDrag;
-        
+
         /// <summary>
         /// Occurs when a node is clicked with the mouse.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when a node is clicked with the mouse.")]
         public event TreeNodeMouseClickEventHandler NodeMouseClick;
-        
+
         /// <summary>
         /// Occurs when a node is double clicked with the mouse.
         /// </summary>
         [Category("Behavior")]
         [Description("Occurs when a node is double clicked with the mouse.")]
         public event TreeNodeMouseClickEventHandler NodeMouseDoubleClick;
-        
+
         /// <summary>
         /// Occurs when the mouse hovers over a node.
         /// </summary>
         [Category("Action")]
         [Description("Occurs when the mouse hovers over a node.")]
         public event TreeNodeMouseHoverEventHandler NodeMouseHover;
-        
+
         /// <summary>
         /// Occurs when the value of the RightToLeftLayout property changes.
         /// </summary>
@@ -534,7 +534,7 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             // Contains another control and needs marking as such for validation to work
             SetStyle(ControlStyles.ContainerControl, true);
-            
+
             // Cannot select this control, only the child tree view and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
@@ -553,7 +553,7 @@ namespace ComponentFactory.Krypton.Toolkit
             PaletteBackColor1 commonBack = new PaletteBackColor1(backInherit, NeedPaintDelegate);
             PaletteBorder commonBorder = new PaletteBorder(borderInherit, NeedPaintDelegate);
             StateCommon = new PaletteTreeStateRedirect(Redirector, commonBack, backInherit, commonBorder, borderInherit, NeedPaintDelegate);
-            
+
             PaletteBackColor1 disabledBack = new PaletteBackColor1(StateCommon.PaletteBack, NeedPaintDelegate);
             PaletteBorder disabledBorder = new PaletteBorder(StateCommon.PaletteBorder, NeedPaintDelegate);
             StateDisabled = new PaletteTreeState(StateCommon, disabledBack, disabledBorder, NeedPaintDelegate);
@@ -607,7 +607,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                              _overrideTracking, _overridePressed,
                                              _overrideCheckedNormal, _overrideCheckedTracking,
                                              _overrideCheckedPressed,
-                                             new PaletteMetricRedirect(Redirector), 
+                                             new PaletteMetricRedirect(Redirector),
                                              _contentValues, VisualOrientation.Top, false);
 
             // Place check box on the left and the label in the remainder
@@ -621,32 +621,33 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Create the internal tree view used for containing content
             _treeView = new InternalTreeView(this);
-            _treeView.TrackMouseEnter += new EventHandler(OnTreeViewMouseChange);
-            _treeView.TrackMouseLeave += new EventHandler(OnTreeViewMouseChange);
-            _treeView.GotFocus += new EventHandler(OnTreeViewGotFocus);
-            _treeView.LostFocus += new EventHandler(OnTreeViewLostFocus);
-            _treeView.KeyDown += new KeyEventHandler(OnTreeViewKeyDown);
-            _treeView.KeyUp += new KeyEventHandler(OnTreeViewKeyUp);
-            _treeView.KeyPress += new KeyPressEventHandler(OnTreeViewKeyPress);
-            _treeView.PreviewKeyDown += new PreviewKeyDownEventHandler(OnTreeViewPreviewKeyDown);
-            _treeView.Validating += new CancelEventHandler(OnTreeViewValidating);
-            _treeView.Validated += new EventHandler(OnTreeViewValidated);
-            _treeView.AfterCheck += new TreeViewEventHandler(OnTreeViewAfterCheck);
-            _treeView.AfterCollapse += new TreeViewEventHandler(OnTreeViewAfterCollapse);
-            _treeView.AfterExpand += new TreeViewEventHandler(OnTreeViewAfterExpand);
-            _treeView.AfterLabelEdit += new NodeLabelEditEventHandler(OnTreeViewAfterLabelEdit);
-            _treeView.AfterSelect += new TreeViewEventHandler(OnTreeViewAfterSelect);
-            _treeView.BeforeCheck += new TreeViewCancelEventHandler(OnTreeViewBeforeCheck);
-            _treeView.BeforeCollapse += new TreeViewCancelEventHandler(OnTreeViewBeforeCollapse);
-            _treeView.BeforeExpand += new TreeViewCancelEventHandler(OnTreeViewBeforeExpand);
-            _treeView.BeforeLabelEdit += new NodeLabelEditEventHandler(OnTreeViewBeforeLabelEdit);
-            _treeView.BeforeSelect += new TreeViewCancelEventHandler(OnTreeViewBeforeSelect);
-            _treeView.ItemDrag += new ItemDragEventHandler(OnTreeViewItemDrag);
-            _treeView.NodeMouseClick += new TreeNodeMouseClickEventHandler(OnTreeViewNodeMouseClick);
-            _treeView.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(OnTreeViewNodeMouseDoubleClick);
-            _treeView.NodeMouseHover += new TreeNodeMouseHoverEventHandler(OnTreeViewNodeMouseHover);
-            _treeView.DrawNode += new DrawTreeNodeEventHandler(OnTreeViewDrawNode);
+            _treeView.TrackMouseEnter += OnTreeViewMouseChange;
+            _treeView.TrackMouseLeave += OnTreeViewMouseChange;
+            _treeView.GotFocus += OnTreeViewGotFocus;
+            _treeView.LostFocus += OnTreeViewLostFocus;
+            _treeView.KeyDown += OnTreeViewKeyDown;
+            _treeView.KeyUp += OnTreeViewKeyUp;
+            _treeView.KeyPress += OnTreeViewKeyPress;
+            _treeView.PreviewKeyDown += OnTreeViewPreviewKeyDown;
+            _treeView.Validating += OnTreeViewValidating;
+            _treeView.Validated += OnTreeViewValidated;
+            _treeView.AfterCheck += OnTreeViewAfterCheck;
+            _treeView.AfterCollapse += OnTreeViewAfterCollapse;
+            _treeView.AfterExpand += OnTreeViewAfterExpand;
+            _treeView.AfterLabelEdit += OnTreeViewAfterLabelEdit;
+            _treeView.AfterSelect += OnTreeViewAfterSelect;
+            _treeView.BeforeCheck += OnTreeViewBeforeCheck;
+            _treeView.BeforeCollapse += OnTreeViewBeforeCollapse;
+            _treeView.BeforeExpand += OnTreeViewBeforeExpand;
+            _treeView.BeforeLabelEdit += OnTreeViewBeforeLabelEdit;
+            _treeView.BeforeSelect += OnTreeViewBeforeSelect;
+            _treeView.ItemDrag += OnTreeViewItemDrag;
+            _treeView.NodeMouseClick += OnTreeViewNodeMouseClick;
+            _treeView.NodeMouseDoubleClick += OnTreeViewNodeMouseDoubleClick;
+            _treeView.NodeMouseHover += OnTreeViewNodeMouseHover;
+            _treeView.DrawNode += OnTreeViewDrawNode;
             _treeView.DrawMode = TreeViewDrawMode.OwnerDrawAll;
+            _treeView.Click += OnTreeClick;  // SKC: make sure that the default click is also routed.
 
             // Create the element that fills the remainder space and remembers fill rectange
             _layoutFill = new ViewLayoutFill(_treeView)
@@ -674,6 +675,11 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Add tree view to the controls collection
             ((KryptonReadOnlyControls)Controls).AddInternal(_treeView);
+        }
+
+        private void OnTreeClick(object sender, EventArgs e)
+        {
+            base.OnClick(e);
         }
 
         /// <summary>
@@ -811,7 +817,7 @@ namespace ComponentFactory.Krypton.Toolkit
         [Category("Appearance")]
         [Description("Indicates whether check boxes are displayed next to nodes")]
         [DefaultValue(false)]
-        public bool CheckBoxes 
+        public bool CheckBoxes
         {
             get => _treeView.CheckBoxes;
             set => _treeView.CheckBoxes = value;
@@ -823,8 +829,8 @@ namespace ComponentFactory.Krypton.Toolkit
         [Category("Behavior")]
         [Description("Indicates whether the selection highlight spans the width of the control.")]
         [DefaultValue(false)]
-        public bool FullRowSelect 
-        { 
+        public bool FullRowSelect
+        {
             get => _treeView.FullRowSelect;
             set => _treeView.FullRowSelect = value;
         }
@@ -836,7 +842,7 @@ namespace ComponentFactory.Krypton.Toolkit
         [Description("Removes highlight from the control when it no longer has focus.")]
         [DefaultValue(true)]
         public bool HideSelection
-        { 
+        {
             get => _treeView.HideSelection;
             set => _treeView.HideSelection = value;
         }
@@ -848,7 +854,7 @@ namespace ComponentFactory.Krypton.Toolkit
         [Description("Indicates if the node gives feedback as the mouse moves over them.")]
         [DefaultValue(false)]
         public bool HotTracking
-        { 
+        {
             get => _treeView.HotTracking;
             set => _treeView.HotTracking = value;
         }
@@ -864,7 +870,7 @@ namespace ComponentFactory.Krypton.Toolkit
         [RefreshProperties(RefreshProperties.Repaint)]
         [RelatedImageList("ImageList")]
         [DefaultValue(-1)]
-        public int ImageIndex 
+        public int ImageIndex
         {
             get => _treeView.ImageIndex;
             set => _treeView.ImageIndex = value;
@@ -876,7 +882,7 @@ namespace ComponentFactory.Krypton.Toolkit
         [Category("Behavior")]
         [Description("The default image key for the nodes.")]
         [Localizable(true)]
-        [TypeConverter(typeof(ImageKeyConverter))] 
+        [TypeConverter(typeof(ImageKeyConverter))]
         [Editor("System.Windows.Forms.Design.ImageIndexEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [RefreshProperties(RefreshProperties.Repaint)]
         [RelatedImageList("ImageList")]
@@ -1061,7 +1067,7 @@ namespace ComponentFactory.Krypton.Toolkit
         [Category("Behavior")]
         [Description("IComparer used to perform custom sorting.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [Browsable(false)] 
+        [Browsable(false)]
         public IComparer TreeViewNodeSorter
         {
             get => _treeView.TreeViewNodeSorter;
@@ -1926,30 +1932,33 @@ namespace ComponentFactory.Krypton.Toolkit
         #region Implementation
         private void UpdateItemHeight()
         {
-            UpdateContentFromNode(null);
-
-            // Ask the view element to layout in given space, needs this before a render call
-            using (ViewLayoutContext context = new ViewLayoutContext(this, Renderer))
+            if (!IsDisposed && !Disposing)
             {
-                // For calculating the item height we always assume normal state
-                _drawButton.ElementState = PaletteState.Normal;
+                UpdateContentFromNode(null);
 
-                // Find required size to show a node (only interested in the height)
-                Size size = _drawButton.GetPreferredSize(context);
-                size.Height = size.Height + 1;
-
-                // If we have images defined then adjust to reflect image height
-                if (ImageList != null)
+                // Ask the view element to layout in given space, needs this before a render call
+                using (ViewLayoutContext context = new ViewLayoutContext(this, Renderer))
                 {
-                    size.Height = Math.Max(size.Height, ImageList.ImageSize.Height);
-                }
+                    // For calculating the item height we always assume normal state
+                    _drawButton.ElementState = PaletteState.Normal;
 
-                // Update the item height to match height of a single node
-                if (size.Height != ItemHeight)
-                {
-                    if (_itemHeightDefault)
+                    // Find required size to show a node (only interested in the height)
+                    Size size = _drawButton.GetPreferredSize(context);
+                    size.Height = size.Height + 1;
+
+                    // If we have images defined then adjust to reflect image height
+                    if (ImageList != null)
                     {
-                        _treeView.ItemHeight = size.Height;
+                        size.Height = Math.Max(size.Height, ImageList.ImageSize.Height);
+                    }
+
+                    // Update the item height to match height of a single node
+                    if (size.Height != ItemHeight)
+                    {
+                        if (_itemHeightDefault)
+                        {
+                            _treeView.ItemHeight = size.Height;
+                        }
                     }
                 }
             }
@@ -2115,7 +2124,7 @@ namespace ComponentFactory.Krypton.Toolkit
             }
 
             _layoutImageCenterState.Visible = (drawStateImage != null);
-            
+
             // Do we need the check box?
             _layoutCheckBox.Visible = (StateImageList == null) && CheckBoxes;
             if (_layoutCheckBox.Visible)
@@ -2144,7 +2153,7 @@ namespace ComponentFactory.Krypton.Toolkit
                     }
                     else
                     {
-                        buttonState =  PaletteState.CheckedNormal;
+                        buttonState = PaletteState.CheckedNormal;
                     }
                 }
                 else
@@ -2208,7 +2217,6 @@ namespace ComponentFactory.Krypton.Toolkit
                         // Easier to draw using a graphics instance than a DC!
                         using (Graphics g = Graphics.FromHdc(_screenDC))
                         {
-                            Size prefSize = Size.Empty;
                             using (ViewLayoutContext context = new ViewLayoutContext(this, Renderer))
                             {
                                 context.DisplayRectangle = e.Bounds;
@@ -2216,7 +2224,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                 context.DisplayRectangle = bounds;
 
                                 // If no using full row selection, then layout using only required width
-                                prefSize = _layoutDocker.GetPreferredSize(context);
+                                Size prefSize = _layoutDocker.GetPreferredSize(context);
                                 if (!FullRowSelect)
                                 {
                                     if (prefSize.Width < bounds.Width)
@@ -2251,7 +2259,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                     int hCenter = (indentBounds.X + (indentBounds.Width / 2)) - 1;
                                     int vCenter = indentBounds.Y + (indentBounds.Height / 2);
                                     vCenter -= (vCenter + 1) % 2;
-                                    
+
                                     // Default to showing full line height
                                     int top = indentBounds.Y;
                                     top -= (top + 1) % 2;
@@ -2391,7 +2399,7 @@ namespace ComponentFactory.Krypton.Toolkit
             {
                 // Must reserve the GetHdc() call before
                 e.Graphics.ReleaseHdc();
-            }        
+            }
         }
 
         private void OnTreeViewGotFocus(object sender, EventArgs e)

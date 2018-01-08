@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -162,14 +162,14 @@ namespace ComponentFactory.Krypton.Toolkit
         private Font _calendarBoldFont;
         private Font _boldFont;
         private Font _italicFont;
-        private Color[] _ribbonColors;
-        private Color[] _sparkleColors;
-        private Color[] _appButtonNormal;
-        private Color[] _appButtonTrack;
-        private Color[] _appButtonPressed;
-        private Color[] _ribbonGroupCollapsedBorderContextTracking;
-        private ImageList _checkBoxList;
-        private Image[] _radioButtonArray;
+        private readonly Color[] _ribbonColors;
+        private readonly Color[] _sparkleColors;
+        private readonly Color[] _appButtonNormal;
+        private readonly Color[] _appButtonTrack;
+        private readonly Color[] _appButtonPressed;
+        private readonly Color[] _ribbonGroupCollapsedBorderContextTracking;
+        private readonly ImageList _checkBoxList;
+        private readonly Image[] _radioButtonArray;
         private string _baseFontName;
         #endregion
 
@@ -10059,18 +10059,9 @@ namespace ComponentFactory.Krypton.Toolkit
         /// <summary>
         /// Gets access to the color table instance.
         /// </summary>
-        public override KryptonColorTable ColorTable
-        {
-            get 
-            {
-                if (_table == null)
-                {
-                    _table = new KryptonColorTableSparkle(_ribbonColors, _sparkleColors, InheritBool.True, this);
-                }
+        public override KryptonColorTable ColorTable => _table ?? (_table =
+                                                            new KryptonColorTableSparkle(_ribbonColors, _sparkleColors, InheritBool.True, this));
 
-                return _table;
-            }
-        }
         #endregion
 
         #region OnUserPreferenceChanged

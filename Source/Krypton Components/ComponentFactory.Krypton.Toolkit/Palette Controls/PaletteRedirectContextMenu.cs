@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -19,7 +19,7 @@ namespace ComponentFactory.Krypton.Toolkit
     public class PaletteRedirectContextMenu : PaletteRedirect
     {
         #region Instance Fields
-        private ContextMenuImages _images;
+        private readonly ContextMenuImages _images;
 		#endregion
 
 		#region Identity
@@ -46,13 +46,9 @@ namespace ComponentFactory.Krypton.Toolkit
         /// <returns>Appropriate image for drawing; otherwise null.</returns>
         public override Image GetContextMenuCheckedImage()
         {
-            Image retImage = _images.Checked;
+            Image retImage = _images.Checked ?? Target.GetContextMenuCheckedImage();
 
             // Not found, then inherit from target
-            if (retImage == null)
-            {
-                retImage = Target.GetContextMenuCheckedImage();
-            }
 
             return retImage;
         }
@@ -63,13 +59,9 @@ namespace ComponentFactory.Krypton.Toolkit
         /// <returns>Appropriate image for drawing; otherwise null.</returns>
         public override Image GetContextMenuIndeterminateImage()
         {
-            Image retImage = _images.Indeterminate;
+            Image retImage = _images.Indeterminate ?? Target.GetContextMenuIndeterminateImage();
 
             // Not found, then inherit from target
-            if (retImage == null)
-            {
-                retImage = Target.GetContextMenuIndeterminateImage();
-            }
 
             return retImage;
         }
@@ -80,13 +72,9 @@ namespace ComponentFactory.Krypton.Toolkit
         /// <returns>Appropriate image for drawing; otherwise null.</returns>
         public override Image GetContextMenuSubMenuImage()
         {
-            Image retImage = _images.SubMenu;
+            Image retImage = _images.SubMenu ?? Target.GetContextMenuSubMenuImage();
 
             // Not found, then inherit from target
-            if (retImage == null)
-            {
-                retImage = Target.GetContextMenuSubMenuImage();
-            }
 
             return retImage;
         }

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -57,7 +57,9 @@ namespace ComponentFactory.Krypton.Toolkit
         private static readonly Padding _metricPaddingBarTabs = new Padding(0);
         private static readonly Padding _metricPaddingBarOutside = new Padding(0, 0, 0, 3);
         private static readonly Padding _metricPaddingPageButtons = new Padding(1, 3, 1, 3);
-
+        private static readonly Image _treeExpandWhite = Properties.Resources.TreeExpandWhite;
+        private static readonly Image _treeCollapseBlack = Properties.Resources.TreeCollapseBlack;
+        
         private static readonly Image _disabledDropDown = Properties.Resources.DisabledDropDownButton;
         private static readonly Image _buttonSpecClose = Properties.Resources.ProfessionalCloseButton;
         private static readonly Image _buttonSpecContext = Properties.Resources.ProfessionalContextButton;
@@ -79,9 +81,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private static readonly Image _buttonSpecRibbonExpand = Properties.Resources.RibbonDown2010;
         private static readonly Image _contextMenuChecked = Properties.Resources.Office2007Checked;
         private static readonly Image _contextMenuIndeterminate = Properties.Resources.Office2007Indeterminate;
-        private static readonly Image _treeExpandWhite = Properties.Resources.TreeExpandWhite;
-        private static readonly Image _treeCollapseBlack = Properties.Resources.TreeCollapseBlack;
-
+        
         private static readonly Color _gridTextColor = Color.Black;
         private static readonly Color _disabledText2 = Color.FromArgb(128, 128, 128);
         private static readonly Color _disabledText = Color.FromArgb(167, 167, 167);
@@ -142,11 +142,11 @@ namespace ComponentFactory.Krypton.Toolkit
 
         #region Instance Fields
         private KryptonColorTable2010 _table;
-        private Color[] _ribbonColors;
-        private Color[] _trackBarColors;
-        private ImageList _checkBoxList;
-        private ImageList _galleryButtonList;
-        private Image[] _radioButtonArray;
+        private readonly Color[] _ribbonColors;
+        private readonly Color[] _trackBarColors;
+        private readonly ImageList _checkBoxList;
+        private readonly ImageList _galleryButtonList;
+        private readonly Image[] _radioButtonArray;
         private Font _header1ShortFont;
         private Font _header2ShortFont;
         private Font _header1LongFont;
@@ -9976,18 +9976,8 @@ namespace ComponentFactory.Krypton.Toolkit
         /// <summary>
         /// Gets access to the color table instance.
         /// </summary>
-        public override KryptonColorTable ColorTable
-        {
-            get
-            {
-                if (_table == null)
-                {
-                    _table = new KryptonColorTable2010(_ribbonColors, InheritBool.True, this);
-                }
+        public override KryptonColorTable ColorTable => _table ?? (_table = new KryptonColorTable2010(_ribbonColors, InheritBool.True, this));
 
-                return _table;
-            }
-        }
         #endregion
 
         #region OnUserPreferenceChanged

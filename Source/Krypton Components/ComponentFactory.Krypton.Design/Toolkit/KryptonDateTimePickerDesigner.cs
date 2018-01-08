@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Collections;
@@ -48,8 +48,8 @@ namespace ComponentFactory.Krypton.Toolkit
             if (_dateTimePicker != null)
             {
                 // Hook into date time picker events
-                _dateTimePicker.GetViewManager().MouseUpProcessed += new MouseEventHandler(OnDateTimePickerMouseUp);
-                _dateTimePicker.GetViewManager().DoubleClickProcessed += new PointHandler(OnDateTimePickerDoubleClick);
+                _dateTimePicker.GetViewManager().MouseUpProcessed += OnDateTimePickerMouseUp;
+                _dateTimePicker.GetViewManager().DoubleClickProcessed += OnDateTimePickerDoubleClick;
             }
 
             // Acquire service interfaces
@@ -58,7 +58,7 @@ namespace ComponentFactory.Krypton.Toolkit
             _selectionService = (ISelectionService)GetService(typeof(ISelectionService));
 
             // We need to know when we are being removed
-            _changeService.ComponentRemoving += new ComponentEventHandler(OnComponentRemoving);
+            _changeService.ComponentRemoving += OnComponentRemoving;
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace ComponentFactory.Krypton.Toolkit
             get
             {
                 SelectionRules rules = base.SelectionRules;
-                return rules &= ~(SelectionRules.TopSizeable | SelectionRules.BottomSizeable);
+                return rules & ~(SelectionRules.TopSizeable | SelectionRules.BottomSizeable);
             }
         }
         #endregion
@@ -121,11 +121,11 @@ namespace ComponentFactory.Krypton.Toolkit
             if (_dateTimePicker != null)
             {
                 // Unhook from events
-                _dateTimePicker.GetViewManager().MouseUpProcessed -= new MouseEventHandler(OnDateTimePickerMouseUp);
-                _dateTimePicker.GetViewManager().DoubleClickProcessed -= new PointHandler(OnDateTimePickerDoubleClick);
+                _dateTimePicker.GetViewManager().MouseUpProcessed -= OnDateTimePickerMouseUp;
+                _dateTimePicker.GetViewManager().DoubleClickProcessed -= OnDateTimePickerDoubleClick;
             }
 
-            _changeService.ComponentRemoving -= new ComponentEventHandler(OnComponentRemoving);
+            _changeService.ComponentRemoving -= OnComponentRemoving;
 
             // Must let base class do standard stuff
             base.Dispose(disposing);

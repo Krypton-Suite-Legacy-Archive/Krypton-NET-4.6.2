@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -103,7 +103,7 @@ namespace ComponentFactory.Krypton.Navigator
 			_constructed = true;
 
             // Hook into the navigator events
-            Navigator.ViewBuilderPropertyChanged += new PropertyChangedEventHandler(OnViewBuilderPropertyChanged);
+            Navigator.ViewBuilderPropertyChanged += OnViewBuilderPropertyChanged;
 		}
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace ComponentFactory.Krypton.Navigator
             Debug.Assert(Navigator != null);
 
             // Unhook from the navigator events
-            Navigator.ViewBuilderPropertyChanged -= new PropertyChangedEventHandler(OnViewBuilderPropertyChanged);
+            Navigator.ViewBuilderPropertyChanged -= OnViewBuilderPropertyChanged;
 
             // No longer constructed
             _constructed = false;
@@ -437,13 +437,9 @@ namespace ComponentFactory.Krypton.Navigator
                 // Start searching from after the selected page onwards
                 if (Navigator.SelectedPage != null)
                 {
-                    first = Navigator.NextActionPage(Navigator.SelectedPage);
+                    first = Navigator.NextActionPage(Navigator.SelectedPage) ?? Navigator.FirstActionPage();
 
                     // If at end of collection then get the first page
-                    if (first == null)
-                    {
-                        first = Navigator.FirstActionPage();
-                    }
                 }
                 else
                 {
@@ -476,14 +472,9 @@ namespace ComponentFactory.Krypton.Navigator
                     }
 
                     // Otherwise keep looking for another visible next page
-                    next = Navigator.NextActionPage(next);
+                    next = Navigator.NextActionPage(next) ?? Navigator.FirstActionPage();
 
                     // If we reached the end of the collection then wrap
-                    if (next == null)
-                    {
-                        // Wrap around to the first page
-                        next = Navigator.FirstActionPage();
-                    }
 
                     // If we are back at the first page we examined then we must have
                     // wrapped around collection and still found nothing, time to exit
@@ -724,12 +715,7 @@ namespace ComponentFactory.Krypton.Navigator
             get
             {
                 // Only create the delegate when it is first needed
-                if (_needPaintDelegate == null)
-                {
-                    _needPaintDelegate = new NeedPaintHandler(OnNeedPaint);
-                }
-
-                return _needPaintDelegate;
+                return _needPaintDelegate ?? (_needPaintDelegate = OnNeedPaint);
             }
         }
 

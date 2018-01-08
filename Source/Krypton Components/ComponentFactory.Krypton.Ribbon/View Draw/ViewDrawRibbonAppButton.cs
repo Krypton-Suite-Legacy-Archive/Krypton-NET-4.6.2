@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -29,10 +29,10 @@ namespace ComponentFactory.Krypton.Ribbon
 
         #region Instance Fields
         private IDisposable[] _mementos;
-        private KryptonRibbon _ribbon;
-        private bool _bottomHalf;
+        private readonly KryptonRibbon _ribbon;
+        private readonly bool _bottomHalf;
         private Rectangle _clipRect;
-        private Size _size;
+        private readonly Size _size;
         #endregion
 
         #region Identity

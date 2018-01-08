@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -87,14 +87,14 @@ namespace ComponentFactory.Krypton.Toolkit
 
         #region Instance Fields
 
-        private bool _splitCursors;
+        private readonly bool _splitCursors;
         private Point _downPosition;
         private Point _movementPoint;
         private int _separatorIncrements;
         private Rectangle _separatorBox;
         private Orientation _separatorOrientation;
         private SeparatorMessageFilter _filter;
-        private ISeparatorSource _source;
+        private readonly ISeparatorSource _source;
         #endregion
 
         #region Identity
@@ -626,7 +626,7 @@ namespace ComponentFactory.Krypton.Toolkit
     internal class SeparatorMessageFilter : IMessageFilter
     {
         #region Instance Fields
-        private SeparatorController _controller;
+        private readonly SeparatorController _controller;
         #endregion
 
         #region Identity

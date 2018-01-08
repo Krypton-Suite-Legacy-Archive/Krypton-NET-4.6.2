@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -28,8 +28,8 @@ namespace ComponentFactory.Krypton.Navigator
                                IDisposable
     {
         #region Static Fields
-        private static Cursor _validCursor;
-        private static Cursor _invalidCursor;
+        private static readonly Cursor _validCursor;
+        private static readonly Cursor _invalidCursor;
         #endregion
 
         #region Instance Fields
@@ -37,10 +37,10 @@ namespace ComponentFactory.Krypton.Navigator
         private IPalette _localPalette;
         private IRenderer _dragRenderer;
         private PaletteMode _paletteMode;
-        private PaletteRedirect _redirector;
+        private readonly PaletteRedirect _redirector;
         private PageDragEndData _pageDragEndData;
         private DragFeedback _dragFeedback;
-        private DragTargetList _dragTargets;
+        private readonly DragTargetList _dragTargets;
         private DragTarget _currentTarget;
         private bool _documentCursor;
 

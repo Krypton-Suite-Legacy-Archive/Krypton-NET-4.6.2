@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -142,12 +142,12 @@ namespace ComponentFactory.Krypton.Ribbon
             };
 
             // Hook into events to expose via this container
-            Gallery.SelectedIndexChanged += new EventHandler(OnGallerySelectedIndexChanged);
-            Gallery.ImageListChanged += new EventHandler(OnGalleryImageListChanged);
-            Gallery.TrackingImage += new EventHandler<ImageSelectEventArgs>(OnGalleryTrackingImage);
-            Gallery.GalleryDropMenu += new EventHandler<GalleryDropMenuEventArgs>(OnGalleryGalleryDropMenu);
-            Gallery.GotFocus += new EventHandler(OnGalleryGotFocus);
-            Gallery.LostFocus += new EventHandler(OnGalleryLostFocus);
+            Gallery.SelectedIndexChanged += OnGallerySelectedIndexChanged;
+            Gallery.ImageListChanged += OnGalleryImageListChanged;
+            Gallery.TrackingImage += OnGalleryTrackingImage;
+            Gallery.GalleryDropMenu += OnGalleryGalleryDropMenu;
+            Gallery.GotFocus += OnGalleryGotFocus;
+            Gallery.LostFocus += OnGalleryLostFocus;
 
             // Ensure we can track mouse events on the gallery
             MonitorControl(Gallery);
@@ -810,14 +810,14 @@ namespace ComponentFactory.Krypton.Ribbon
         #region Implementation
         private void MonitorControl(KryptonGallery c)
         {
-            c.MouseEnter += new EventHandler(OnControlEnter);
-            c.MouseLeave += new EventHandler(OnControlLeave);
+            c.MouseEnter += OnControlEnter;
+            c.MouseLeave += OnControlLeave;
         }
 
         private void UnmonitorControl(KryptonGallery c)
         {
-            c.MouseEnter -= new EventHandler(OnControlEnter);
-            c.MouseLeave -= new EventHandler(OnControlLeave);
+            c.MouseEnter -= OnControlEnter;
+            c.MouseLeave -= OnControlLeave;
         }
 
         private void OnControlEnter(object sender, EventArgs e)

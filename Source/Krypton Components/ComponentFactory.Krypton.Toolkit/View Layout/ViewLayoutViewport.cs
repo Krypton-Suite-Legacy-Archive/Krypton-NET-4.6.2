@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -29,7 +29,7 @@ namespace ComponentFactory.Krypton.Toolkit
         #endregion
 
         #region Instance Fields
-        private Timer _animationTimer;
+        private readonly Timer _animationTimer;
         private IPaletteMetric _paletteMetrics;
         private PaletteMetricPadding _metricPadding;
         private PaletteMetricInt _metricOvers;
@@ -86,7 +86,7 @@ namespace ComponentFactory.Krypton.Toolkit
             {
                 Interval = _animationInterval
             };
-            _animationTimer.Tick += new EventHandler(OnAnimationTick);
+            _animationTimer.Tick += OnAnimationTick;
 		}
 
         /// <summary>

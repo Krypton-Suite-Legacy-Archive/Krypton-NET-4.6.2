@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -15,13 +15,14 @@ using ComponentFactory.Krypton.Toolkit;
 
 namespace ComponentFactory.Krypton.Ribbon
 {
-	/// <summary>
-	/// Draws the group image for a collapsed group.
-	/// </summary>
+    /// <summary>
+    /// Draws the group image for a collapsed group.
+    /// </summary>
     internal class ViewDrawRibbonGroupImage : ViewLeaf
-                                              
+
     {
         #region Static Fields
+        //TODO dpi aware !! 
         private static readonly Size _viewSize_2007 = new Size(30, 31);
         private static readonly Size _viewSize_2010 = new Size(31, 31);
         private static readonly Size _imageSize = new Size(16, 16);
@@ -32,9 +33,9 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbon _ribbon;
-        private KryptonRibbonGroup _ribbonGroup;
-        private ViewDrawRibbonGroup _viewGroup;
+        private readonly KryptonRibbon _ribbon;
+        private readonly KryptonRibbonGroup _ribbonGroup;
+        private readonly ViewDrawRibbonGroup _viewGroup;
         private IDisposable _memento1;
         private IDisposable _memento2;
         private Size _viewSize;
@@ -59,17 +60,17 @@ namespace ComponentFactory.Krypton.Ribbon
             _ribbon = ribbon;
             _ribbonGroup = ribbonGroup;
             _viewGroup = viewGroup;
-        }        
+        }
 
-		/// <summary>
-		/// Obtains the String representation of this instance.
-		/// </summary>
-		/// <returns>User readable name of the instance.</returns>
-		public override string ToString()
-		{
-			// Return the class name and instance identifier
+        /// <summary>
+        /// Obtains the String representation of this instance.
+        /// </summary>
+        /// <returns>User readable name of the instance.</returns>
+        public override string ToString()
+        {
+            // Return the class name and instance identifier
             return "ViewDrawRibbonGroupImage:" + Id;
-		}
+        }
 
         /// <summary>
         /// Clean up any resources being used.
@@ -135,7 +136,7 @@ namespace ComponentFactory.Krypton.Ribbon
         /// Perform rendering before child elements are rendered.
         /// </summary>
         /// <param name="context">Rendering context.</param>
-        public override void RenderBefore(RenderContext context) 
+        public override void RenderBefore(RenderContext context)
         {
             IPaletteRibbonBack paletteBorder;
             IPaletteRibbonBack paletteBack;
@@ -147,7 +148,7 @@ namespace ComponentFactory.Krypton.Ribbon
             }
             else
             {
-                ElementState =  _viewGroup.Pressed ? PaletteState.Pressed : _viewGroup.Tracking ? PaletteState.Tracking : PaletteState.Normal;
+                ElementState = _viewGroup.Pressed ? PaletteState.Pressed : _viewGroup.Tracking ? PaletteState.Tracking : PaletteState.Normal;
             }
 
             // Decide on the palette to use

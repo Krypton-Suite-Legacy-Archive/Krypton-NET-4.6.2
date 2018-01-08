@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -30,7 +30,7 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbonGroupTriple _ribbonTriple;
+        private readonly KryptonRibbonGroupTriple _ribbonTriple;
         private ContextMenuStrip _cms;
 
         #endregion
@@ -138,20 +138,20 @@ namespace ComponentFactory.Krypton.Ribbon
                 };
 
                 // Create child items
-                ToolStripMenuItem menuButton = new ToolStripMenuItem("Add Button", null, new EventHandler(OnAddButton));
-                ToolStripMenuItem menuColorButton = new ToolStripMenuItem("Add Color Button", null, new EventHandler(OnAddColorButton));
-                ToolStripMenuItem menuCheckBox = new ToolStripMenuItem("Add CheckBox", null, new EventHandler(OnAddCheckBox));
-                ToolStripMenuItem menuCustomControl = new ToolStripMenuItem("Add Custom Control", null, new EventHandler(OnAddCustomControl));
-                ToolStripMenuItem menuLabel = new ToolStripMenuItem("Add Label", null, new EventHandler(OnAddLabel));
-                ToolStripMenuItem menuRadioButton = new ToolStripMenuItem("Add RadioButton", null, new EventHandler(OnAddRadioButton));
-                ToolStripMenuItem menuTextBox = new ToolStripMenuItem("Add TextBox", null, new EventHandler(OnAddTextBox));
-                ToolStripMenuItem menuMaskedTextBox = new ToolStripMenuItem("Add MaskedTextBox", null, new EventHandler(OnAddMaskedTextBox));
-                ToolStripMenuItem menuRichTextBox = new ToolStripMenuItem("Add RichTextBox", null, new EventHandler(OnAddRichTextBox));
-                ToolStripMenuItem menuComboBox = new ToolStripMenuItem("Add ComboBox", null, new EventHandler(OnAddComboBox));
-                ToolStripMenuItem menuNumericUpDown = new ToolStripMenuItem("Add NumericUpDown", null, new EventHandler(OnAddNumericUpDown));
-                ToolStripMenuItem menuDomainUpDown = new ToolStripMenuItem("Add DomainUpDown", null, new EventHandler(OnAddDomainUpDown));
-                ToolStripMenuItem menuDateTimePicker = new ToolStripMenuItem("Add DateTimePicker", null, new EventHandler(OnAddDateTimePicker));
-                ToolStripMenuItem menuTrackBar = new ToolStripMenuItem("Add TrackBar", null, new EventHandler(OnAddTrackBar));
+                ToolStripMenuItem menuButton = new ToolStripMenuItem("Add Button", null, OnAddButton);
+                ToolStripMenuItem menuColorButton = new ToolStripMenuItem("Add Color Button", null, OnAddColorButton);
+                ToolStripMenuItem menuCheckBox = new ToolStripMenuItem("Add CheckBox", null, OnAddCheckBox);
+                ToolStripMenuItem menuCustomControl = new ToolStripMenuItem("Add Custom Control", null, OnAddCustomControl);
+                ToolStripMenuItem menuLabel = new ToolStripMenuItem("Add Label", null, OnAddLabel);
+                ToolStripMenuItem menuRadioButton = new ToolStripMenuItem("Add RadioButton", null, OnAddRadioButton);
+                ToolStripMenuItem menuTextBox = new ToolStripMenuItem("Add TextBox", null, OnAddTextBox);
+                ToolStripMenuItem menuMaskedTextBox = new ToolStripMenuItem("Add MaskedTextBox", null, OnAddMaskedTextBox);
+                ToolStripMenuItem menuRichTextBox = new ToolStripMenuItem("Add RichTextBox", null, OnAddRichTextBox);
+                ToolStripMenuItem menuComboBox = new ToolStripMenuItem("Add ComboBox", null, OnAddComboBox);
+                ToolStripMenuItem menuNumericUpDown = new ToolStripMenuItem("Add NumericUpDown", null, OnAddNumericUpDown);
+                ToolStripMenuItem menuDomainUpDown = new ToolStripMenuItem("Add DomainUpDown", null, OnAddDomainUpDown);
+                ToolStripMenuItem menuDateTimePicker = new ToolStripMenuItem("Add DateTimePicker", null, OnAddDateTimePicker);
+                ToolStripMenuItem menuTrackBar = new ToolStripMenuItem("Add TrackBar", null, OnAddTrackBar);
 
                 // Assign correct images
                 menuButton.ImageIndex = 0;

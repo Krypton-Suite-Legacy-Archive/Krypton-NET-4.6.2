@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -37,7 +37,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private class InternalDomainUpDown : DomainUpDown
         {
             #region Instance Fields
-            private KryptonDomainUpDown _kryptonDomainUpDown;
+            private readonly KryptonDomainUpDown _kryptonDomainUpDown;
             private bool _mouseOver;
             #endregion
 
@@ -156,8 +156,7 @@ namespace ComponentFactory.Krypton.Toolkit
                             using (Graphics g = Graphics.FromHdc(hdc))
                             {
                                 // Grab the client area of the control
-                                PI.RECT rect = new PI.RECT();
-                                PI.GetClientRect(Handle, out rect);
+                                PI.GetClientRect(Handle, out PI.RECT rect);
 
                                 // Drawn entire client area in the background color
                                 using (SolidBrush backBrush = new SolidBrush(BackColor))
@@ -325,7 +324,7 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             #region Instance Fields
 
-            private InternalDomainUpDown _internalDomainUpDown;
+            private readonly InternalDomainUpDown _internalDomainUpDown;
             private bool _mouseOver;
 
             #endregion
@@ -474,25 +473,16 @@ namespace ComponentFactory.Krypton.Toolkit
                     case PI.WM_PRINTCLIENT:
                     case PI.WM_PAINT:
                         {
-                            IntPtr hdc;
                             PI.PAINTSTRUCT ps = new PI.PAINTSTRUCT();
 
                             // Do we need to BeginPaint or just take the given HDC?
-                            if (m.WParam == IntPtr.Zero)
-                            {
-                                hdc = PI.BeginPaint(Handle, ref ps);
-                            }
-                            else
-                            {
-                                hdc = m.WParam;
-                            }
+                            IntPtr hdc = m.WParam == IntPtr.Zero ? PI.BeginPaint(Handle, ref ps) : m.WParam;
 
                             // Paint the entire area in the background color
                             using (Graphics g = Graphics.FromHdc(hdc))
                             {
                                 // Grab the client area of the control
-                                PI.RECT rect = new PI.RECT();
-                                PI.GetClientRect(Handle, out rect);
+                                PI.GetClientRect(Handle, out PI.RECT rect);
 
                                 // Drawn entire client area in the background color
                                 using (SolidBrush backBrush = new SolidBrush(_internalDomainUpDown.BackColor))
@@ -750,22 +740,13 @@ namespace ComponentFactory.Krypton.Toolkit
                         break;
                     case PI.WM_PRINTCLIENT:
                     case PI.WM_PAINT:
-                        IntPtr hdc;
                         PI.PAINTSTRUCT ps = new PI.PAINTSTRUCT();
 
                         // Do we need to BeginPaint or just take the given HDC?
-                        if (m.WParam == IntPtr.Zero)
-                        {
-                            hdc = PI.BeginPaint(Handle, ref ps);
-                        }
-                        else
-                        {
-                            hdc = m.WParam;
-                        }
+                        IntPtr hdc = m.WParam == IntPtr.Zero ? PI.BeginPaint(Handle, ref ps) : m.WParam;
 
                         // Grab the client area of the control
-                        PI.RECT rect = new PI.RECT();
-                        PI.GetClientRect(Handle, out rect);
+                        PI.GetClientRect(Handle, out PI.RECT rect);
                         Rectangle clientRect = new Rectangle(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
 
                         try
@@ -931,11 +912,11 @@ namespace ComponentFactory.Krypton.Toolkit
         #region Instance Fields
 
         private VisualPopupToolTip _visualPopupToolTip;
-        private ButtonSpecManagerLayout _buttonManager;
-        private ViewLayoutDocker _drawDockerInner;
-        private ViewDrawDocker _drawDockerOuter;
-        private ViewLayoutFill _layoutFill;
-        private InternalDomainUpDown _domainUpDown;
+        private readonly ButtonSpecManagerLayout _buttonManager;
+        private readonly ViewLayoutDocker _drawDockerInner;
+        private readonly ViewDrawDocker _drawDockerOuter;
+        private readonly ViewLayoutFill _layoutFill;
+        private readonly InternalDomainUpDown _domainUpDown;
         private InputControlStyle _inputControlStyle;
         private ButtonStyle _upDownButtonStyle;
         private SubclassEdit _subclassEdit;
@@ -1046,19 +1027,19 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Create the internal domain updown used for containing content
             _domainUpDown = new InternalDomainUpDown(this);
-            _domainUpDown.Scroll += new ScrollEventHandler(OnDomainUpDownScroll);
-            _domainUpDown.SelectedItemChanged += new EventHandler(OnDomainUpDownSelectedItemChanged);
-            _domainUpDown.TrackMouseEnter += new EventHandler(OnDomainUpDownMouseChange);
-            _domainUpDown.TrackMouseLeave += new EventHandler(OnDomainUpDownMouseChange);
-            _domainUpDown.GotFocus += new EventHandler(OnDomainUpDownGotFocus);
-            _domainUpDown.LostFocus += new EventHandler(OnDomainUpDownLostFocus);
-            _domainUpDown.KeyDown += new KeyEventHandler(OnDomainUpDownKeyDown);
-            _domainUpDown.KeyUp += new KeyEventHandler(OnDomainUpDownKeyUp);
-            _domainUpDown.KeyPress += new KeyPressEventHandler(OnDomainUpDownKeyPress);
-            _domainUpDown.PreviewKeyDown += new PreviewKeyDownEventHandler(OnDomainUpDownPreviewKeyDown);
-            _domainUpDown.TextChanged += new EventHandler(OnDomainUpDownTextChanged);
-            _domainUpDown.Validating += new CancelEventHandler(OnDomainUpDownValidating);
-            _domainUpDown.Validated += new EventHandler(OnDomainUpDownValidated);
+            _domainUpDown.Scroll += OnDomainUpDownScroll;
+            _domainUpDown.SelectedItemChanged += OnDomainUpDownSelectedItemChanged;
+            _domainUpDown.TrackMouseEnter += OnDomainUpDownMouseChange;
+            _domainUpDown.TrackMouseLeave += OnDomainUpDownMouseChange;
+            _domainUpDown.GotFocus += OnDomainUpDownGotFocus;
+            _domainUpDown.LostFocus += OnDomainUpDownLostFocus;
+            _domainUpDown.KeyDown += OnDomainUpDownKeyDown;
+            _domainUpDown.KeyUp += OnDomainUpDownKeyUp;
+            _domainUpDown.KeyPress += OnDomainUpDownKeyPress;
+            _domainUpDown.PreviewKeyDown += OnDomainUpDownPreviewKeyDown;
+            _domainUpDown.TextChanged += OnDomainUpDownTextChanged;
+            _domainUpDown.Validating += OnDomainUpDownValidating;
+            _domainUpDown.Validated += OnDomainUpDownValidated;
 
             // Create the element that fills the remainder space and remembers fill rectange
             _layoutFill = new ViewLayoutFill(_domainUpDown)
@@ -1087,13 +1068,13 @@ namespace ComponentFactory.Krypton.Toolkit
                                                          new IPaletteMetric[] { StateCommon },
                                                          new PaletteMetricInt[] { PaletteMetricInt.HeaderButtonEdgeInsetInputControl },
                                                          new PaletteMetricPadding[] { PaletteMetricPadding.HeaderButtonPaddingInputControl },
-                                                         new GetToolStripRenderer(CreateToolStripRenderer),
+                                                         CreateToolStripRenderer,
                                                          NeedPaintDelegate);
 
             // Create the manager for handling tooltips
             ToolTipManager = new ToolTipManager();
-            ToolTipManager.ShowToolTip += new EventHandler<ToolTipEventArgs>(OnShowToolTip);
-            ToolTipManager.CancelToolTip += new EventHandler(OnCancelToolTip);
+            ToolTipManager.ShowToolTip += OnShowToolTip;
+            ToolTipManager.CancelToolTip += OnCancelToolTip;
             _buttonManager.ToolTipManager = ToolTipManager;
 
             // Add text box to the controls collection
@@ -2094,8 +2075,8 @@ namespace ComponentFactory.Krypton.Toolkit
                 {
                     if (_subclassEdit.Handle != _domainUpDown.Controls[1].Handle)
                     {
-                        _subclassEdit.TrackMouseEnter -= new EventHandler(OnDomainUpDownMouseChange);
-                        _subclassEdit.TrackMouseLeave -= new EventHandler(OnDomainUpDownMouseChange);
+                        _subclassEdit.TrackMouseEnter -= OnDomainUpDownMouseChange;
+                        _subclassEdit.TrackMouseLeave -= OnDomainUpDownMouseChange;
                         _subclassEdit.ReleaseHandle();
                         _subclassEdit = null;
                     }
@@ -2108,8 +2089,8 @@ namespace ComponentFactory.Krypton.Toolkit
                 if (_domainUpDown.Controls.Count >= 2)
                 {
                     _subclassEdit = new SubclassEdit(_domainUpDown.Controls[1].Handle, this, _domainUpDown);
-                    _subclassEdit.TrackMouseEnter += new EventHandler(OnDomainUpDownMouseChange);
-                    _subclassEdit.TrackMouseLeave += new EventHandler(OnDomainUpDownMouseChange);
+                    _subclassEdit.TrackMouseEnter += OnDomainUpDownMouseChange;
+                    _subclassEdit.TrackMouseLeave += OnDomainUpDownMouseChange;
                 }
             }
         }
@@ -2122,8 +2103,8 @@ namespace ComponentFactory.Krypton.Toolkit
                 {
                     if (_subclassButtons.Handle != _domainUpDown.Controls[0].Handle)
                     {
-                        _subclassButtons.TrackMouseEnter -= new EventHandler(OnDomainUpDownMouseChange);
-                        _subclassButtons.TrackMouseLeave -= new EventHandler(OnDomainUpDownMouseChange);
+                        _subclassButtons.TrackMouseEnter -= OnDomainUpDownMouseChange;
+                        _subclassButtons.TrackMouseLeave -= OnDomainUpDownMouseChange;
                         _subclassButtons.ReleaseHandle();
                         _subclassButtons = null;
                     }
@@ -2135,8 +2116,8 @@ namespace ComponentFactory.Krypton.Toolkit
                 if (_domainUpDown.Controls.Count >= 1)
                 {
                     _subclassButtons = new SubclassButtons(_domainUpDown.Controls[0].Handle, this, _domainUpDown);
-                    _subclassButtons.TrackMouseEnter += new EventHandler(OnDomainUpDownMouseChange);
-                    _subclassButtons.TrackMouseLeave += new EventHandler(OnDomainUpDownMouseChange);
+                    _subclassButtons.TrackMouseEnter += OnDomainUpDownMouseChange;
+                    _subclassButtons.TrackMouseLeave += OnDomainUpDownMouseChange;
                 }
             }
         }
@@ -2312,7 +2293,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                                      PaletteBorderStyle.ControlToolTip,
                                                                      CommonHelper.ContentStyleFromLabelStyle(toolTipStyle));
 
-                        _visualPopupToolTip.Disposed += new EventHandler(OnVisualPopupToolTipDisposed);
+                        _visualPopupToolTip.Disposed += OnVisualPopupToolTipDisposed;
 
                         // Show relative to the provided screen rectangle
                         _visualPopupToolTip.ShowCalculatingSize(RectangleToScreen(e.Target.ClientRectangle));
@@ -2331,7 +2312,7 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             // Unhook events from the specific instance that generated event
             VisualPopupToolTip popupToolTip = (VisualPopupToolTip)sender;
-            popupToolTip.Disposed -= new EventHandler(OnVisualPopupToolTipDisposed);
+            popupToolTip.Disposed -= OnVisualPopupToolTipDisposed;
 
             // Not showing a popup page any more
             _visualPopupToolTip = null;

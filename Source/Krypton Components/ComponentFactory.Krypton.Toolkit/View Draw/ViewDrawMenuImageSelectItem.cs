@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -22,10 +22,10 @@ namespace ComponentFactory.Krypton.Toolkit
                                                  IContentValues
 	{
 		#region Instance Fields
-        private KryptonContextMenuImageSelect _imageSelect;
-        private ViewLayoutMenuItemSelect _layout;
-        private MenuImageSelectController _controller;
-        private NeedPaintHandler _needPaint;
+        private readonly KryptonContextMenuImageSelect _imageSelect;
+        private readonly ViewLayoutMenuItemSelect _layout;
+        private readonly MenuImageSelectController _controller;
+        private readonly NeedPaintHandler _needPaint;
         private ImageList _imageList;
         private int _imageIndex;
         #endregion
@@ -56,7 +56,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Need controller to handle tracking/pressing etc
             _controller = new MenuImageSelectController(viewManager, this, layout, needPaint);
-            _controller.Click += new MouseEventHandler(OnItemClick);
+            _controller.Click += OnItemClick;
             MouseController = _controller;
             SourceController = _controller;
             KeyController = _controller;
@@ -202,6 +202,9 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             // Set new selection index
             _imageSelect.SelectedIndex = _imageIndex;
+
+            //Fire a click item event : seb the right way ?? after selected index
+            _imageSelect.OnClick(e);
 
             // Should we automatically try and close the context menu stack
             if (_imageSelect.AutoClose)

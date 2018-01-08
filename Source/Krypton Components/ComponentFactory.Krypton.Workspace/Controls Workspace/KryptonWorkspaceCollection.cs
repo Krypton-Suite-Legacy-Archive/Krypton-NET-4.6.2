@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -20,7 +20,7 @@ namespace ComponentFactory.Krypton.Workspace
     public class KryptonWorkspaceCollection : TypedRestrictCollection<Component>
     {
         #region Instance Fields
-        private KryptonWorkspaceSequence _sequence;
+        private readonly KryptonWorkspaceSequence _sequence;
         #endregion
 
         #region Static Fields
@@ -106,8 +106,8 @@ namespace ComponentFactory.Krypton.Workspace
             
             if (e.Item is IWorkspaceItem workspaceItem)
             {
-                workspaceItem.PropertyChanged += new PropertyChangedEventHandler(OnChildPropertyChanged);
-                workspaceItem.MaximizeRestoreClicked += new EventHandler(OnChildMaximizeRestoreClicked);
+                workspaceItem.PropertyChanged += OnChildPropertyChanged;
+                workspaceItem.MaximizeRestoreClicked += OnChildMaximizeRestoreClicked;
             }
 
             if (e.Item is KryptonWorkspaceCell cell)
@@ -133,8 +133,8 @@ namespace ComponentFactory.Krypton.Workspace
 
             if (e.Item is IWorkspaceItem workspaceItem)
             {
-                workspaceItem.PropertyChanged -= new PropertyChangedEventHandler(OnChildPropertyChanged);
-                workspaceItem.MaximizeRestoreClicked -= new EventHandler(OnChildMaximizeRestoreClicked);
+                workspaceItem.PropertyChanged -= OnChildPropertyChanged;
+                workspaceItem.MaximizeRestoreClicked -= OnChildMaximizeRestoreClicked;
             }
 
             if (e.Item is KryptonWorkspaceCell cell)
@@ -163,8 +163,8 @@ namespace ComponentFactory.Krypton.Workspace
             {
                 if (c is IWorkspaceItem workspaceItem)
                 {
-                    workspaceItem.PropertyChanged -= new PropertyChangedEventHandler(OnChildPropertyChanged);
-                    workspaceItem.MaximizeRestoreClicked -= new EventHandler(OnChildMaximizeRestoreClicked);
+                    workspaceItem.PropertyChanged -= OnChildPropertyChanged;
+                    workspaceItem.MaximizeRestoreClicked -= OnChildMaximizeRestoreClicked;
                 }
 
                 if (c is KryptonWorkspaceCell cell)

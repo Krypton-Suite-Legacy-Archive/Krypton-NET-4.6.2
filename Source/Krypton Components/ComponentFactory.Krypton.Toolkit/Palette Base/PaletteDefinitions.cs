@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -2111,6 +2111,16 @@ namespace ComponentFactory.Krypton.Toolkit
         /// </summary>
         Office2010Black,
 
+	    /// <summary>
+	    /// Specifies the Office 2013 palette theme.
+	    /// </summary>
+	    Office2013,
+
+	    /// <summary>
+        /// Specifies the Office 2013 White palette theme.
+        /// </summary>
+        Office2013White,
+
         /// <summary>
         /// Specifies the Blue color variant on the Sparkle palette theme.
         /// </summary>
@@ -2177,6 +2187,16 @@ namespace ComponentFactory.Krypton.Toolkit
         /// Specifies the Black color variant of the Office 2010 appearance.
         /// </summary>
         Office2010Black,
+
+        /// <summary>
+        /// Specifies the color variant of the Office 2013 appearance.
+        /// </summary>
+        Office2013,
+
+        /// <summary>
+        /// Specifies the White color variant of the Office 2013 appearance.
+        /// </summary>
+        Office2013White,
 
         /// <summary>
         /// Specifies the Blue color variant on the Sparkle palette theme.
@@ -5186,6 +5206,11 @@ namespace ComponentFactory.Krypton.Toolkit
         /// Specifies the Office 2010 ribbon shape.
         /// </summary>
         Office2010,
+
+        /// <summary>
+        /// Specifies the Office 2013 ribbon shape.
+        /// </summary>
+        Office2013
     }
     #endregion
 

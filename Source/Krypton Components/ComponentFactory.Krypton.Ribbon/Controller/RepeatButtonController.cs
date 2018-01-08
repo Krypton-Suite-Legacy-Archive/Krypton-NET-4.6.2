@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -23,12 +23,12 @@ namespace ComponentFactory.Krypton.Ribbon
                                             IMouseController
     {
         #region Instance Fields
-        private KryptonRibbon _ribbon;
+        private readonly KryptonRibbon _ribbon;
         private bool _captured;
         private bool _mouseOver;
-        private ViewBase _target;
+        private readonly ViewBase _target;
         private NeedPaintHandler _needPaint;
-        private Timer _repeatTimer;
+        private readonly Timer _repeatTimer;
         #endregion
 
         #region Events
@@ -63,7 +63,7 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 Interval = 50
             };
-            _repeatTimer.Tick += new EventHandler(OnRepeatTick);
+            _repeatTimer.Tick += OnRepeatTick;
         }
 		#endregion
 
@@ -259,7 +259,7 @@ namespace ComponentFactory.Krypton.Ribbon
         protected void UpdateTargetState(Point pt)
         {
             // By default the button is in the normal state
-            PaletteState newState;
+            PaletteState newState = PaletteState.Normal;
 
             // If the button is disabled then show as disabled
             if (!_target.Enabled)
@@ -268,8 +268,6 @@ namespace ComponentFactory.Krypton.Ribbon
             }
             else
             {
-                newState = PaletteState.Normal;
-
                 // If capturing input....
                 if (_captured)
                 {

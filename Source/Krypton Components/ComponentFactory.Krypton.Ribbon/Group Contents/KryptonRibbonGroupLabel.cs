@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -36,9 +36,9 @@ namespace ComponentFactory.Krypton.Ribbon
         private string _textLine2;
         private GroupItemSize _itemSizeCurrent;
         private KryptonCommand _command;
-        private NeedPaintHandler _needPaintDelegate;
-        private PaletteRibbonText _stateNormal;
-        private PaletteRibbonText _stateDisabled;
+        private readonly NeedPaintHandler _needPaintDelegate;
+        private readonly PaletteRibbonText _stateNormal;
+        private readonly PaletteRibbonText _stateDisabled;
 
         #endregion
 
@@ -80,7 +80,7 @@ namespace ComponentFactory.Krypton.Ribbon
             ToolTipStyle = LabelStyle.SuperTip;
 
             // Create delegate fired by a change to one of the state palettes
-            _needPaintDelegate = new NeedPaintHandler(OnPaletteNeedPaint);
+            _needPaintDelegate = OnPaletteNeedPaint;
 
             // Create palette entries for customizing the label text color
             _stateNormal = new PaletteRibbonText(_needPaintDelegate);
@@ -349,7 +349,7 @@ namespace ComponentFactory.Krypton.Ribbon
                 {
                     if (_command != null)
                     {
-                        _command.PropertyChanged -= new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged -= OnCommandPropertyChanged;
                     }
 
                     _command = value;
@@ -357,7 +357,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
                     if (_command != null)
                     {
-                        _command.PropertyChanged += new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged += OnCommandPropertyChanged;
                     }
                 }
             }

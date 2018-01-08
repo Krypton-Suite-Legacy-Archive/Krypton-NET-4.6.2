@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -22,11 +22,11 @@ namespace ComponentFactory.Krypton.Ribbon
                                                   IContentValues
     {
         #region Instance Fields
-        private KryptonRibbon _ribbon;
-        private KryptonRibbonGroupLabel _ribbonLabel;
-        private RibbonGroupLabelTextToContent _contentProvider;
+        private readonly KryptonRibbon _ribbon;
+        private readonly KryptonRibbonGroupLabel _ribbonLabel;
+        private readonly RibbonGroupLabelTextToContent _contentProvider;
         private IDisposable _memento;
-        private bool _firstText;
+        private readonly bool _firstText;
         private int _heightExtra;
         private Size _preferredSize;
         private Rectangle _displayRect;
@@ -129,7 +129,7 @@ namespace ComponentFactory.Krypton.Ribbon
                 // Ask the renderer for the contents preferred size
                 _preferredSize = context.Renderer.RenderStandardContent.GetContentPreferredSize(context, _contentProvider, 
                                                                                                 this, VisualOrientation.Top,
-                                                                                                State, false);
+                                                                                                State, false, false);
 
                 // Subtract the extra space used to ensure it draws
                 _heightExtra = (_ribbon.CalculatedValues.DrawFontHeight - _ribbon.CalculatedValues.RawFontHeight) * 2;
@@ -187,7 +187,7 @@ namespace ComponentFactory.Krypton.Ribbon
                 _memento = context.Renderer.RenderStandardContent.LayoutContent(context, drawRect,
                                                                                 _contentProvider, this,
                                                                                 VisualOrientation.Top,
-                                                                                PaletteState.Normal, false);
+                                                                                PaletteState.Normal, false, false);
 
                 // Cache values that are needed to decide if layout is needed
                 _displayRect = ClientRectangle;
@@ -215,7 +215,7 @@ namespace ComponentFactory.Krypton.Ribbon
                 context.Renderer.RenderStandardContent.DrawContent(context, drawRect,
                     _contentProvider, _memento,
                     VisualOrientation.Top,
-                    State, false, true);
+                    State, false, false, true);
             }
         }
         #endregion

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -36,6 +36,9 @@ namespace ComponentFactory.Krypton.Workspace
         private IWorkspaceItem _parent;
         private bool _disposeOnRemove;
         private bool _events;
+        //seb
+        private bool _allowDroppingPages;
+        //end seb
         #endregion
 
         #region Events
@@ -75,11 +78,14 @@ namespace ComponentFactory.Krypton.Workspace
             WorkspaceStarSize = new StarSize(starSize);
             WorkspaceAllowResizing = true;
             UniqueName = CommonHelper.UniqueString;
+            //seb
+            _allowDroppingPages = true;
+            //end seb
 
             // We need to know when the set of pages has changed
-            Pages.Cleared += new EventHandler(OnPagesChanged);
-            Pages.Removed += new TypedHandler<KryptonPage>(OnPagesChanged);
-            Pages.Inserted += new TypedHandler<KryptonPage>(OnPagesChanged);
+            Pages.Cleared += OnPagesChanged;
+            Pages.Removed += OnPagesChanged;
+            Pages.Inserted += OnPagesChanged;
             _events = true;
 
             // Add a button spec used to handle maximize/restore functionality
@@ -87,7 +93,7 @@ namespace ComponentFactory.Krypton.Workspace
             {
                 Type = PaletteButtonSpecStyle.WorkspaceMaximize
             };
-            MaximizeRestoreButton.Click += new EventHandler(OnMaximizeRestoreButtonClicked);
+            MaximizeRestoreButton.Click += OnMaximizeRestoreButtonClicked;
             Button.ButtonSpecs.Add(MaximizeRestoreButton);
         }
 
@@ -101,9 +107,9 @@ namespace ComponentFactory.Krypton.Workspace
             {
                 // Must unhook to prevent memory leak
                 _events = false;
-                Pages.Cleared -= new EventHandler(OnPagesChanged);
-                Pages.Removed -= new TypedHandler<KryptonPage>(OnPagesChanged);
-                Pages.Inserted -= new TypedHandler<KryptonPage>(OnPagesChanged);
+                Pages.Cleared -= OnPagesChanged;
+                Pages.Removed -= OnPagesChanged;
+                Pages.Inserted -= OnPagesChanged;
 
                 // Must remove from parent workspace manually because the control collection is readonly
                 if (Parent != null)
@@ -339,6 +345,25 @@ namespace ComponentFactory.Krypton.Workspace
                 }
             }
         }
+
+        //seb
+        /// <summary>
+        /// Determines if the user can can drop pages in this workspace cell.
+        /// </summary>
+        [Category("Visuals")]
+        [Description("Determines if the user can can drop pages in this workspace cell.")]
+        [DefaultValue(true)]
+        public bool AllowDroppingPages
+        {
+            get { return _allowDroppingPages; }
+
+            set
+            {
+                _allowDroppingPages = value;
+                OnPropertyChanged("DroppingPages");
+            }
+        }
+        //end seb
 
         /// <summary>
         /// Star notation the describes the sizing of the workspace item.

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -24,9 +24,9 @@ namespace ComponentFactory.Krypton.Toolkit
         private class LinearItemColors
         {
             #region Public Fields
-            public Color Fill1;
-            public Color Fill2;
-            public Color Border;
+            public readonly Color Fill1;
+            public readonly Color Fill2;
+            public readonly Color Border;
             #endregion
 
             #region Identity
@@ -46,9 +46,9 @@ namespace ComponentFactory.Krypton.Toolkit
         private class GradientItemColors
         {
             #region Public Fields
-            public Color Border;
-            public Color Begin;
-            public Color End;
+            public readonly Color Border;
+            public readonly Color Begin;
+            public readonly Color End;
             #endregion
 
             #region Identity

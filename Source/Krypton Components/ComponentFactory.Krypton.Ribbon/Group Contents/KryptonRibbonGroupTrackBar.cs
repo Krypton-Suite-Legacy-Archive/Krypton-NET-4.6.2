@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -101,9 +101,9 @@ namespace ComponentFactory.Krypton.Ribbon
             };
 
             // Hook into events to expose via this container
-            TrackBar.GotFocus += new EventHandler(OnTrackBarGotFocus);
-            TrackBar.LostFocus += new EventHandler(OnTrackBarLostFocus);
-            TrackBar.ValueChanged += new EventHandler(OnTrackBarValueChanged);
+            TrackBar.GotFocus += OnTrackBarGotFocus;
+            TrackBar.LostFocus += OnTrackBarLostFocus;
+            TrackBar.ValueChanged += OnTrackBarValueChanged;
 
             // Ensure we can track mouse events on the track bar
             MonitorControl(TrackBar);
@@ -147,7 +147,7 @@ namespace ComponentFactory.Krypton.Ribbon
                     // Use the same palette in the track bar as the ribbon, plus we need
                     // to know when the ribbon palette changes so we can reflect that change
                     TrackBar.Palette = Ribbon.GetResolvedPalette();
-                    Ribbon.PaletteChanged += new EventHandler(OnRibbonPaletteChanged);
+                    Ribbon.PaletteChanged += OnRibbonPaletteChanged;
                 }
             }
         }
@@ -594,14 +594,14 @@ namespace ComponentFactory.Krypton.Ribbon
         #region Implementation
         private void MonitorControl(KryptonTrackBar c)
         {
-            c.MouseEnter += new EventHandler(OnControlEnter);
-            c.MouseLeave += new EventHandler(OnControlLeave);
+            c.MouseEnter += OnControlEnter;
+            c.MouseLeave += OnControlLeave;
         }
 
         private void UnmonitorControl(KryptonTrackBar c)
         {
-            c.MouseEnter -= new EventHandler(OnControlEnter);
-            c.MouseLeave -= new EventHandler(OnControlLeave);
+            c.MouseEnter -= OnControlEnter;
+            c.MouseLeave -= OnControlLeave;
         }
 
         private void OnControlEnter(object sender, EventArgs e)

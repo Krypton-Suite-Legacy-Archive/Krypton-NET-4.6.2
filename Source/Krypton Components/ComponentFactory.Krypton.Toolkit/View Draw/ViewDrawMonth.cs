@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -41,22 +41,22 @@ namespace ComponentFactory.Krypton.Toolkit
         #endregion
 
 		#region Instance Fields
-        private IKryptonMonthCalendar _calendar;
-        private ViewLayoutMonths _months;
-        private ViewDrawDocker _drawHeader;
-        private PaletteBorderInheritForced _borderForced;
-        private ViewDrawContent _drawContent;
-        private ViewDrawMonthDayNames _drawMonthDayNames;
-        private ViewDrawBorderEdge _drawBorderEdge;
-	    private ViewLayoutWeekCorner _drawWeekCorner;
-        private ViewDrawWeekNumbers _drawWeekNumbers;
-        private ViewLayoutStack _numberStack;
-        private PaletteBorderEdgeRedirect _borderEdgeRedirect;
-        private PaletteBorderEdge _borderEdge;
-        private ButtonSpecManagerDraw _buttonManager;
-        private CalendarButtonSpecCollection _buttonSpecs;
-        private ButtonSpecCalendar _arrowPrev;
-        private ButtonSpecCalendar _arrowNext;
+        private readonly IKryptonMonthCalendar _calendar;
+        private readonly ViewLayoutMonths _months;
+        private readonly ViewDrawDocker _drawHeader;
+        private readonly PaletteBorderInheritForced _borderForced;
+        private readonly ViewDrawContent _drawContent;
+        private readonly ViewDrawMonthDayNames _drawMonthDayNames;
+        private readonly ViewDrawBorderEdge _drawBorderEdge;
+	    private readonly ViewLayoutWeekCorner _drawWeekCorner;
+        private readonly ViewDrawWeekNumbers _drawWeekNumbers;
+        private readonly ViewLayoutStack _numberStack;
+        private readonly PaletteBorderEdgeRedirect _borderEdgeRedirect;
+        private readonly PaletteBorderEdge _borderEdge;
+        private readonly ButtonSpecManagerDraw _buttonManager;
+        private readonly CalendarButtonSpecCollection _buttonSpecs;
+        private readonly ButtonSpecCalendar _arrowPrev;
+        private readonly ButtonSpecCalendar _arrowNext;
         private string _header;
         #endregion
 
@@ -90,8 +90,8 @@ namespace ComponentFactory.Krypton.Toolkit
             // Create the left/right arrows for moving the months
             _arrowPrev = new ButtonSpecCalendar(this, PaletteButtonSpecStyle.Previous, RelativeEdgeAlign.Near);
             _arrowNext = new ButtonSpecCalendar(this, PaletteButtonSpecStyle.Next, RelativeEdgeAlign.Far);
-            _arrowPrev.Click += new EventHandler(OnPrevMonth);
-            _arrowNext.Click += new EventHandler(OnNextMonth);
+            _arrowPrev.Click += OnPrevMonth;
+            _arrowNext.Click += OnNextMonth;
             _buttonSpecs = new CalendarButtonSpecCollection(this)
             {
                 _arrowPrev,

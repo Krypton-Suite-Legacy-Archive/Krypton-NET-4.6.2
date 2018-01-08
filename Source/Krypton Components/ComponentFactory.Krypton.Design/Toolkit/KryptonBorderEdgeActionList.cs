@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -18,8 +18,8 @@ namespace ComponentFactory.Krypton.Toolkit
     internal class KryptonBorderEdgeActionList : DesignerActionList
     {
         #region Instance Fields
-        private KryptonBorderEdge _borderEdge;
-        private IComponentChangeService _service;
+        private readonly KryptonBorderEdge _borderEdge;
+        private readonly IComponentChangeService _service;
         private string _action;
         #endregion
 
@@ -148,7 +148,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 actions.Add(new DesignerActionHeaderItem("Layout"));
                 actions.Add(new DesignerActionPropertyItem("AutoSize", "AutoSize", "Layout", "Determines whether the control resizes based on its contents."));
                 actions.Add(new DesignerActionPropertyItem("Dock", "Dock", "Layout", "Determines how the control is sized with its parent."));
-                actions.Add(new KryptonDesignerActionItem(new DesignerVerb(_action, new EventHandler(OnOrientationClick)), "Layout"));
+                actions.Add(new KryptonDesignerActionItem(new DesignerVerb(_action, OnOrientationClick), "Layout"));
                 actions.Add(new DesignerActionHeaderItem("Visuals"));
                 actions.Add(new DesignerActionPropertyItem("PaletteMode", "Palette", "Visuals", "Palette applied to drawing"));
             }

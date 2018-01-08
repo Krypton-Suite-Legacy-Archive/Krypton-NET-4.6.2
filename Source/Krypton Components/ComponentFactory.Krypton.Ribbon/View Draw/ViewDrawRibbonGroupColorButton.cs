@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -29,8 +29,8 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbon _ribbon;
-        private NeedPaintHandler _needPaint;
+        private readonly KryptonRibbon _ribbon;
+        private readonly NeedPaintHandler _needPaint;
         private ViewDrawRibbonGroupButtonBackBorder _viewLarge;
         private ViewLayoutRibbonRowCenter _viewLargeCenter;
         private ViewDrawRibbonGroupColorButtonImage _viewLargeImage;
@@ -85,7 +85,7 @@ namespace ComponentFactory.Krypton.Ribbon
             UpdateItemSizeState();
 
             // Hook into changes in the ribbon button definition
-            GroupColorButton.PropertyChanged += new PropertyChangedEventHandler(OnButtonPropertyChanged);
+            GroupColorButton.PropertyChanged += OnButtonPropertyChanged;
         }
 
 		/// <summary>
@@ -109,7 +109,7 @@ namespace ComponentFactory.Krypton.Ribbon
                 if (GroupColorButton != null)
                 {
                     // Must unhook to prevent memory leaks
-                    GroupColorButton.PropertyChanged -= new PropertyChangedEventHandler(OnButtonPropertyChanged);
+                    GroupColorButton.PropertyChanged -= OnButtonPropertyChanged;
 
                     // Remove association with definition
                     GroupColorButton.ColorButtonView = null;
@@ -272,7 +272,7 @@ namespace ComponentFactory.Krypton.Ribbon
         /// <param name="context">Layout context.</param>
         public override Size GetPreferredSize(ViewLayoutContext context)
         {
-            bool drawNonTrackingAreas = (_ribbon.RibbonShape != PaletteRibbonShape.Office2010);
+            bool drawNonTrackingAreas = (_ribbon.RibbonShape != PaletteRibbonShape.Office2010 || _ribbon.RibbonShape == PaletteRibbonShape.Office2013);
 
             // Update the views with the type of button being used
             _viewLarge.ButtonType = GroupColorButton.ButtonType;
@@ -373,12 +373,12 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 SplitVertical = true
             };
-            _viewLarge.Click += new EventHandler(OnLargeButtonClick);
-            _viewLarge.DropDown += new EventHandler(OnLargeButtonDropDown);
+            _viewLarge.Click += OnLargeButtonClick;
+            _viewLarge.DropDown += OnLargeButtonDropDown;
 
             if (_ribbon.InDesignMode)
             {
-                _viewLarge.ContextClick += new MouseEventHandler(OnContextClick);
+                _viewLarge.ContextClick += OnContextClick;
             }
 
             // Create the layout docker for the contents of the button
@@ -429,12 +429,12 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 SplitVertical = false
             };
-            _viewMediumSmall.Click += new EventHandler(OnMediumSmallButtonClick);
-            _viewMediumSmall.DropDown += new EventHandler(OnMediumSmallButtonDropDown);
+            _viewMediumSmall.Click += OnMediumSmallButtonClick;
+            _viewMediumSmall.DropDown += OnMediumSmallButtonDropDown;
 
             if (_ribbon.InDesignMode)
             {
-                _viewMediumSmall.ContextClick += new MouseEventHandler(OnContextClick);
+                _viewMediumSmall.ContextClick += OnContextClick;
             }
 
             // Create the layout docker for the contents of the button

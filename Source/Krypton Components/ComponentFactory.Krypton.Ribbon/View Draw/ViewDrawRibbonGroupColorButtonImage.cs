@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -13,20 +13,20 @@ using System.Diagnostics;
 
 namespace ComponentFactory.Krypton.Ribbon
 {
-	/// <summary>
-	/// Draws either a large or small image from a group color button.
-	/// </summary>
+    /// <summary>
+    /// Draws either a large or small image from a group color button.
+    /// </summary>
     internal class ViewDrawRibbonGroupColorButtonImage : ViewDrawRibbonGroupImageBase
-                                              
+
     {
         #region Static Fields
-        private static readonly Size _smallSize = new Size(16, 16);
-        private static readonly Size _largeSize = new Size(32, 32);
+        private static Size _smallSize; //new Size(16, 16);
+        private static Size _largeSize;//new Size(32, 32);
         #endregion
 
         #region Instance Fields
-        private KryptonRibbonGroupColorButton _ribbonColorButton;
-        private bool _large;
+        private readonly KryptonRibbonGroupColorButton _ribbonColorButton;
+        private readonly bool _large;
         private Image _compositeImage;
         private Color _selectedColor;
         private Color _emptyBorderColor;
@@ -47,23 +47,30 @@ namespace ComponentFactory.Krypton.Ribbon
             : base(ribbon)
         {
             Debug.Assert(ribbonColorButton != null);
+
+            //Seb dpi aware
+            _smallSize = new Size((int)(16 * FactorDpiX), (int)(16 * FactorDpiY));
+            _largeSize = new Size((int)(32 * FactorDpiX), (int)(32 * FactorDpiY));
+
             _ribbonColorButton = ribbonColorButton;
             _selectedColor = ribbonColorButton.SelectedColor;
             _emptyBorderColor = ribbonColorButton.EmptyBorderColor;
             _selectedRectSmall = ribbonColorButton.SelectedRectSmall;
             _selectedRectLarge = ribbonColorButton.SelectedRectLarge;
             _large = large;
-        }        
 
-		/// <summary>
-		/// Obtains the String representation of this instance.
-		/// </summary>
-		/// <returns>User readable name of the instance.</returns>
-		public override string ToString()
-		{
-			// Return the class name and instance identifier
+
+        }
+
+        /// <summary>
+        /// Obtains the String representation of this instance.
+        /// </summary>
+        /// <returns>User readable name of the instance.</returns>
+        public override string ToString()
+        {
+            // Return the class name and instance identifier
             return "ViewDrawRibbonGroupColorButtonImage:" + Id;
-		}
+        }
         #endregion
 
         #region Public
@@ -90,7 +97,7 @@ namespace ComponentFactory.Krypton.Ribbon
         /// <summary>
         /// Gets the size to draw the image.
         /// </summary>
-        protected override Size DrawSize 
+        protected override Size DrawSize
         {
             get
             {
@@ -108,7 +115,7 @@ namespace ComponentFactory.Krypton.Ribbon
         /// <summary>
         /// Gets the image to be drawn.
         /// </summary>
-        protected override Image DrawImage 
+        protected override Image DrawImage
         {
             get
             {
@@ -156,9 +163,9 @@ namespace ComponentFactory.Krypton.Ribbon
                             using (Pen borderPen = new Pen(_emptyBorderColor))
                             {
                                 g.DrawRectangle(borderPen, new Rectangle(selectedRect.X,
-                                    selectedRect.Y,
-                                    selectedRect.Width - 1,
-                                    selectedRect.Height - 1));
+                                                                         selectedRect.Y,
+                                                                         selectedRect.Width - 1,
+                                                                         selectedRect.Height - 1));
                             }
                         }
                         else
@@ -181,3 +188,4 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
     }
 }
+

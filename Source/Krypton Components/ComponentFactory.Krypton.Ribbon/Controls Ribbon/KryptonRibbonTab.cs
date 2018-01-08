@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -74,10 +74,10 @@ namespace ComponentFactory.Krypton.Ribbon
 
             // Create the collection for defining groups
             Groups = new KryptonRibbonGroupCollection();
-            Groups.Clearing += new EventHandler(OnRibbonGroupsClearing);
-            Groups.Cleared += new EventHandler(OnRibbonGroupsCleared);
-            Groups.Inserted += new TypedHandler<KryptonRibbonGroup>(OnRibbonGroupsInserted);
-            Groups.Removed += new TypedHandler<KryptonRibbonGroup>(OnRibbonGroupsRemoved);
+            Groups.Clearing += OnRibbonGroupsClearing;
+            Groups.Cleared += OnRibbonGroupsCleared;
+            Groups.Inserted += OnRibbonGroupsInserted;
+            Groups.Removed += OnRibbonGroupsRemoved;
         }
 
         /// <summary>

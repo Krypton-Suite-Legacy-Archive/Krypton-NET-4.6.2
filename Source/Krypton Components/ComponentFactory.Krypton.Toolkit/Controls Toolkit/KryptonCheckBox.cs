@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -35,14 +35,14 @@ namespace ComponentFactory.Krypton.Toolkit
 		#region Instance Fields
 		private LabelStyle _style;
 	    private VisualOrientation _orientation;
-        private CheckBoxController _controller;
-        private ViewLayoutDocker _layoutDocker;
-        private ViewLayoutCenter _layoutCenter;
-        private ViewDrawCheckBox _drawCheckBox;
-        private ViewDrawContent _drawContent;
-		private PaletteContentInheritRedirect _paletteCommonRedirect;
-        private PaletteRedirectCheckBox _paletteCheckBoxImages;
-	    private PaletteContentInheritOverride _overrideNormal;
+        private readonly CheckBoxController _controller;
+        private readonly ViewLayoutDocker _layoutDocker;
+        private readonly ViewLayoutCenter _layoutCenter;
+        private readonly ViewDrawCheckBox _drawCheckBox;
+        private readonly ViewDrawContent _drawContent;
+		private readonly PaletteContentInheritRedirect _paletteCommonRedirect;
+        private readonly PaletteRedirectCheckBox _paletteCheckBoxImages;
+	    private readonly PaletteContentInheritOverride _overrideNormal;
         private KryptonCommand _command;
 	    private VisualOrientation _checkPosition;
         private CheckState _checkState;
@@ -122,7 +122,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
 			// Create content storage
             Values = new LabelValues(NeedPaintDelegate);
-            Values.TextChanged += new EventHandler(OnCheckBoxTextChanged);
+            Values.TextChanged += OnCheckBoxTextChanged;
             Images = new CheckBoxImages(NeedPaintDelegate);
 
 			// Create palette redirector
@@ -166,7 +166,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Need a controller for handling mouse input
             _controller = new CheckBoxController(_drawCheckBox, _layoutDocker, NeedPaintDelegate);
-            _controller.Click += new EventHandler(OnControllerClick);
+            _controller.Click += OnControllerClick;
             _controller.Enabled = true;
             _layoutDocker.MouseController = _controller;
             _layoutDocker.KeyController = _controller;
@@ -540,7 +540,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 {
                     if (_command != null)
                     {
-                        _command.PropertyChanged -= new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged -= OnCommandPropertyChanged;
                     }
                     else
                     {
@@ -553,7 +553,7 @@ namespace ComponentFactory.Krypton.Toolkit
 
                     if (_command != null)
                     {
-                        _command.PropertyChanged += new PropertyChangedEventHandler(OnCommandPropertyChanged);
+                        _command.PropertyChanged += OnCommandPropertyChanged;
                     }
                     else
                     {

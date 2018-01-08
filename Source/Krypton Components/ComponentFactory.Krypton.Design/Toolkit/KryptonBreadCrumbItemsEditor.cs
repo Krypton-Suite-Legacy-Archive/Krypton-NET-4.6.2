@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -37,7 +37,7 @@ namespace ComponentFactory.Krypton.Toolkit
             protected class CrumbProxy
             {
                 #region Instance Fields
-                private KryptonBreadCrumbItem _item;
+                private readonly KryptonBreadCrumbItem _item;
                 #endregion
 
                 #region Identity
@@ -138,7 +138,7 @@ namespace ComponentFactory.Krypton.Toolkit
                     Text = Item.ToString();
 
                     // Hook into property changes
-                    Item.PropertyChanged += new PropertyChangedEventHandler(OnPropertyChanged);
+                    Item.PropertyChanged += OnPropertyChanged;
                 }
                 #endregion
 
@@ -171,7 +171,7 @@ namespace ComponentFactory.Krypton.Toolkit
             {
                 #region Instance Fields
 
-                private IServiceProvider _serviceProvider;
+                private readonly IServiceProvider _serviceProvider;
                 private bool _inGetService;
                 #endregion
 
@@ -243,16 +243,16 @@ namespace ComponentFactory.Krypton.Toolkit
             #region Instance Fields
             private KryptonBreadCrumbItemsEditor _editor;
             private DictItemBase _beforeItems;
-            private Button buttonOK;
-            private TreeView treeView1;
-            private Button buttonMoveUp;
-            private Button buttonMoveDown;
-            private Button buttonAddItem;
-            private Button buttonDelete;
-            private PropertyGrid propertyGrid1;
-            private Label label1;
-            private Label label2;
-            private Button buttonAddChild;
+            private readonly Button buttonOK;
+            private readonly TreeView treeView1;
+            private readonly Button buttonMoveUp;
+            private readonly Button buttonMoveDown;
+            private readonly Button buttonAddItem;
+            private readonly Button buttonDelete;
+            private readonly PropertyGrid propertyGrid1;
+            private readonly Label label1;
+            private readonly Label label2;
+            private readonly Button buttonAddChild;
             #endregion
 
             #region Identity
@@ -286,7 +286,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 this.buttonOK.TabIndex = 8;
                 this.buttonOK.Text = "OK";
                 this.buttonOK.UseVisualStyleBackColor = true;
-                this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+                this.buttonOK.Click += this.buttonOK_Click;
                 // 
                 // treeView1
                 // 
@@ -298,7 +298,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 this.treeView1.Size = new System.Drawing.Size(254, 339);
                 this.treeView1.TabIndex = 1;
                 this.treeView1.HideSelection = false;
-                this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+                this.treeView1.AfterSelect += this.treeView1_AfterSelect;
                 // 
                 // buttonMoveUp
                 // 
@@ -313,7 +313,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 this.buttonMoveUp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                 this.buttonMoveUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
                 this.buttonMoveUp.UseVisualStyleBackColor = true;
-                this.buttonMoveUp.Click += new System.EventHandler(this.buttonMoveUp_Click);
+                this.buttonMoveUp.Click += this.buttonMoveUp_Click;
                 // 
                 // buttonMoveDown
                 // 
@@ -328,7 +328,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 this.buttonMoveDown.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                 this.buttonMoveDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
                 this.buttonMoveDown.UseVisualStyleBackColor = true;
-                this.buttonMoveDown.Click += new System.EventHandler(this.buttonMoveDown_Click);
+                this.buttonMoveDown.Click += this.buttonMoveDown_Click;
                 // 
                 // buttonAddItem
                 // 
@@ -343,7 +343,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 this.buttonAddItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                 this.buttonAddItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
                 this.buttonAddItem.UseVisualStyleBackColor = true;
-                this.buttonAddItem.Click += new System.EventHandler(this.buttonAddSibling_Click);
+                this.buttonAddItem.Click += this.buttonAddSibling_Click;
                 // 
                 // buttonDelete
                 // 
@@ -358,7 +358,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 this.buttonDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                 this.buttonDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
                 this.buttonDelete.UseVisualStyleBackColor = true;
-                this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+                this.buttonDelete.Click += this.buttonDelete_Click;
                 // 
                 // propertyGrid1
                 // 
@@ -403,7 +403,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 this.buttonAddChild.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                 this.buttonAddChild.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
                 this.buttonAddChild.UseVisualStyleBackColor = true;
-                this.buttonAddChild.Click += new System.EventHandler(this.buttonAddChild_Click);
+                this.buttonAddChild.Click += this.buttonAddChild_Click;
                 // 
                 // KryptonBreadCrumbCollectionForm
                 // 

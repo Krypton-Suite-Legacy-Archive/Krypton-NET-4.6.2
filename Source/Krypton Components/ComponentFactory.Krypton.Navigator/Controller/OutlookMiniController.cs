@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -25,7 +25,7 @@ namespace ComponentFactory.Krypton.Navigator
 	{
 		#region Instance Fields
         private NeedPaintHandler _needPaint;
-        private ViewBase _target;
+        private readonly ViewBase _target;
         private bool _fixedTracking;
 	    private bool _mouseOver;
 		#endregion
@@ -361,7 +361,7 @@ namespace ComponentFactory.Krypton.Navigator
         protected void UpdateTargetState(Point pt)
         {
             // By default the button is in the normal state
-            PaletteState newState;
+            PaletteState newState = PaletteState.Normal;
 
             // When disabled the button itself is shown as normal, the 
             // content is expected to draw itself as disbled though
@@ -371,31 +371,15 @@ namespace ComponentFactory.Krypton.Navigator
             }
             else
             {
-                newState = PaletteState.Normal;
-
                 // If capturing input....
                 if (Captured)
                 {
-                    if (_target.ClientRectangle.Contains(pt))
-                    {
-                        newState = PaletteState.Pressed;
-                    }
-                    else
-                    {
-                        newState = PaletteState.Normal;
-                    }
+                    newState = _target.ClientRectangle.Contains(pt) ? PaletteState.Pressed : PaletteState.Normal;
                 }
                 else
                 {
                     // Only hot tracking, so show tracking only if mouse over the target or has focus
-                    if (_mouseOver || _fixedTracking)
-                    {
-                        newState = PaletteState.Tracking;
-                    }
-                    else
-                    {
-                        newState = PaletteState.Normal;
-                    }
+                    newState = (_mouseOver || _fixedTracking) ? PaletteState.Tracking : PaletteState.Normal;
                 }
             }
 

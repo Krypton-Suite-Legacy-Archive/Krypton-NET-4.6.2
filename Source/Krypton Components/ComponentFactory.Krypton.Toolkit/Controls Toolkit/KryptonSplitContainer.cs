@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -34,9 +34,9 @@ namespace ComponentFactory.Krypton.Toolkit
     {
         #region Instance Fields
         private SeparatorStyle _style;
-        private ViewDrawPanel _drawPanel;
-        private ViewDrawSeparator _drawSeparator;
-        private SeparatorController _separatorController;
+        private readonly ViewDrawPanel _drawPanel;
+        private readonly ViewDrawSeparator _drawSeparator;
+        private readonly SeparatorController _separatorController;
         private Orientation _orientation;
         private FixedPanel _fixedPanel;
         private Point _designLastPt;

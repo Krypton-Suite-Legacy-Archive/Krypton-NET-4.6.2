@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -35,7 +35,7 @@ namespace ComponentFactory.Krypton.Toolkit
         #endregion
 
         #region Instance Fields
-        private PopupStack _stack;
+        private readonly PopupStack _stack;
         private IntPtr _activeWindow;
         private bool _filtering;
         private int _suspended;
@@ -60,15 +60,7 @@ namespace ComponentFactory.Krypton.Toolkit
         public static VisualPopupManager Singleton
         {
             [System.Diagnostics.DebuggerStepThrough]
-            get
-            {
-                if (_singleton == null)
-                {
-                    _singleton = new VisualPopupManager();
-                }
-
-                return _singleton;
-            }
+            get => _singleton ?? (_singleton = new VisualPopupManager());
         }
         #endregion
 
@@ -226,7 +218,7 @@ namespace ComponentFactory.Krypton.Toolkit
             // Are we tracking a popup?
             if (CurrentPopup != null)
             {
-                bool found = false;
+                bool found;
 
                 do
                 {
@@ -319,7 +311,7 @@ namespace ComponentFactory.Krypton.Toolkit
             if (cms != null)
             {
                 // Need to know when the context strip is removed
-                cms.Closed += new ToolStripDropDownClosedEventHandler(OnCMSClosed);
+                cms.Closed += OnCMSClosed;
 
                 // Remember delegate to fire when context menu is dismissed
                 _cmsFinishDelegate = cmsFinishDelegate;
@@ -801,7 +793,7 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             // Unhook event from object
             ContextMenuStrip cms = sender as ContextMenuStrip;
-            cms.Closed -= new ToolStripDropDownClosedEventHandler(OnCMSClosed);
+            cms.Closed -= OnCMSClosed;
 
             // Revoke the suspended state
             _suspended--;

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -1029,14 +1029,16 @@ namespace ComponentFactory.Krypton.Toolkit
         /// <param name="orientation">Visual orientation of the content.</param>
         /// <param name="state">State associated with rendering.</param>
         /// <param name="composition">Should draw on a composition element.</param>
+        /// <param name="glowing">If composition, should glowing be drawn.</param>
         /// <returns>Preferred size.</returns>
         public override Size GetContentPreferredSize(ViewLayoutContext context,
                                                      IPaletteContent palette,
                                                      IContentValues values,
                                                      VisualOrientation orientation,
                                                      PaletteState state,
-                                                     bool composition)
-        {
+                                                     bool composition,
+                                                     bool glowing)
+		{
             Debug.Assert(context != null);
             Debug.Assert(palette != null);
             Debug.Assert(values != null);
@@ -1079,8 +1081,8 @@ namespace ComponentFactory.Krypton.Toolkit
 
                 // Allocate space for each required content in turn
                 AllocateImageSpace(memento, palette, values, state, displayRect, rtl, ref allocation);
-                AllocateShortTextSpace(context, context.Graphics, memento, palette, values, state, displayRect, rtl, spacingGap, ref allocation, composition);
-                AllocateLongTextSpace(context, context.Graphics, memento, palette, values, state, displayRect, rtl, spacingGap, ref allocation, composition);
+                AllocateShortTextSpace(context, context.Graphics, memento, palette, values, state, displayRect, rtl, spacingGap, ref allocation, composition, glowing);
+                AllocateLongTextSpace(context, context.Graphics, memento, palette, values, state, displayRect, rtl, spacingGap, ref allocation, composition, glowing);
 
                 // Add up total allocated for rows and columns
                 int allocatedWidth = AllocatedTotalWidth(allocation, -1, -1, spacingGap);
@@ -1128,15 +1130,17 @@ namespace ComponentFactory.Krypton.Toolkit
 		/// <param name="orientation">Visual orientation of the content.</param>
 		/// <param name="state">State associated with rendering.</param>
         /// <param name="composition">Should draw on a composition element.</param>
+        /// <param name="glowing">If composition, should glowing be drawn.</param>
         /// <returns>Memento with cached information.</returns>
 		public override IDisposable LayoutContent(ViewLayoutContext context,
-                                                  Rectangle availableRect,
-                                                  IPaletteContent palette,
-                                                  IContentValues values,
-                                                  VisualOrientation orientation,
-                                                  PaletteState state,
-                                                  bool composition)
-        {
+											      Rectangle availableRect,
+											      IPaletteContent palette,
+											      IContentValues values,
+											      VisualOrientation orientation,
+											      PaletteState state,
+                                                  bool composition,
+                                                  bool glowing)
+		{
             Debug.Assert(context != null);
             Debug.Assert(palette != null);
             Debug.Assert(values != null);
@@ -1210,8 +1214,8 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Allocate space for each required content in turn
             AllocateImageSpace(memento, palette, values, state, availableRect, rtl, ref allocation);
-            AllocateShortTextSpace(context, context.Graphics, memento, palette, values, state, availableRect, rtl, spacingGap, ref allocation, composition);
-            AllocateLongTextSpace(context, context.Graphics, memento, palette, values, state, availableRect, rtl, spacingGap, ref allocation, composition);
+            AllocateShortTextSpace(context, context.Graphics, memento, palette, values, state, availableRect, rtl, spacingGap, ref allocation, composition, glowing);
+            AllocateLongTextSpace(context, context.Graphics, memento, palette, values, state, availableRect, rtl, spacingGap, ref allocation, composition, glowing);
 
             // Find the width of the columns and heights of the rows
             int[] colWidths = AllocatedColumnWidths(allocation, -1);
@@ -1288,6 +1292,7 @@ namespace ComponentFactory.Krypton.Toolkit
         /// <param name="orientation">Visual orientation of the content.</param>
         /// <param name="state">State associated with rendering.</param>
         /// <param name="composition">Drawing onto a composition element.</param>
+        /// <param name="glowing">If composition should glowing be drawn.</param>
         /// <param name="allowFocusRect">Allow drawing of focus rectangle.</param>
         public override void DrawContent(RenderContext context,
                                          Rectangle displayRect,
@@ -1296,6 +1301,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                          VisualOrientation orientation,
                                          PaletteState state,
                                          bool composition,
+                                         bool glowing,
                                          bool allowFocusRect)
         {
             Debug.Assert(context != null);
@@ -1354,6 +1360,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                      context.Control.RightToLeft,
                                                      standard.Orientation,
                                                      composition,
+                                                     glowing,
                                                      state,
                                                      standard.ShortTextMemento))
                         {
@@ -1367,6 +1374,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                     context.Control.RightToLeft,
                                                     standard.Orientation,
                                                     composition,
+                                                    glowing,
                                                     state,
                                                     standard.ShortTextMemento);
                         }
@@ -1390,6 +1398,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                          context.Control.RightToLeft,
                                                          standard.Orientation,
                                                          composition,
+                                                         glowing,
                                                          state,
                                                          standard.ShortTextMemento))
                             {
@@ -1402,6 +1411,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                         context.Control.RightToLeft,
                                                         standard.Orientation,
                                                         composition,
+                                                        glowing,
                                                         state,
                                                         standard.ShortTextMemento);
                             }
@@ -1433,6 +1443,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                      context.Control.RightToLeft,
                                                      standard.Orientation,
                                                      composition,
+                                                     glowing,
                                                      state,
                                                      standard.LongTextMemento))
                         {
@@ -1445,6 +1456,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                     context.Control.RightToLeft,
                                                     standard.Orientation,
                                                     composition,
+                                                    glowing,
                                                     state,
                                                     standard.LongTextMemento);
                         }
@@ -1468,6 +1480,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                          context.Control.RightToLeft,
                                                          standard.Orientation,
                                                          composition,
+                                                         glowing,
                                                          state,
                                                          standard.LongTextMemento))
                             {
@@ -1480,6 +1493,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                         context.Control.RightToLeft,
                                                         standard.Orientation,
                                                         composition,
+                                                        glowing,
                                                         state,
                                                         standard.LongTextMemento);
                             }
@@ -3442,11 +3456,11 @@ namespace ComponentFactory.Krypton.Toolkit
 
                     // Draw a marker for each value between min and max
                     float factor = (range == 0) ? float.MinValue : (float)drawRect.Width / range;
-                    float top = drawRect.Y + 1;
-                    float bottom = drawRect.Bottom - 2;
                     for (int i = minimum, y = 0; i <= maximum; i += frequency, y += frequency)
                     {
                         float offset = drawRect.X + (factor * y);
+                        float top;
+                        float bottom;
                         if (!topRight)
                         {
                             top = drawRect.Y + 2;
@@ -3478,11 +3492,11 @@ namespace ComponentFactory.Krypton.Toolkit
 
                     // Draw a marker for each value between min and max
                     float factor = (range == 0) ? float.MinValue : (float)drawRect.Height / range;
-                    float left = drawRect.X + 1;
-                    float right = drawRect.Right - 2;
                     for (int i = minimum, y = 0; i <= maximum; i += frequency, y += frequency)
                     {
                         float offset = drawRect.Y + (factor * y);
+                        float left;
+                        float right;
                         if (topRight)
                         {
                             left = drawRect.X + 2;
@@ -5675,6 +5689,7 @@ namespace ComponentFactory.Krypton.Toolkit
         #endregion
 
         #region Implementation Content
+       
         private static Padding ContentPaddingForButtonForm(Padding original,
                                                            ViewLayoutContext context,
                                                            int allocatedHeight)
@@ -5805,7 +5820,8 @@ namespace ComponentFactory.Krypton.Toolkit
                                                    RightToLeft rtl,
                                                    int spacingGap,
                                                    ref Size[,] allocation,
-                                                   bool composition)
+                                                   bool composition,
+                                                   bool glowing)
         {
             // By default, we cannot draw the text
             memento.DrawShortText = false;
@@ -5854,6 +5870,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                                       paletteContent.GetContentShortTextPrefix(state),
                                                                       memento.ShortTextHint,
                                                                       composition,
+                                                                      glowing,
                                                                       fontChanged);
 
                 // Space required for short text starts with the text width itself
@@ -5887,7 +5904,8 @@ namespace ComponentFactory.Krypton.Toolkit
                                                   RightToLeft rtl,
                                                   int spacingGap,
                                                   ref Size[,] allocation,
-                                                  bool composition)
+                                                  bool composition,
+                                                  bool glowing)
         {
             // By default, we cannot draw the text
             memento.DrawLongText = false;
@@ -5936,6 +5954,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                                      paletteContent.GetContentLongTextPrefix(state),
                                                                      memento.LongTextHint,
                                                                      composition,
+                                                                     glowing,
                                                                      fontChanged);
 
                 // Space required for long text starts with the text width itself

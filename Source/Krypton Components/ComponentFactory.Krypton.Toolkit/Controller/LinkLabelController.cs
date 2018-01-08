@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -27,12 +27,12 @@ namespace ComponentFactory.Krypton.Toolkit
 
 	    private bool _mouseOver;
         private DateTime _clickTime;
-        private ViewDrawContent _target;
-        private IPaletteContent _paletteDisabled;
-        private IPaletteContent _paletteNormal;
-        private IPaletteContent _paletteTracking;
-        private IPaletteContent _palettePressed;
-        private PaletteContentInheritOverride _pressed;
+        private readonly ViewDrawContent _target;
+        private readonly IPaletteContent _paletteDisabled;
+        private readonly IPaletteContent _paletteNormal;
+        private readonly IPaletteContent _paletteTracking;
+        private readonly IPaletteContent _palettePressed;
+        private readonly PaletteContentInheritOverride _pressed;
         private NeedPaintHandler _needPaint;
         #endregion
 

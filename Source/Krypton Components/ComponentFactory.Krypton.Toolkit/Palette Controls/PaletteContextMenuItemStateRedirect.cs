@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 namespace ComponentFactory.Krypton.Toolkit
@@ -16,12 +16,12 @@ namespace ComponentFactory.Krypton.Toolkit
 	public class PaletteContextMenuItemStateRedirect : Storage
 	{
 		#region Instance Fields
-        private PaletteRedirectDouble _itemHighlight;
-        private PaletteRedirectTriple _itemImage;
-        private PaletteRedirectContent _itemShortcutText;
-        private PaletteRedirectDouble _itemSplit;
-        private PaletteRedirectContent _itemStandard;
-        private PaletteRedirectContent _itemAlternate;
+        private readonly PaletteRedirectDouble _itemHighlight;
+        private readonly PaletteRedirectTriple _itemImage;
+        private readonly PaletteRedirectContent _itemShortcutText;
+        private readonly PaletteRedirectDouble _itemSplit;
+        private readonly PaletteRedirectContent _itemStandard;
+        private readonly PaletteRedirectContent _itemAlternate;
 
 	    #endregion
 

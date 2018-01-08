@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -31,9 +31,9 @@ namespace ComponentFactory.Krypton.Toolkit
         #endregion
 
         #region Instance Fields
-        private IKryptonMonthCalendar _calendar;
-        private ViewLayoutMonths _months;
-        private IDisposable[] _dayMementos;
+        private readonly IKryptonMonthCalendar _calendar;
+        private readonly ViewLayoutMonths _months;
+        private readonly IDisposable[] _dayMementos;
         private string _drawText;
         private DateTime _firstDay;
         private DateTime _weekDay;
@@ -184,7 +184,7 @@ namespace ComponentFactory.Krypton.Toolkit
                     IPaletteTriple paletteTriple = (Enabled ? _calendar.StateNormal.Day : _calendar.StateDisabled.Day);
 
                     _dayMementos[j] = context.Renderer.RenderStandardContent.LayoutContent(context, layoutRectWeek, paletteTriple.PaletteContent,
-                                                                                           this, VisualOrientation.Top, paletteState, false);
+                                                                                           this, VisualOrientation.Top, paletteState, false, false);
                 }
 
                 // Move to next week
@@ -247,7 +247,7 @@ namespace ComponentFactory.Krypton.Toolkit
                     if (paletteTriple.PaletteContent.GetContentDraw(paletteState) == InheritBool.True)
                     {
                         context.Renderer.RenderStandardContent.DrawContent(context, drawRectWeek, paletteTriple.PaletteContent, _dayMementos[j],
-                                                                           VisualOrientation.Top, paletteState, false, true);
+                                                                           VisualOrientation.Top, paletteState, false,false, true);
                     }
                 }
 

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -17,8 +17,8 @@ namespace ComponentFactory.Krypton.Toolkit
     internal class KryptonCheckButtonActionList : KryptonButtonActionList
     {
         #region Instance Fields
-        private KryptonCheckButton _checkButton;
-        private IComponentChangeService _service;
+        private readonly KryptonCheckButton _checkButton;
+        private readonly IComponentChangeService _service;
         private string _action;
         #endregion
 
@@ -93,7 +93,7 @@ namespace ComponentFactory.Krypton.Toolkit
             {
                 // Add the list of button specific actions
                 actions.Add(new DesignerActionHeaderItem("Appearance"));
-                actions.Add(new KryptonDesignerActionItem(new DesignerVerb(_action, new EventHandler(OnCheckedClick)), "Appearance"));
+                actions.Add(new KryptonDesignerActionItem(new DesignerVerb(_action, OnCheckedClick), "Appearance"));
                 actions.Add(new DesignerActionPropertyItem("ButtonStyle", "Style", "Appearance", "Button style"));
                 actions.Add(new DesignerActionPropertyItem("Orientation", "Orientation", "Appearance", "Button orientation"));
                 actions.Add(new DesignerActionHeaderItem("Values"));

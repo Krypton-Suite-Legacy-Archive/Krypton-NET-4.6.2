@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -16,8 +16,8 @@ namespace ComponentFactory.Krypton.Toolkit
     internal class KryptonHeaderGroupActionList : DesignerActionList
     {
         #region Instance Fields
-        private KryptonHeaderGroup _headerGroup;
-        private IComponentChangeService _service;
+        private readonly KryptonHeaderGroup _headerGroup;
+        private readonly IComponentChangeService _service;
         private DesignerVerb _visible1;
         private DesignerVerb _visible2;
         private string _text1;
@@ -183,8 +183,8 @@ namespace ComponentFactory.Krypton.Toolkit
                 _text2 = (header2Visible ? "Hide secondary header" : "Show secondary header");
 
                 // Create the two verbs for toggling the header visibility
-                _visible1 = new DesignerVerb(_text1, new EventHandler(OnVisibleClick));
-                _visible2 = new DesignerVerb(_text2, new EventHandler(OnVisibleClick));
+                _visible1 = new DesignerVerb(_text1, OnVisibleClick);
+                _visible2 = new DesignerVerb(_text2, OnVisibleClick);
 
                 // Add the list of panel specific actions
                 actions.Add(new DesignerActionHeaderItem("Appearance"));

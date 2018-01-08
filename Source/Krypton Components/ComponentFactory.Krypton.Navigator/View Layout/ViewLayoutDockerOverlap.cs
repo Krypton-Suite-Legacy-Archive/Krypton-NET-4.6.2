@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -21,9 +21,9 @@ namespace ComponentFactory.Krypton.Navigator
     internal class ViewLayoutDockerOverlap : ViewLayoutDocker
     {
         #region Instance Fields
-        private ViewDrawCanvas _drawCanvas;
-        private ViewLayoutInsetOverlap _layoutOverlap;
-        private ViewLayoutBarForTabs _layoutTabs;
+        private readonly ViewDrawCanvas _drawCanvas;
+        private readonly ViewLayoutInsetOverlap _layoutOverlap;
+        private readonly ViewLayoutBarForTabs _layoutTabs;
         #endregion
 
         #region Identity

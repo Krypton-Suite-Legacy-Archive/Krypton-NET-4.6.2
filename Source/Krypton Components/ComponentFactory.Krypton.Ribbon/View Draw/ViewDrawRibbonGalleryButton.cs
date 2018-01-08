@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -23,14 +23,14 @@ namespace ComponentFactory.Krypton.Ribbon
     internal class ViewDrawRibbonGalleryButton : ViewLeaf, IContentValues
     {
         #region Instance Fields
-        private IPalette _palette;
-        private GalleryImages _images;
-        private GalleryButtonController _controller;
-        private PaletteRibbonGalleryButton _button;
-        private PaletteBackToPalette _paletteBack;
-        private PaletteBorderToPalette _paletteBorder;
-        private PaletteContentToPalette _paletteContent;
-        private PaletteRelativeAlign _alignment;
+        private readonly IPalette _palette;
+        private readonly GalleryImages _images;
+        private readonly GalleryButtonController _controller;
+        private readonly PaletteRibbonGalleryButton _button;
+        private readonly PaletteBackToPalette _paletteBack;
+        private readonly PaletteBorderToPalette _paletteBorder;
+        private readonly PaletteContentToPalette _paletteContent;
+        private readonly PaletteRelativeAlign _alignment;
         private IDisposable _mementoBack;
         private IDisposable _mementoContent;
         private NeedPaintHandler _needPaint;
@@ -67,7 +67,7 @@ namespace ComponentFactory.Krypton.Ribbon
             _paletteBorder = new PaletteBorderToPalette(palette, PaletteBorderStyle.ButtonGallery);
             _paletteContent = new PaletteContentToPalette(palette, PaletteContentStyle.ButtonGallery);
             _controller = new GalleryButtonController(this, needPaint, (alignment != PaletteRelativeAlign.Far));
-            _controller.Click += new MouseEventHandler(OnButtonClick);
+            _controller.Click += OnButtonClick;
             MouseController = _controller;
         }
 
@@ -116,7 +116,7 @@ namespace ComponentFactory.Krypton.Ribbon
             // Grab the required size for the content images
             return context.Renderer.RenderStandardContent.GetContentPreferredSize(context, _paletteContent, 
                                                                                   this, VisualOrientation.Top,
-                                                                                  State, false);
+                                                                                  State, false, false);
         }
 
 		/// <summary>
@@ -141,7 +141,7 @@ namespace ComponentFactory.Krypton.Ribbon
             _mementoContent = context.Renderer.RenderStandardContent.LayoutContent(context, ClientRectangle, 
                                                                                    _paletteContent, this, 
                                                                                    VisualOrientation.Top,
-                                                                                   State, false);
+                                                                                   State, false, false);
         }
         #endregion
 
@@ -181,7 +181,7 @@ namespace ComponentFactory.Krypton.Ribbon
                 {
                     context.Renderer.RenderStandardContent.DrawContent(context, ClientRectangle, _paletteContent, 
                                                                        _mementoContent, VisualOrientation.Top, 
-                                                                       State, false, false);
+                                                                       State, false, false,  false);
                 }
 
                 // Are we allowed to draw border?

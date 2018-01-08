@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -28,11 +28,11 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbon _ribbon;
-        private ViewDrawRibbonQATBorder _border;
-        private ViewLayoutRibbonQATFromRibbon _borderContents;
-        private ViewDrawRibbonQATExtraButtonMini _extraButton;
-        private ViewLayoutSeparator _extraSeparator;
+        private readonly KryptonRibbon _ribbon;
+        private readonly ViewDrawRibbonQATBorder _border;
+        private readonly ViewLayoutRibbonQATFromRibbon _borderContents;
+        private readonly ViewDrawRibbonQATExtraButtonMini _extraButton;
+        private readonly ViewLayoutSeparator _extraSeparator;
         #endregion
 
         #region Identity
@@ -59,7 +59,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
             // Need the extra button to show after the border area
             _extraButton = new ViewDrawRibbonQATExtraButtonMini(ribbon, needPaintDelegate);
-            _extraButton.ClickAndFinish += new ClickAndFinishHandler(OnExtraButtonClick);
+            _extraButton.ClickAndFinish += OnExtraButtonClick;
 
             // Add layout contents
             Add(_border, ViewDockStyle.Fill);
@@ -85,7 +85,7 @@ namespace ComponentFactory.Krypton.Ribbon
         {
             if (disposing)
             {
-                _extraButton.ClickAndFinish -= new ClickAndFinishHandler(OnExtraButtonClick);
+                _extraButton.ClickAndFinish -= OnExtraButtonClick;
             }
 
             base.Dispose(disposing);
@@ -172,13 +172,9 @@ namespace ComponentFactory.Krypton.Ribbon
         public ViewBase GetFirstQATView()
         {
             // Find the first qat button
-            ViewBase view = _borderContents.GetFirstQATView();
+            ViewBase view = _borderContents.GetFirstQATView() ?? _extraButton;
 
             // If defined then use the extra button
-            if (view == null)
-            {
-                view = _extraButton;
-            }
 
             return view;
         }

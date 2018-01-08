@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -142,11 +142,11 @@ namespace ComponentFactory.Krypton.Toolkit
 
         #region Instance Fields
         private KryptonColorTable2007 _table;
-        private Color[] _ribbonColors;
-        private Color[] _trackBarColors;
-        private ImageList _checkBoxList;
-        private ImageList _galleryButtonList;
-        private Image[] _radioButtonArray;
+        private readonly Color[] _ribbonColors;
+        private readonly Color[] _trackBarColors;
+        private readonly ImageList _checkBoxList;
+        private readonly ImageList _galleryButtonList;
+        private readonly Image[] _radioButtonArray;
         private Font _boldFont;
         private Font _italicFont;
         private Font _header1ShortFont;
@@ -10066,15 +10066,7 @@ namespace ComponentFactory.Krypton.Toolkit
         /// </summary>
         public override KryptonColorTable ColorTable
         {
-            get
-            {
-                if (_table == null)
-                {
-                    _table = new KryptonColorTable2007(_ribbonColors, InheritBool.True, this);
-                }
-
-                return _table;
-            }
+            get { return _table ?? (_table = new KryptonColorTable2007(_ribbonColors, InheritBool.True, this)); }
         }
         #endregion
 

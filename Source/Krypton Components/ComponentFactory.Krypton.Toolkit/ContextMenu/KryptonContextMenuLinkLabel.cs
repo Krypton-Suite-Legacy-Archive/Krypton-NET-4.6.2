@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -32,14 +32,14 @@ namespace ComponentFactory.Krypton.Toolkit
         private string _extraText;
         private Image _image;
         private Color _imageTransparentColor;
-        private PaletteContentInheritRedirect _stateNormalRedirect;
-        private PaletteContentInheritRedirect _stateVisitedRedirect;
-        private PaletteContentInheritRedirect _stateNotVisitedRedirect;
-        private PaletteContentInheritRedirect _statePressedRedirect;
-        private PaletteContentInheritRedirect _stateFocusRedirect;
-        private PaletteContentInheritOverride _overrideVisited;
-        private PaletteContentInheritOverride _overrideNotVisited;
-        private PaletteContentInheritOverride _overridePressed;
+        private readonly PaletteContentInheritRedirect _stateNormalRedirect;
+        private readonly PaletteContentInheritRedirect _stateVisitedRedirect;
+        private readonly PaletteContentInheritRedirect _stateNotVisitedRedirect;
+        private readonly PaletteContentInheritRedirect _statePressedRedirect;
+        private readonly PaletteContentInheritRedirect _stateFocusRedirect;
+        private readonly PaletteContentInheritOverride _overrideVisited;
+        private readonly PaletteContentInheritOverride _overrideNotVisited;
+        private readonly PaletteContentInheritOverride _overridePressed;
         private KryptonCommand _command;
         private LabelStyle _style;
         #endregion

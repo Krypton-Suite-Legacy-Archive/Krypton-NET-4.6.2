@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Collections;
@@ -48,8 +48,8 @@ namespace ComponentFactory.Krypton.Toolkit
             if (_comboBox != null)
             {
                 // Hook into combobox events
-                _comboBox.GetViewManager().MouseUpProcessed += new MouseEventHandler(OnComboBoxMouseUp);
-                _comboBox.GetViewManager().DoubleClickProcessed += new PointHandler(OnComboBoxDoubleClick);
+                _comboBox.GetViewManager().MouseUpProcessed += OnComboBoxMouseUp;
+                _comboBox.GetViewManager().DoubleClickProcessed += OnComboBoxDoubleClick;
             }
 
             // Get access to the design services
@@ -58,7 +58,7 @@ namespace ComponentFactory.Krypton.Toolkit
             _selectionService = (ISelectionService)GetService(typeof(ISelectionService));
 
             // We need to know when we are being removed
-            _changeService.ComponentRemoving += new ComponentEventHandler(OnComponentRemoving);
+            _changeService.ComponentRemoving += OnComponentRemoving;
         }
 
         /// <summary>

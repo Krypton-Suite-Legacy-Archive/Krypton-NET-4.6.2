@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -38,7 +38,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private int _trackingIndex;
         private int _cacheTrackingIndex;
         private int _eventTrackingIndex;
-        private Timer _trackingEventTimer;
+        private readonly Timer _trackingEventTimer;
         #endregion
 
         #region Events
@@ -55,6 +55,14 @@ namespace ComponentFactory.Krypton.Toolkit
         [Category("Action")]
         [Description("Occurs when user is tracking over an image.")]
         public event EventHandler<ImageSelectEventArgs> TrackingImage;
+
+        /// <summary>
+        /// Occurs when the value of the SelectedIndex property changes.
+        /// </summary>
+        [Category("Action")]
+        [Description("Occurs when an image is clicked.")]
+        public event EventHandler Click;
+
         #endregion
 
         #region Identity
@@ -78,7 +86,7 @@ namespace ComponentFactory.Krypton.Toolkit
             {
                 Interval = 120
             };
-            _trackingEventTimer.Tick += new EventHandler(OnTrackingTick);
+            _trackingEventTimer.Tick += OnTrackingTick;
         }
 
         /// <summary>
@@ -325,6 +333,20 @@ namespace ComponentFactory.Krypton.Toolkit
             _eventTrackingIndex = e.ImageIndex;
             TrackingImage?.Invoke(this, e);
         }
+
+        /// <summary>
+        /// Raises the Click event.
+        /// </summary>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        internal virtual void OnClick(EventArgs e)
+        {
+            if (Click != null)
+            {
+                Click(this, e);
+            }
+        }
+       
+
         #endregion
 
         #region Internal

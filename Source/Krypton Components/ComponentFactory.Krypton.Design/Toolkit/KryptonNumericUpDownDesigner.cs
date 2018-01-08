@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Collections;
@@ -48,8 +48,8 @@ namespace ComponentFactory.Krypton.Toolkit
             if (_numericUpDown != null)
             {
                 // Hook into numeric updown events
-                _numericUpDown.GetViewManager().MouseUpProcessed += new MouseEventHandler(OnNumericUpDownMouseUp);
-                _numericUpDown.GetViewManager().DoubleClickProcessed += new PointHandler(OnNumericUpDownDoubleClick);
+                _numericUpDown.GetViewManager().MouseUpProcessed += OnNumericUpDownMouseUp;
+                _numericUpDown.GetViewManager().DoubleClickProcessed += OnNumericUpDownDoubleClick;
             }
 
             // Get access to the design services
@@ -58,7 +58,7 @@ namespace ComponentFactory.Krypton.Toolkit
             _selectionService = (ISelectionService)GetService(typeof(ISelectionService));
 
             // We need to know when we are being removed
-            _changeService.ComponentRemoving += new ComponentEventHandler(OnComponentRemoving);
+            _changeService.ComponentRemoving += OnComponentRemoving;
         }
 
         /// <summary>

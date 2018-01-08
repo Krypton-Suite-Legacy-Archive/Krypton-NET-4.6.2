@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -33,7 +33,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                        IRenderGlyph
 	{
 		#region Static Fields
-        private static object _threadLock = new object();
+        private static readonly object _threadLock = new object();
 
         private static readonly ColorMatrix _matrixGrayScale = new ColorMatrix(new float[][]{new float[]{0.3f,0.3f,0.3f,0,0},
 															                                 new float[]{0.59f,0.59f,0.59f,0,0},
@@ -259,13 +259,15 @@ namespace ComponentFactory.Krypton.Toolkit
 		/// <param name="orientation">Visual orientation of the content.</param>
         /// <param name="state">State associated with rendering.</param>
         /// <param name="composition">Drawing onto a composition element.</param>
+        /// <param name="glowing">If composition, should glowing be drawn.</param>
         /// <returns>Preferred size.</returns>
 		public abstract Size GetContentPreferredSize(ViewLayoutContext context,
 													 IPaletteContent palette,
 													 IContentValues values,
 													 VisualOrientation orientation,
 													 PaletteState state,
-                                                     bool composition);
+                                                     bool composition,
+                                                     bool glowing);
 
 		/// <summary>
 		/// Perform layout calculations on the provided content.
@@ -277,6 +279,7 @@ namespace ComponentFactory.Krypton.Toolkit
 		/// <param name="orientation">Visual orientation of the content.</param>
         /// <param name="state">State associated with rendering.</param>
         /// <param name="composition">Drawing onto a composition element.</param>
+        /// <param name="glowing">If composition, should glowing be drawn.</param>
         /// <returns>Memento with cached information.</returns>
 		public abstract IDisposable LayoutContent(ViewLayoutContext context,
 											      Rectangle availableRect,
@@ -284,7 +287,8 @@ namespace ComponentFactory.Krypton.Toolkit
 											      IContentValues values,
 											      VisualOrientation orientation,
 											      PaletteState state,
-                                                  bool composition);
+                                                  bool composition, 
+                                                  bool glowing);
 
 		/// <summary>
 		/// Perform draw of content using provided memento.
@@ -296,6 +300,7 @@ namespace ComponentFactory.Krypton.Toolkit
 		/// <param name="orientation">Visual orientation of the content.</param>
         /// <param name="state">State associated with rendering.</param>
         /// <param name="composition">Drawing onto a composition element.</param>
+        /// <param name="glowing">If compisition, should glowing be drawn.</param>
         /// <param name="allowFocusRect">Allow drawing of focus rectangle.</param>
         public abstract void DrawContent(RenderContext context,
 										 Rectangle displayRect,
@@ -304,6 +309,7 @@ namespace ComponentFactory.Krypton.Toolkit
 										 VisualOrientation orientation,
 										 PaletteState state,
                                          bool composition,
+                                         bool glowing,
                                          bool allowFocusRect);
 
         /// <summary>

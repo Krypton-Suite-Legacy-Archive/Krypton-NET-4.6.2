@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -22,8 +22,8 @@ namespace ComponentFactory.Krypton.Ribbon
                                                IContentValues
 	{
 		#region Instance Fields
-        private KryptonGallery _gallery;
-        private GalleryItemController _controller;
+        private readonly KryptonGallery _gallery;
+        private readonly GalleryItemController _controller;
         private ImageList _imageList;
         private Image _image;
         private int _imageIndex;
@@ -51,7 +51,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
             // Need controller to handle tracking/pressing etc
             _controller = new GalleryItemController(this, layout, needPaint);
-            _controller.Click += new MouseEventHandler(OnItemClick);
+            _controller.Click += OnItemClick;
             MouseController = _controller;
             SourceController = _controller;
             KeyController = _controller;

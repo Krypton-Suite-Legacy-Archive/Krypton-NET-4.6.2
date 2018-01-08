@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -336,7 +336,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private static readonly Blend _separatorLightBlend;
         private static readonly Blend _separatorDarkBlend;
         private static readonly Color _disabled = Color.FromArgb(167, 167, 167);
-        private static GradientItemColors _disabledItem = new GradientItemColorsDisabled(Color.FromArgb(236, 199, 87), Color.FromArgb(251, 242, 215), Color.FromArgb(247, 224, 137));
+        private static readonly GradientItemColors _disabledItem = new GradientItemColorsDisabled(Color.FromArgb(236, 199, 87), Color.FromArgb(251, 242, 215), Color.FromArgb(247, 224, 137));
         #endregion
 
         #region Instance Fields

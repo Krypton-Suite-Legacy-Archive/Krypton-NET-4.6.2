@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -7354,26 +7354,14 @@ namespace ComponentFactory.Krypton.Toolkit
             {
                 default:
                 case PaletteRibbonGalleryButton.Up:
-                        if (_galleryImageUp == null)
-                    {
-                        _galleryImageUp = CreateGalleryUpImage(SystemColors.ControlText);
-                    }
+                    return _galleryImageUp ?? (_galleryImageUp = CreateGalleryUpImage(SystemColors.ControlText));
 
-                    return _galleryImageUp;
                 case PaletteRibbonGalleryButton.Down:
-                    if (_galleryImageDown == null)
-                    {
-                        _galleryImageDown = CreateGalleryDownImage(SystemColors.ControlText);
-                    }
+                    return _galleryImageDown ?? (_galleryImageDown = CreateGalleryDownImage(SystemColors.ControlText));
 
-                    return _galleryImageDown;
                 case PaletteRibbonGalleryButton.DropDown:
-                    if (_galleryImageDropDown == null)
-                    {
-                        _galleryImageDropDown = CreateGalleryDropDownImage(SystemColors.ControlText);
-                    }
-
-                    return _galleryImageDropDown;
+                    return _galleryImageDropDown ??
+                           (_galleryImageDropDown = CreateGalleryDropDownImage(SystemColors.ControlText));
             }
         }
         #endregion
@@ -9025,13 +9013,7 @@ namespace ComponentFactory.Krypton.Toolkit
             get
             {
                 // If the table has not yet been generated
-                if (_table == null)
-                {
-                    // Ask the virtual method to generate the table
-                    _table = GenerateColorTable();
-                }
-
-                return _table;
+                return _table ?? (_table = GenerateColorTable());
             }
         }
 

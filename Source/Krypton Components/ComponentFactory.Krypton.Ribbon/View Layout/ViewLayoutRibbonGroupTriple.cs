@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -30,15 +30,15 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbon _ribbon;
-        private KryptonRibbonGroupTriple _ribbonTriple;
+        private readonly KryptonRibbon _ribbon;
+        private readonly KryptonRibbonGroupTriple _ribbonTriple;
         private ViewDrawRibbonDesignGroupTriple _viewAddItem;
-        private NeedPaintHandler _needPaint;
+        private readonly NeedPaintHandler _needPaint;
         private GroupItemSize _currentSize;
         private ItemToView _itemToView;
-        private ViewToSize _smallCache;
-        private ViewToSize _mediumCache;
-        private ViewToSize _largeCache;
+        private readonly ViewToSize _smallCache;
+        private readonly ViewToSize _mediumCache;
+        private readonly ViewToSize _largeCache;
         private int _smallWidest;
         private int _mediumWidest;
         #endregion
@@ -76,14 +76,14 @@ namespace ComponentFactory.Krypton.Ribbon
             SetCurrentSize(ribbonTriple.ItemSizeCurrent);
 
             // Hook into changes in the ribbon triple definition
-            _ribbonTriple.PropertyChanged += new PropertyChangedEventHandler(OnTriplePropertyChanged);
+            _ribbonTriple.PropertyChanged += OnTriplePropertyChanged;
             _ribbonTriple.TripleView = this;
 
             // At design time we want to track the mouse and show feedback
             if (_ribbon.InDesignMode)
             {
                 ViewHightlightController controller = new ViewHightlightController(this, needPaint);
-                controller.ContextClick += new MouseEventHandler(OnContextClick);
+                controller.ContextClick += OnContextClick;
                 MouseController = controller;
             }
         }
@@ -107,7 +107,7 @@ namespace ComponentFactory.Krypton.Ribbon
             if (disposing)
             {
                 // Must unhook to prevent memory leaks
-                _ribbonTriple.PropertyChanged -= new PropertyChangedEventHandler(OnTriplePropertyChanged);
+                _ribbonTriple.PropertyChanged -= OnTriplePropertyChanged;
             }
 
             base.Dispose(disposing);

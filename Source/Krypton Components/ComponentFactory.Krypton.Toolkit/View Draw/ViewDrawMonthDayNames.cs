@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -21,9 +21,9 @@ namespace ComponentFactory.Krypton.Toolkit
                                          IContentValues
 	{
 		#region Instance Fields
-        private IKryptonMonthCalendar _calendar;
-        private ViewLayoutMonths _months;
-        private IDisposable[] _dayMementos;
+        private readonly IKryptonMonthCalendar _calendar;
+        private readonly ViewLayoutMonths _months;
+        private readonly IDisposable[] _dayMementos;
         private string _drawText;
         #endregion
 
@@ -119,7 +119,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 }
 
                 _dayMementos[i] = context.Renderer.RenderStandardContent.LayoutContent(context, layoutRect, _calendar.StateNormal.DayOfWeek.Content, this, 
-                                                                                       VisualOrientation.Top, state, false);
+                                                                                       VisualOrientation.Top, state, false,false);
 
                 // Move across to next day
                 layoutRect.X += _months.SizeDays.Width;
@@ -149,8 +149,9 @@ namespace ComponentFactory.Krypton.Toolkit
                 // Draw using memento cached from the layout call
                 if (_dayMementos[day % 7] != null)
                 {
-                    context.Renderer.RenderStandardContent.DrawContent(context, drawRect, _calendar.StateNormal.DayOfWeek.Content, _dayMementos[day % 7], 
-                                                                       VisualOrientation.Top, state, false, true);
+                    context.Renderer.RenderStandardContent.DrawContent(context, drawRect,
+                        _calendar.StateNormal.DayOfWeek.Content, _dayMementos[day % 7],
+                        VisualOrientation.Top, state, false, false, true);
                 }
 
                 // Move across to next day

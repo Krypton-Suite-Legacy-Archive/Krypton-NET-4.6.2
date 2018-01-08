@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -22,7 +22,7 @@ namespace ComponentFactory.Krypton.Toolkit
     {
         #region Instance Fields
 
-        private NeedPaintHandler _needPaintDelegate;
+        private readonly NeedPaintHandler _needPaintDelegate;
         private bool _viewportVertical;
         #endregion
 
@@ -90,7 +90,7 @@ namespace ComponentFactory.Krypton.Toolkit
             Viewport.Add(viewportFiller);
 
             // Hook into animation step events
-            Viewport.AnimateStep += new EventHandler(OnAnimateStep);
+            Viewport.AnimateStep += OnAnimateStep;
 
             // To prevent the contents of the viewport from being able to draw outside
             // the viewport (such as having child controls) we use a ViewLayoutControl
@@ -107,8 +107,8 @@ namespace ComponentFactory.Krypton.Toolkit
             BorderEdgeH = new ViewDrawBorderEdge(paletteBorderEdge, System.Windows.Forms.Orientation.Horizontal);
 
             // Hook into scroll position changes
-            ScrollbarV.ScrollChanged += new EventHandler(OnScrollVChanged);
-            ScrollbarH.ScrollChanged += new EventHandler(OnScrollHChanged);
+            ScrollbarV.ScrollChanged += OnScrollVChanged;
+            ScrollbarH.ScrollChanged += OnScrollHChanged;
 
             // Add with appropriate docking style
             Add(ViewControl, ViewDockStyle.Fill);
@@ -128,9 +128,9 @@ namespace ComponentFactory.Krypton.Toolkit
             if (disposing)
             {
                 // Unhook from events
-                Viewport.AnimateStep -= new EventHandler(OnAnimateStep);
-                ScrollbarV.ScrollChanged -= new EventHandler(OnScrollVChanged);
-                ScrollbarH.ScrollChanged -= new EventHandler(OnScrollHChanged);
+                Viewport.AnimateStep -= OnAnimateStep;
+                ScrollbarV.ScrollChanged -= OnScrollVChanged;
+                ScrollbarH.ScrollChanged -= OnScrollHChanged;
             }
 
             base.Dispose(disposing);

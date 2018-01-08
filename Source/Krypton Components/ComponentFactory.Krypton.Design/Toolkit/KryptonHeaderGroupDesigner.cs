@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -39,11 +39,11 @@ namespace ComponentFactory.Krypton.Toolkit
             if (_headerGroup != null)
             {
                 // Unhook from events
-                _headerGroup.GetViewManager().MouseUpProcessed -= new MouseEventHandler(OnHeaderGroupMouseUp);
-                _headerGroup.GetViewManager().DoubleClickProcessed -= new PointHandler(OnHeaderGroupDoubleClick);
+                _headerGroup.GetViewManager().MouseUpProcessed -= OnHeaderGroupMouseUp;
+                _headerGroup.GetViewManager().DoubleClickProcessed -= OnHeaderGroupDoubleClick;
             }
 
-            _changeService.ComponentRemoving -= new ComponentEventHandler(OnComponentRemoving);
+            _changeService.ComponentRemoving -= OnComponentRemoving;
 
             // Must let base class do standard stuff
             base.Dispose(disposing);
@@ -74,8 +74,8 @@ namespace ComponentFactory.Krypton.Toolkit
             if (_headerGroup != null)
             {
                 // Hook into header event
-                _headerGroup.GetViewManager().MouseUpProcessed += new MouseEventHandler(OnHeaderGroupMouseUp);
-                _headerGroup.GetViewManager().DoubleClickProcessed += new PointHandler(OnHeaderGroupDoubleClick);
+                _headerGroup.GetViewManager().MouseUpProcessed += OnHeaderGroupMouseUp;
+                _headerGroup.GetViewManager().DoubleClickProcessed += OnHeaderGroupDoubleClick;
             }
 
             // The resizing handles around the control need to change depending on the
@@ -89,7 +89,7 @@ namespace ComponentFactory.Krypton.Toolkit
             _selectionService = (ISelectionService)GetService(typeof(ISelectionService));
 
             // We need to know when we are being removed
-            _changeService.ComponentRemoving += new ComponentEventHandler(OnComponentRemoving);
+            _changeService.ComponentRemoving += OnComponentRemoving;
 
             // Let the internal panel in the container be designable
             if (_headerGroup != null)

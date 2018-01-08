@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -32,8 +32,8 @@ namespace ComponentFactory.Krypton.Toolkit
     public class KryptonGroup : VisualControlContainment
 	{
 		#region Instance Fields
-		private ViewDrawDocker _drawDocker;
-	    private ViewLayoutFill _layoutFill;
+		private readonly ViewDrawDocker _drawDocker;
+	    private readonly ViewLayoutFill _layoutFill;
 	    private bool _forcedLayout;
         private bool _layingOut;
         #endregion
@@ -50,7 +50,7 @@ namespace ComponentFactory.Krypton.Toolkit
             StateNormal = new PaletteDouble(StateCommon, NeedPaintDelegate);
 
             // Create the internal panel used for containing content
-            Panel = new KryptonGroupPanel(this, StateCommon, StateDisabled, StateNormal, new NeedPaintHandler(OnGroupPanelPaint))
+            Panel = new KryptonGroupPanel(this, StateCommon, StateDisabled, StateNormal, OnGroupPanelPaint)
             {
 
                 // Make sure the panel back style always mimics our back style

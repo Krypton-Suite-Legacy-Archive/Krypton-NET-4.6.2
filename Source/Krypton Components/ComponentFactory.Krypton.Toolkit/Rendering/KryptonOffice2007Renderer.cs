@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -218,7 +218,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private const float CUT_TOOL_ITEM_MENU = 1.0f;
         private static readonly Blend _statusStripBlend;
         private static readonly Color _disabled = Color.FromArgb(167, 167, 167);
-        private static GradientItemColors _disabledItem = new GradientItemColors(Color.FromArgb(250, 250, 250), Color.FromArgb(243, 243, 243),
+        private static readonly GradientItemColors _disabledItem = new GradientItemColors(Color.FromArgb(250, 250, 250), Color.FromArgb(243, 243, 243),
                                                                                  Color.FromArgb(236, 236, 236), Color.FromArgb(230, 230, 230),
                                                                                  Color.FromArgb(243, 243, 243), Color.FromArgb(224, 224, 224),
                                                                                  Color.FromArgb(200, 200, 200), Color.FromArgb(210, 210, 210),

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -40,7 +40,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
         #region Instance Fields
         private PaletteRibbonShape _lastShape;
-        private KryptonRibbon _ribbon;
+        private readonly KryptonRibbon _ribbon;
         private int _groupHeightModifier;
         private int _groupsHeightModifier;
         #endregion
@@ -76,6 +76,7 @@ namespace ComponentFactory.Krypton.Ribbon
                         _groupHeightModifier = 0;
                         _groupsHeightModifier = 0;
                         break;
+                    case PaletteRibbonShape.Office2013:
                     case PaletteRibbonShape.Office2010:
                         _groupHeightModifier = -3;
                         _groupsHeightModifier = -3;

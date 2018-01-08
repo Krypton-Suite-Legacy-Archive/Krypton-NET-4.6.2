@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -38,7 +38,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private class InternalMaskedTextBox : MaskedTextBox
         {
             #region Instance Fields
-            private KryptonMaskedTextBox _kryptonMaskedTextBox;
+            private readonly KryptonMaskedTextBox _kryptonMaskedTextBox;
             private bool _mouseOver;
             #endregion
 
@@ -140,25 +140,16 @@ namespace ComponentFactory.Krypton.Toolkit
                     case PI.WM_PRINTCLIENT:
                     case PI.WM_PAINT:
                         {
-                            IntPtr hdc;
                             PI.PAINTSTRUCT ps = new PI.PAINTSTRUCT();
 
                             // Do we need to BeginPaint or just take the given HDC?
-                            if (m.WParam == IntPtr.Zero)
-                            {
-                                hdc = PI.BeginPaint(Handle, ref ps);
-                            }
-                            else
-                            {
-                                hdc = m.WParam;
-                            }
+                            IntPtr hdc = m.WParam == IntPtr.Zero ? PI.BeginPaint(Handle, ref ps) : m.WParam;
 
                             // Paint the entire area in the background color
                             using (Graphics g = Graphics.FromHdc(hdc))
                             {
                                 // Grab the client area of the control
-                                PI.RECT rect = new PI.RECT();
-                                PI.GetClientRect(Handle, out rect);
+                                PI.GetClientRect(Handle, out PI.RECT rect);
 
                                 // Drawn entire client area in the background color
                                 using (SolidBrush backBrush = new SolidBrush(BackColor))
@@ -335,11 +326,11 @@ namespace ComponentFactory.Krypton.Toolkit
         #region Instance Fields
 
         private VisualPopupToolTip _visualPopupToolTip;
-        private ButtonSpecManagerLayout _buttonManager;
-        private ViewLayoutDocker _drawDockerInner;
-        private ViewDrawDocker _drawDockerOuter;
-        private ViewLayoutFill _layoutFill;
-        private InternalMaskedTextBox _maskedTextBox;
+        private readonly ButtonSpecManagerLayout _buttonManager;
+        private readonly ViewLayoutDocker _drawDockerInner;
+        private readonly ViewDrawDocker _drawDockerOuter;
+        private readonly ViewLayoutFill _layoutFill;
+        private readonly InternalMaskedTextBox _maskedTextBox;
         private InputControlStyle _inputControlStyle;
         private Nullable<bool> _fixedActive;
         private bool _forcedLayout;
@@ -483,25 +474,25 @@ namespace ComponentFactory.Krypton.Toolkit
 
             // Create the internal text box used for containing content
             _maskedTextBox = new InternalMaskedTextBox(this);
-            _maskedTextBox.TrackMouseEnter += new EventHandler(OnMaskedTextBoxMouseChange);
-            _maskedTextBox.TrackMouseLeave += new EventHandler(OnMaskedTextBoxMouseChange);
-            _maskedTextBox.TextAlignChanged += new EventHandler(OnMaskedTextBoxTextAlignChanged);
-            _maskedTextBox.TextChanged += new EventHandler(OnMaskedTextBoxTextChanged);
-            _maskedTextBox.HideSelectionChanged += new EventHandler(OnMaskedTextBoxHideSelectionChanged);
-            _maskedTextBox.ModifiedChanged += new EventHandler(OnMaskedTextBoxModifiedChanged);
-            _maskedTextBox.ReadOnlyChanged += new EventHandler(OnMaskedTextBoxReadOnlyChanged);
-            _maskedTextBox.MaskChanged += new EventHandler(OnMaskedMaskChanged);
-            _maskedTextBox.IsOverwriteModeChanged += new EventHandler(OnMaskedIsOverwriteModeChanged);
-            _maskedTextBox.MaskInputRejected += new MaskInputRejectedEventHandler(OnMaskedMaskInputRejected);
-            _maskedTextBox.TypeValidationCompleted += new TypeValidationEventHandler(OnMaskedTypeValidationCompleted);
-            _maskedTextBox.GotFocus += new EventHandler(OnMaskedTextBoxGotFocus);
-            _maskedTextBox.LostFocus += new EventHandler(OnMaskedTextBoxLostFocus);
-            _maskedTextBox.KeyDown += new KeyEventHandler(OnMaskedTextBoxKeyDown);
-            _maskedTextBox.KeyUp += new KeyEventHandler(OnMaskedTextBoxKeyUp);
-            _maskedTextBox.KeyPress += new KeyPressEventHandler(OnMaskedTextBoxKeyPress);
-            _maskedTextBox.PreviewKeyDown += new PreviewKeyDownEventHandler(OnMaskedTextBoxPreviewKeyDown);
-            _maskedTextBox.Validating += new CancelEventHandler(OnMaskedTextBoxValidating);
-            _maskedTextBox.Validated += new EventHandler(OnMaskedTextBoxValidated);
+            _maskedTextBox.TrackMouseEnter += OnMaskedTextBoxMouseChange;
+            _maskedTextBox.TrackMouseLeave += OnMaskedTextBoxMouseChange;
+            _maskedTextBox.TextAlignChanged += OnMaskedTextBoxTextAlignChanged;
+            _maskedTextBox.TextChanged += OnMaskedTextBoxTextChanged;
+            _maskedTextBox.HideSelectionChanged += OnMaskedTextBoxHideSelectionChanged;
+            _maskedTextBox.ModifiedChanged += OnMaskedTextBoxModifiedChanged;
+            _maskedTextBox.ReadOnlyChanged += OnMaskedTextBoxReadOnlyChanged;
+            _maskedTextBox.MaskChanged += OnMaskedMaskChanged;
+            _maskedTextBox.IsOverwriteModeChanged += OnMaskedIsOverwriteModeChanged;
+            _maskedTextBox.MaskInputRejected += OnMaskedMaskInputRejected;
+            _maskedTextBox.TypeValidationCompleted += OnMaskedTypeValidationCompleted;
+            _maskedTextBox.GotFocus += OnMaskedTextBoxGotFocus;
+            _maskedTextBox.LostFocus += OnMaskedTextBoxLostFocus;
+            _maskedTextBox.KeyDown += OnMaskedTextBoxKeyDown;
+            _maskedTextBox.KeyUp += OnMaskedTextBoxKeyUp;
+            _maskedTextBox.KeyPress += OnMaskedTextBoxKeyPress;
+            _maskedTextBox.PreviewKeyDown += OnMaskedTextBoxPreviewKeyDown;
+            _maskedTextBox.Validating += OnMaskedTextBoxValidating;
+            _maskedTextBox.Validated += OnMaskedTextBoxValidated;
 
             // Create the element that fills the remainder space and remembers fill rectange
             _layoutFill = new ViewLayoutFill(_maskedTextBox);
@@ -527,13 +518,13 @@ namespace ComponentFactory.Krypton.Toolkit
                                                          new IPaletteMetric[] { StateCommon },
                                                          new PaletteMetricInt[] { PaletteMetricInt.HeaderButtonEdgeInsetInputControl },
                                                          new PaletteMetricPadding[] { PaletteMetricPadding.HeaderButtonPaddingInputControl },
-                                                         new GetToolStripRenderer(CreateToolStripRenderer),
+                                                         CreateToolStripRenderer,
                                                          NeedPaintDelegate);
 
             // Create the manager for handling tooltips
             ToolTipManager = new ToolTipManager();
-            ToolTipManager.ShowToolTip += new EventHandler<ToolTipEventArgs>(OnShowToolTip);
-            ToolTipManager.CancelToolTip += new EventHandler(OnCancelToolTip);
+            ToolTipManager.ShowToolTip += OnShowToolTip;
+            ToolTipManager.CancelToolTip += OnCancelToolTip;
             _buttonManager.ToolTipManager = ToolTipManager;
 
             // Add text box to the controls collection
@@ -2105,7 +2096,7 @@ namespace ComponentFactory.Krypton.Toolkit
                                                                      PaletteBorderStyle.ControlToolTip,
                                                                      CommonHelper.ContentStyleFromLabelStyle(toolTipStyle));
 
-                        _visualPopupToolTip.Disposed += new EventHandler(OnVisualPopupToolTipDisposed);
+                        _visualPopupToolTip.Disposed += OnVisualPopupToolTipDisposed;
 
                         // Show relative to the provided screen rectangle
                         _visualPopupToolTip.ShowCalculatingSize(RectangleToScreen(e.Target.ClientRectangle));
@@ -2124,7 +2115,7 @@ namespace ComponentFactory.Krypton.Toolkit
         {
             // Unhook events from the specific instance that generated event
             VisualPopupToolTip popupToolTip = (VisualPopupToolTip)sender;
-            popupToolTip.Disposed -= new EventHandler(OnVisualPopupToolTipDisposed);
+            popupToolTip.Disposed -= OnVisualPopupToolTipDisposed;
 
             // Not showing a popup page any more
             _visualPopupToolTip = null;

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -30,9 +30,9 @@ namespace ComponentFactory.Krypton.Ribbon
 
         #region Instance Fields
         private VisualOrientation _orientation;
-        private ViewDrawRibbonScrollButton _button;
-        private ViewLayoutRibbonSeparator _separator;
-        private bool _insetForTabs;
+        private readonly ViewDrawRibbonScrollButton _button;
+        private readonly ViewLayoutRibbonSeparator _separator;
+        private readonly bool _insetForTabs;
         #endregion
 
         #region Events
@@ -65,7 +65,7 @@ namespace ComponentFactory.Krypton.Ribbon
 
             // Create button controller for clicking the button
             RepeatButtonController rbc = new RepeatButtonController(ribbon, _button, needPaintDelegate);
-            rbc.Click += new MouseEventHandler(OnButtonClick);
+            rbc.Click += OnButtonClick;
             _button.MouseController = rbc;
 
             // Add as child elements

@@ -1,4 +1,3 @@
-C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.7\Bin\Versions\4.7\ComponentFactory.Krypton.Design.dll.config
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.7\Bin\Versions\4.7\ComponentFactory.Krypton.Design.XML
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.7\Bin\Versions\4.7\ComponentFactory.Krypton.Design.dll
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.7\Bin\Versions\4.7\ComponentFactory.Krypton.Design.pdb
@@ -11,7 +10,6 @@ C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.7\Source\Krypton Co
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.7\Source\Krypton Components\ComponentFactory.Krypton.Design\obj\Debug\ComponentFactory.Krypton.Design 2015.csproj.CoreCompileInputs.cache
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.7\Source\Krypton Components\ComponentFactory.Krypton.Design\obj\Debug\ComponentFactory.Krypton.Design.dll
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.7\Source\Krypton Components\ComponentFactory.Krypton.Design\obj\Debug\ComponentFactory.Krypton.Design.pdb
-C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.6.2\Bin\Versions\4.6.2\ComponentFactory.Krypton.Design.dll.config
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.6.2\Bin\Versions\4.6.2\ComponentFactory.Krypton.Design.XML
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.6.2\Bin\Versions\4.6.2\ComponentFactory.Krypton.Design.dll
 C:\Users\Peter William Wagner\Documents\GitHub\Krypton-NET-4.6.2\Bin\Versions\4.6.2\ComponentFactory.Krypton.Design.pdb

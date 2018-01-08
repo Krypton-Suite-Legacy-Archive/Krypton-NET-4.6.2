@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -57,14 +57,14 @@ namespace ComponentFactory.Krypton.Docking
             SpaceControl = new KryptonDockspace();
             DockspaceControl.Size = size;
             DockspaceControl.Dock = DockingHelper.DockStyleFromDockEdge(edge, false);
-            DockspaceControl.CellCountChanged += new EventHandler(OnDockspaceCellCountChanged);
-            DockspaceControl.CellVisibleCountChanged += new EventHandler(OnDockspaceCellVisibleCountChanged);
-            DockspaceControl.CellPageInserting += new EventHandler<KryptonPageEventArgs>(OnSpaceCellPageInserting);
-            DockspaceControl.PageCloseClicked += new EventHandler<UniqueNameEventArgs>(OnDockspacePageCloseClicked);
-            DockspaceControl.PageAutoHiddenClicked += new EventHandler<UniqueNameEventArgs>(OnDockspacePageAutoHiddenClicked);
-            DockspaceControl.PagesDoubleClicked += new EventHandler<UniqueNamesEventArgs>(OnDockspacePagesDoubleClicked);
-            DockspaceControl.PageDropDownClicked += new EventHandler<CancelDropDownEventArgs>(OnDockspaceDropDownClicked);
-            DockspaceControl.BeforePageDrag += new EventHandler<PageDragCancelEventArgs>(OnDockspaceBeforePageDrag);
+            DockspaceControl.CellCountChanged += OnDockspaceCellCountChanged;
+            DockspaceControl.CellVisibleCountChanged += OnDockspaceCellVisibleCountChanged;
+            DockspaceControl.CellPageInserting += OnSpaceCellPageInserting;
+            DockspaceControl.PageCloseClicked += OnDockspacePageCloseClicked;
+            DockspaceControl.PageAutoHiddenClicked += OnDockspacePageAutoHiddenClicked;
+            DockspaceControl.PagesDoubleClicked += OnDockspacePagesDoubleClicked;
+            DockspaceControl.PageDropDownClicked += OnDockspaceDropDownClicked;
+            DockspaceControl.BeforePageDrag += OnDockspaceBeforePageDrag;
         }
         #endregion
 

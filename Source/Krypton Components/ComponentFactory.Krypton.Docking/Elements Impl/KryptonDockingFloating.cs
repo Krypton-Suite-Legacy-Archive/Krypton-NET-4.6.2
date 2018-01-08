@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -138,7 +138,7 @@ namespace ComponentFactory.Krypton.Docking
             // Create a floatspace and floating window for hosting the floatspace
             KryptonDockingFloatspace floatSpaceElement = new KryptonDockingFloatspace("Floatspace");
             KryptonDockingFloatingWindow floatingWindowElement = new KryptonDockingFloatingWindow(name, OwnerForm, floatSpaceElement);
-            floatingWindowElement.Disposed += new EventHandler(OnDockingFloatingWindowDisposed);
+            floatingWindowElement.Disposed += OnDockingFloatingWindowDisposed;
             InternalAdd(floatingWindowElement);
 
             // Events are generated from the parent docking manager
@@ -159,7 +159,7 @@ namespace ComponentFactory.Krypton.Docking
         {
             // Cast to correct type and unhook event handlers so garbage collection can occur
             KryptonDockingFloatingWindow floatingWindowElement = (KryptonDockingFloatingWindow)sender;
-            floatingWindowElement.Disposed -= new EventHandler(OnDockingFloatingWindowDisposed);
+            floatingWindowElement.Disposed -= OnDockingFloatingWindowDisposed;
 
             // Remove the elemenet from our child collection as it is no longer valid
             InternalRemove(floatingWindowElement);

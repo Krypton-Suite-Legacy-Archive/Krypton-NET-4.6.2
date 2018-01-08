@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -29,16 +29,16 @@ namespace ComponentFactory.Krypton.Toolkit
 
         #region Instance Fields
 
-        private PaletteRedirect _redirector;
-        private ButtonSpecCollectionBase _variableSpecs;
-        private ButtonSpecCollectionBase _fixedSpecs;
-        private IPaletteMetric[] _viewMetrics;
-        private PaletteMetricInt[] _viewMetricIntOutside;
-        private PaletteMetricInt[] _viewMetricIntInside;
-        private PaletteMetricPadding[] _viewMetricPaddings;
-        private ListSpacers[] _viewSpacers;
-        private ButtonSpecLookup _specLookup;
-        private GetToolStripRenderer _getRenderer;
+        private readonly PaletteRedirect _redirector;
+        private readonly ButtonSpecCollectionBase _variableSpecs;
+        private readonly ButtonSpecCollectionBase _fixedSpecs;
+        private readonly IPaletteMetric[] _viewMetrics;
+        private readonly PaletteMetricInt[] _viewMetricIntOutside;
+        private readonly PaletteMetricInt[] _viewMetricIntInside;
+        private readonly PaletteMetricPadding[] _viewMetricPaddings;
+        private readonly ListSpacers[] _viewSpacers;
+        private readonly ButtonSpecLookup _specLookup;
+        private readonly GetToolStripRenderer _getRenderer;
 
         #endregion
 
@@ -100,8 +100,8 @@ namespace ComponentFactory.Krypton.Toolkit
             if (_variableSpecs != null)
             {
                 // Need to hook into changes in the button collection
-                _variableSpecs.Inserted += new EventHandler<ButtonSpecEventArgs>(OnButtonSpecInserted);
-                _variableSpecs.Removed += new EventHandler<ButtonSpecEventArgs>(OnButtonSpecRemoved);
+                _variableSpecs.Inserted += OnButtonSpecInserted;
+                _variableSpecs.Removed += OnButtonSpecRemoved;
             }
         }
         #endregion
@@ -199,8 +199,8 @@ namespace ComponentFactory.Krypton.Toolkit
             if (_variableSpecs != null)
             {
                 // Unhook from button collection events
-                _variableSpecs.Inserted -= new EventHandler<ButtonSpecEventArgs>(OnButtonSpecInserted);
-                _variableSpecs.Removed -= new EventHandler<ButtonSpecEventArgs>(OnButtonSpecRemoved);
+                _variableSpecs.Inserted -= OnButtonSpecInserted;
+                _variableSpecs.Removed -= OnButtonSpecRemoved;
             }
 
             // Destruct each of the button views
@@ -804,16 +804,13 @@ namespace ComponentFactory.Krypton.Toolkit
             // Find the docker index that is the target for the button spec
             int viewDockerIndex = GetTargetDockerIndex(buttonSpec.GetLocation(_redirector));
 
-            IPaletteMetric viewPaletteMetric = null;
-            PaletteMetricPadding viewMetricPadding = PaletteMetricPadding.None;
-
             // Are we applying metrics
             if ((_viewMetrics != null) &&
                 (_viewMetrics.Length > viewDockerIndex) &&
                 (_viewMetricPaddings.Length > viewDockerIndex))
             {
-                viewPaletteMetric = _viewMetrics[viewDockerIndex];
-                viewMetricPadding = _viewMetricPaddings[viewDockerIndex];
+                IPaletteMetric viewPaletteMetric = _viewMetrics[viewDockerIndex];
+                PaletteMetricPadding viewMetricPadding = _viewMetricPaddings[viewDockerIndex];
 
                 // Create an instance to manage the individual button spec
                 ButtonSpecView buttonView = CreateButtonSpecView(_redirector, viewPaletteMetric, viewMetricPadding, buttonSpec);
@@ -834,7 +831,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 ButtonSpecCreated(buttonSpec, buttonView, viewDockerIndex);
 
                 // Hook in to the button spec change event
-                buttonSpec.ButtonSpecPropertyChanged += new PropertyChangedEventHandler(OnPropertyChanged);
+                buttonSpec.ButtonSpecPropertyChanged += OnPropertyChanged;
 
                 return buttonView;
             }
@@ -845,7 +842,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private void RemoveButtonSpec(ButtonSpec buttonSpec)
         {
             // Unhook from button spec events
-            buttonSpec.ButtonSpecPropertyChanged -= new PropertyChangedEventHandler(OnPropertyChanged);
+            buttonSpec.ButtonSpecPropertyChanged -= OnPropertyChanged;
 
             // Get the button view from the button spec
             ButtonSpecView buttonView = _specLookup[buttonSpec];

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -21,8 +21,8 @@ namespace ComponentFactory.Krypton.Toolkit
 	public class ViewDrawDocker : ViewDrawCanvas
 	{
 		#region Instance Fields
-        private PaletteMetricBool _metricOverlay;
-        private ViewDockStyleLookup _childDocking;
+        private readonly PaletteMetricBool _metricOverlay;
+        private readonly ViewDockStyleLookup _childDocking;
 
 	    #endregion
 
@@ -586,8 +586,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 }
 			}
 
-            int borderWidth = 0;
-            Rectangle borderRect = ClientRectangle;
+		    Rectangle borderRect = ClientRectangle;
             Padding padding = Padding.Empty;
 
             if (!IgnoreAllBorderAndPadding)
@@ -595,7 +594,7 @@ namespace ComponentFactory.Krypton.Toolkit
                 // Find the actual width of the border as we need to compare this to the calculating border
                 // padding to work out how far from corners we can ignore the calculated border padding and 
                 // instead use the actual width only.
-                borderWidth = _paletteBorder.GetBorderWidth(State);
+                int borderWidth = _paletteBorder.GetBorderWidth(State);
 
                 // Update padding to reflect the orientation we are using
                 padding = context.Renderer.RenderStandardBorder.GetBorderDisplayPadding(_paletteBorder, State, Orientation);

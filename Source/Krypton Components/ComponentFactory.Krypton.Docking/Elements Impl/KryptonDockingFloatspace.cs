@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -37,11 +37,11 @@ namespace ComponentFactory.Krypton.Docking
             // Create a new floatspace that will be a host for docking pages
             SpaceControl = new KryptonFloatspace();
             FloatspaceControl.Dock = DockStyle.Fill;
-            FloatspaceControl.CellPageInserting += new EventHandler<KryptonPageEventArgs>(OnSpaceCellPageInserting);
-            FloatspaceControl.PageCloseClicked += new EventHandler<UniqueNameEventArgs>(OnFloatspacePageCloseClicked);
-            FloatspaceControl.PagesDoubleClicked += new EventHandler<UniqueNamesEventArgs>(OnFloatspacePagesDoubleClicked);
-            FloatspaceControl.PageDropDownClicked += new EventHandler<CancelDropDownEventArgs>(OnFloatspaceDropDownClicked);
-            FloatspaceControl.BeforePageDrag += new EventHandler<PageDragCancelEventArgs>(OnFloatspaceBeforePageDrag);
+            FloatspaceControl.CellPageInserting += OnSpaceCellPageInserting;
+            FloatspaceControl.PageCloseClicked += OnFloatspacePageCloseClicked;
+            FloatspaceControl.PagesDoubleClicked += OnFloatspacePagesDoubleClicked;
+            FloatspaceControl.PageDropDownClicked += OnFloatspaceDropDownClicked;
+            FloatspaceControl.BeforePageDrag += OnFloatspaceBeforePageDrag;
         }
         #endregion
 

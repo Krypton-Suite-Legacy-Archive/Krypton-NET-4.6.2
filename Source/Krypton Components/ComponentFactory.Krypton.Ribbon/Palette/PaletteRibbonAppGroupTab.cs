@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.ComponentModel;
@@ -19,14 +19,14 @@ namespace ComponentFactory.Krypton.Ribbon
     public class PaletteRibbonAppGroupTab : PaletteRibbonJustTab
 	{
 		#region Instance Fields
-        private PaletteRibbonBack _ribbonAppButton;
-        private PaletteRibbonBack _ribbonGroupNormalBorder;
-        private PaletteRibbonDouble _ribbonGroupNormalTitle;
-        private PaletteRibbonBack _ribbonGroupCollapsedBorder;
-        private PaletteRibbonBack _ribbonGroupCollapsedBack;
-        private PaletteRibbonBack _ribbonGroupCollapsedFrameBorder;
-        private PaletteRibbonBack _ribbonGroupCollapsedFrameBack;
-        private PaletteRibbonText _ribbonGroupCollapsedText;
+        private readonly PaletteRibbonBack _ribbonAppButton;
+        private readonly PaletteRibbonBack _ribbonGroupNormalBorder;
+        private readonly PaletteRibbonDouble _ribbonGroupNormalTitle;
+        private readonly PaletteRibbonBack _ribbonGroupCollapsedBorder;
+        private readonly PaletteRibbonBack _ribbonGroupCollapsedBack;
+        private readonly PaletteRibbonBack _ribbonGroupCollapsedFrameBorder;
+        private readonly PaletteRibbonBack _ribbonGroupCollapsedFrameBack;
+        private readonly PaletteRibbonText _ribbonGroupCollapsedText;
         #endregion
 
 		#region Identity

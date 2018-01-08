@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -22,18 +22,18 @@ namespace ComponentFactory.Krypton.Toolkit
     internal class ViewLayoutMenuItemSelect : ViewComposite
     {
         #region Instance Fields
-        private ViewContextMenuManager _viewManager;
-        private KryptonContextMenuImageSelect _itemSelect;
-        private IContextMenuProvider _provider;
-        private PaletteTripleToPalette _triple;
-        private NeedPaintHandler _needPaint;
-        private ImageList _imageList;
+        private readonly ViewContextMenuManager _viewManager;
+        private readonly KryptonContextMenuImageSelect _itemSelect;
+        private readonly IContextMenuProvider _provider;
+        private readonly PaletteTripleToPalette _triple;
+        private readonly NeedPaintHandler _needPaint;
+        private readonly ImageList _imageList;
         private int _selectedIndex;
-        private int _imageIndexStart;
-        private int _imageIndexEnd;
-        private int _imageIndexCount;
-        private int _imageCount;
-        private int _lineItems;
+        private readonly int _imageIndexStart;
+        private readonly int _imageIndexEnd;
+        private readonly int _imageIndexCount;
+        private readonly int _imageCount;
+        private readonly int _lineItems;
         private Padding _padding;
 
         #endregion
@@ -72,11 +72,7 @@ namespace ComponentFactory.Krypton.Toolkit
             _imageIndexEnd = Math.Min(_imageIndexEnd, _imageCount - 1);
             _imageIndexCount = Math.Max(0, (_imageIndexEnd - _imageIndexStart) + 1);
 
-            IPalette palette = provider.ProviderPalette;
-            if (palette == null)
-            {
-                palette = KryptonManager.GetPaletteForMode(provider.ProviderPaletteMode);
-            }
+            IPalette palette = provider.ProviderPalette ?? KryptonManager.GetPaletteForMode(provider.ProviderPaletteMode);
 
             // Create triple that can be used by the draw button
             _triple = new PaletteTripleToPalette(palette,

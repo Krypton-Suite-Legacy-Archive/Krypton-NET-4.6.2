@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -25,12 +25,12 @@ namespace ComponentFactory.Krypton.Ribbon
                                          IRibbonKeyTipTarget
     {
         #region Instance Fields
-        private KryptonRibbon _ribbon;
+        private readonly KryptonRibbon _ribbon;
         private bool _mouseOver;
         private bool _mouseDown;
         private bool _fixedPressed;
         private bool _hasFocus;
-        private Timer _updateTimer;
+        private readonly Timer _updateTimer;
         #endregion
 
         #region Events
@@ -61,7 +61,7 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 Interval = 1
             };
-            _updateTimer.Tick += new EventHandler(OnUpdateTimer);
+            _updateTimer.Tick += OnUpdateTimer;
             Keyboard = false;
         }
 		#endregion
@@ -259,13 +259,9 @@ namespace ComponentFactory.Krypton.Ribbon
                 case Keys.Tab:
                 case Keys.Right:
                     // Ask the ribbon to get use the first view for the qat
-                    newView = ribbon.GetFirstQATView();
+                    newView = ribbon.GetFirstQATView() ?? ribbon.TabsArea.ButtonSpecManager.GetLastVisibleViewButton(PaletteRelativeEdgeAlign.Near);
 
                     // Get the first near edge button (the last near button is the leftmost one!)
-                    if (newView == null)
-                    {
-                        newView = ribbon.TabsArea.ButtonSpecManager.GetLastVisibleViewButton(PaletteRelativeEdgeAlign.Near);
-                    }
 
                     if (newView == null)
                     {
@@ -296,13 +292,10 @@ namespace ComponentFactory.Krypton.Ribbon
                 case Keys.Tab | Keys.Shift:
                 case Keys.Left:
                     // Move across to any far defined buttons
-                    newView = ribbon.TabsArea.ButtonSpecManager.GetLastVisibleViewButton(PaletteRelativeEdgeAlign.Far);
+                    newView = ribbon.TabsArea.ButtonSpecManager.GetLastVisibleViewButton(PaletteRelativeEdgeAlign.Far) ??
+                              ribbon.TabsArea.ButtonSpecManager.GetLastVisibleViewButton(PaletteRelativeEdgeAlign.Inherit);
 
                     // Move across to any inherit defined buttons
-                    if (newView == null)
-                    {
-                        newView = ribbon.TabsArea.ButtonSpecManager.GetLastVisibleViewButton(PaletteRelativeEdgeAlign.Inherit);
-                    }
 
                     if (newView == null)
                     {

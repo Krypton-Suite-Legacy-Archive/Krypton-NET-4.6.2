@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -34,10 +34,10 @@ namespace ComponentFactory.Krypton.Ribbon
         #endregion
 
         #region Instance Fields
-        private KryptonRibbon _ribbon;
+        private readonly KryptonRibbon _ribbon;
         private ContextTabSet _context;
-        private IPaletteRibbonBack _inherit;
-        private ContextToContent _contentProvider;
+        private readonly IPaletteRibbonBack _inherit;
+        private readonly ContextToContent _contentProvider;
         private IDisposable _mementoBack;
         private IDisposable _mementoContentText;
         private IDisposable _mementoContentShadow1;
@@ -220,7 +220,7 @@ namespace ComponentFactory.Krypton.Ribbon
             }
 
             // Office 2010 draws a shadow effect of the text
-            if (_ribbon.RibbonShape == PaletteRibbonShape.Office2010)
+            if (_ribbon.RibbonShape == PaletteRibbonShape.Office2010 || _ribbon.RibbonShape == PaletteRibbonShape.Office2013)
             {
                 Rectangle shadowTextRect1 = new Rectangle(_textRect.X - 1, _textRect.Y + 1, _textRect.Width, _textRect.Height);
                 Rectangle shadowTextRect2 = new Rectangle(_textRect.X + 1, _textRect.Y + 1, _textRect.Width, _textRect.Height);
@@ -235,12 +235,12 @@ namespace ComponentFactory.Krypton.Ribbon
                 _mementoContentShadow1 = context.Renderer.RenderStandardContent.LayoutContent(context, shadowTextRect1,
                                                                                              _contentProvider, this,
                                                                                              VisualOrientation.Top, 
-                                                                                             PaletteState.Normal, false);
+                                                                                             PaletteState.Normal, false,false);
 
                 _mementoContentShadow2 = context.Renderer.RenderStandardContent.LayoutContent(context, shadowTextRect2,
                                                                                              _contentProvider, this,
                                                                                              VisualOrientation.Top,
-                                                                                             PaletteState.Normal, false);
+                                                                                             PaletteState.Normal, false, false);
                 _contentProvider.OverrideTextColor = Color.Empty;
             }
 
@@ -248,7 +248,7 @@ namespace ComponentFactory.Krypton.Ribbon
             _mementoContentText = context.Renderer.RenderStandardContent.LayoutContent(context, _textRect, 
                                                                                        _contentProvider, this, 
                                                                                        VisualOrientation.Top, 
-                                                                                       PaletteState.Normal, false);
+                                                                                       PaletteState.Normal, false, false);
 
             _contentProvider.OverrideTextHint = PaletteTextHint.Inherit;
         }
@@ -282,12 +282,12 @@ namespace ComponentFactory.Krypton.Ribbon
                 context.Renderer.RenderStandardContent.DrawContent(context, shadowTextRect1,
                                                                    _contentProvider, _mementoContentShadow1,
                                                                    VisualOrientation.Top,
-                                                                   state, false, true);
+                                                                   state, false,false, true);
 
-                context.Renderer.RenderStandardContent.DrawContent(context, shadowTextRect1,
+                context.Renderer.RenderStandardContent.DrawContent(context, shadowTextRect2,
                                                                    _contentProvider, _mementoContentShadow2,
                                                                    VisualOrientation.Top,
-                                                                   state, false, true);
+                                                                   state, false, false, true);
 
                 _contentProvider.OverrideTextColor = Color.Empty;
 
@@ -297,7 +297,7 @@ namespace ComponentFactory.Krypton.Ribbon
                     context.Renderer.RenderStandardContent.DrawContent(context, _textRect,
                         _contentProvider, _mementoContentText,
                         VisualOrientation.Top,
-                        state, false, true);
+                        state, false, false, true);
                 }
 
                 _contentProvider.OverrideTextHint = PaletteTextHint.Inherit;
@@ -321,7 +321,7 @@ namespace ComponentFactory.Krypton.Ribbon
                         context.Renderer.RenderStandardContent.DrawContent(context, _textRect,
                             _contentProvider, _mementoContentText,
                             VisualOrientation.Top,
-                            state, DrawOnComposition, true);
+                            state, DrawOnComposition, DrawOnComposition, true);
                     }
                 }
             }

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.ComponentModel;
@@ -21,12 +21,12 @@ namespace ComponentFactory.Krypton.Ribbon
 	{
 		#region Instance Fields
         // Storage
-        private PaletteRibbonBack _ribbonBack;
-        private PaletteRibbonBack _ribbonBorder;
+        private readonly PaletteRibbonBack _ribbonBack;
+        private readonly PaletteRibbonBack _ribbonBorder;
 
         // Redirection
-        private PaletteRibbonBackInheritRedirect _ribbonBackInherit;
-        private PaletteRibbonBackInheritRedirect _ribbonBorderInherit;
+        private readonly PaletteRibbonBackInheritRedirect _ribbonBackInherit;
+        private readonly PaletteRibbonBackInheritRedirect _ribbonBorderInherit;
         #endregion
 
 		#region Identity

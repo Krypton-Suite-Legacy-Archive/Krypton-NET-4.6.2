@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -32,9 +32,9 @@ namespace ComponentFactory.Krypton.Toolkit
             private int _activeFragment;
             private FormatFragmentList _fragments;
             private String _inputDigits;
-            private KryptonDateTimePicker _dateTimePicker;
-            private NeedPaintHandler _needPaint;
-            private ViewDrawDateTimeText _timeText;
+            private readonly KryptonDateTimePicker _dateTimePicker;
+            private readonly NeedPaintHandler _needPaint;
+            private readonly ViewDrawDateTimeText _timeText;
             #endregion
 
             #region Identity
@@ -674,9 +674,8 @@ namespace ComponentFactory.Krypton.Toolkit
 
             private void MeasureFragments(Graphics g, Font font, DateTime dt)
             {
-                // Create a character range/characger region for each of the fragments
+                // Create a character range/character region for each of the fragments
                 CharacterRange[] charRanges = new CharacterRange[_fragments.Count];
-                Region[] charRegion = new Region[_fragments.Count];
 
                 // Generate the output for each fragment and measure the length of that fragment output
                 for (int i = 0; i < _fragments.Count; i++)
@@ -688,8 +687,8 @@ namespace ComponentFactory.Krypton.Toolkit
                 StringFormat measureFormat = new StringFormat(StringFormatFlags.FitBlackBox);
                 measureFormat.SetMeasurableCharacterRanges(charRanges);
 
-                // Perform measuring using the output of the last fragmet (last frag must be the whole output string)
-                charRegion = g.MeasureCharacterRanges(_fragments[_fragments.Count - 1].Output, font, _measureRect, measureFormat);
+                // Perform measuring using the output of the last fragment (last frag must be the whole output string)
+                Region[] charRegion = g.MeasureCharacterRanges(_fragments[_fragments.Count - 1].Output, font, _measureRect, measureFormat);
 
                 // Push return values into the individual fragment entries
                 for (int i = 0; i < _fragments.Count; i++)
@@ -950,7 +949,7 @@ namespace ComponentFactory.Krypton.Toolkit
         private class FormatFragmentChar : FormatFragment
         {
             #region Instance Fields
-            private string _fragFormat;
+            private readonly string _fragFormat;
             #endregion
 
             #region Identity
@@ -1432,9 +1431,9 @@ namespace ComponentFactory.Krypton.Toolkit
         #endregion
 
         #region Instance Fields
-        private KryptonDateTimePicker _dateTimePicker;
-        private FormatHandler _formatHandler;
-        private NeedPaintHandler _needPaint;
+        private readonly KryptonDateTimePicker _dateTimePicker;
+        private readonly FormatHandler _formatHandler;
+        private readonly NeedPaintHandler _needPaint;
         #endregion
 
         #region Identity

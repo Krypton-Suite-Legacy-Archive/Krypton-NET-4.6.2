@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -34,10 +34,20 @@ namespace ComponentFactory.Krypton.Toolkit
 
         #region Instance Fields
 
-        private PaletteTripleOverride _boldedDisabled, _boldedNormal, _boldedTracking, _boldedPressed;
-        private PaletteTripleOverride _boldedCheckedNormal, _boldedCheckedTracking, _boldedCheckedPressed;
-        private PaletteTripleOverride _todayDisabled, _todayNormal, _todayTracking, _todayPressed;
-        private PaletteTripleOverride _todayCheckedNormal, _todayCheckedTracking, _todayCheckedPressed;
+        private readonly PaletteTripleOverride _boldedDisabled;
+        private readonly PaletteTripleOverride _boldedNormal;
+        private readonly PaletteTripleOverride _boldedTracking;
+        private readonly PaletteTripleOverride _boldedPressed;
+        private readonly PaletteTripleOverride _boldedCheckedNormal;
+        private readonly PaletteTripleOverride _boldedCheckedTracking;
+        private readonly PaletteTripleOverride _boldedCheckedPressed;
+        private readonly PaletteTripleOverride _todayDisabled;
+        private readonly PaletteTripleOverride _todayNormal;
+        private readonly PaletteTripleOverride _todayTracking;
+        private readonly PaletteTripleOverride _todayPressed;
+        private readonly PaletteTripleOverride _todayCheckedNormal;
+        private readonly PaletteTripleOverride _todayCheckedTracking;
+        private readonly PaletteTripleOverride _todayCheckedPressed;
         private HeaderStyle _headerStyle;
         private ButtonStyle _dayStyle;
         private ButtonStyle _dayOfWeekStyle;
@@ -56,8 +66,8 @@ namespace ComponentFactory.Krypton.Toolkit
         private DateTime _maxDate;
         private DateTime _todayDate;
         private int _maxSelectionCount;
-        private DateTimeList _annualDates;
-        private DateTimeList _monthlyDates;
+        private readonly DateTimeList _annualDates;
+        private readonly DateTimeList _monthlyDates;
         private string _today;
         private int _scrollChange;
         #endregion

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -31,7 +31,7 @@ namespace ComponentFactory.Krypton.Navigator
         #endregion
 
         #region Instance Fields
-        private KryptonNavigator _navigator;
+        private readonly KryptonNavigator _navigator;
         private DirectionButtonAction _actionPrevious;
         private ButtonDisplay _displayPrevious;
         private DirectionButtonAction _actionNext;
@@ -71,10 +71,10 @@ namespace ComponentFactory.Krypton.Navigator
             CloseButton = new ButtonSpecNavClose(_navigator);
 
             // Hook into the click events for the buttons
-            PreviousButton.Click += new EventHandler(OnPreviousClick);
-            NextButton.Click += new EventHandler(OnNextClick);
-            ContextButton.Click += new EventHandler(OnContextClick);
-            CloseButton.Click += new EventHandler(OnCloseClick);
+            PreviousButton.Click += OnPreviousClick;
+            NextButton.Click += OnNextClick;
+            ContextButton.Click += OnContextClick;
+            CloseButton.Click += OnCloseClick;
 
             // Add fixed buttons into the display collection
             FixedSpecs.AddRange(new ButtonSpecNavFixed[] { PreviousButton, NextButton, ContextButton, CloseButton });

@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System.Drawing;
@@ -25,10 +25,10 @@ namespace ComponentFactory.Krypton.Ribbon
                                          IRibbonKeyTipTarget
 	{
 		#region Instance Fields
-        private KryptonRibbon _ribbon;
+        private readonly KryptonRibbon _ribbon;
         private bool _mouseOver;
         private bool _rightButtonDown;
-        private ViewDrawRibbonTab _target;
+        private readonly ViewDrawRibbonTab _target;
 		private NeedPaintHandler _needPaint;
 		#endregion
 
@@ -243,19 +243,12 @@ namespace ComponentFactory.Krypton.Ribbon
             {
                 case Keys.Right:
                     // Get the next visible tab page
-                    newView = _target.ViewLayoutRibbonTabs.GetViewForNextRibbonTab(_target.RibbonTab);
+                    newView = (_target.ViewLayoutRibbonTabs.GetViewForNextRibbonTab(_target.RibbonTab) ?? (ViewBase) _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Far)) ??
+                              _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Inherit);
 
                     // Move across to any far defined buttons
-                    if (newView == null)
-                    {
-                        newView = _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Far);
-                    }
 
                     // Move across to any inherit defined buttons
-                    if (newView == null)
-                    {
-                        newView = _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Inherit);
-                    }
 
                     // Rotate around to application button
                     if (newView == null)
@@ -272,19 +265,12 @@ namespace ComponentFactory.Krypton.Ribbon
                     break;
                 case Keys.Left:
                     // Get the previous visible tab page
-                    newView = _target.ViewLayoutRibbonTabs.GetViewForPreviousRibbonTab(_target.RibbonTab);
+                    newView = (_target.ViewLayoutRibbonTabs.GetViewForPreviousRibbonTab(_target.RibbonTab) ?? (ViewBase) _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Near)) ??
+                              _ribbon.GetLastQATView();
 
                     // Move across to any near defined buttons
-                    if (newView == null)
-                    {
-                        newView = _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Near);
-                    }
 
                     // Get the last qat button
-                    if (newView == null)
-                    {
-                        newView = _ribbon.GetLastQATView();
-                    }
 
                     // Rotate around to application button
                     if (newView == null)
@@ -301,13 +287,10 @@ namespace ComponentFactory.Krypton.Ribbon
                     break;
                 case Keys.Tab | Keys.Shift:
                     // Move across to any near defined buttons
-                    newView = _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Near);
+                    newView = _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Near) ??
+                              _ribbon.GetLastQATView();
 
                     // Get the last qat button
-                    if (newView == null)
-                    {
-                        newView = _ribbon.GetLastQATView();
-                    }
 
                     // Rotate around to application button
                     if (newView == null)
@@ -328,19 +311,12 @@ namespace ComponentFactory.Krypton.Ribbon
                     break;
                 case Keys.Tab:
                     // Get the first focus item for the currently selected page
-                    newView = _ribbon.GroupsArea.ViewGroups.GetFirstFocusItem();
+                    newView = (_ribbon.GroupsArea.ViewGroups.GetFirstFocusItem() ?? _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Near)) ??
+                              _ribbon.GetLastQATView();
 
                     // Move across to any near defined buttons
-                    if (newView == null)
-                    {
-                        newView = _ribbon.TabsArea.ButtonSpecManager.GetFirstVisibleViewButton(PaletteRelativeEdgeAlign.Near);
-                    }
 
                     // Get the last qat button
-                    if (newView == null)
-                    {
-                        newView = _ribbon.GetLastQATView();
-                    }
 
                     // Rotate around to application button
                     if (newView == null)

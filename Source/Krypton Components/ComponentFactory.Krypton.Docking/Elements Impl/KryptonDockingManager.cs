@@ -1,11 +1,11 @@
 ﻿// *****************************************************************************
 // 
-//  © Component Factory Pty Ltd 2017. All rights reserved.
+//  © Component Factory Pty Ltd 2018. All rights reserved.
 //	The software and associated documentation supplied hereunder are the 
 //  proprietary information of Component Factory Pty Ltd, 13 Swallows Close, 
 //  Mornington, Vic 3931, Australia and are supplied subject to licence terms.
 // 
-//  Version 4.5.0.0 	www.ComponentFactory.com
+//  Version 4.6.2.0 	www.ComponentFactory.com
 // *****************************************************************************
 
 using System;
@@ -1921,7 +1921,7 @@ namespace ComponentFactory.Krypton.Docking
                     {
                         Tag = page.UniqueName
                     };
-                    floatingItem.Click += new EventHandler(OnDropDownFloatingClicked);
+                    floatingItem.Click += OnDropDownFloatingClicked;
                     floatingItem.Enabled = ((location != DockingLocation.Floating) && (page.AreFlagsSet(KryptonPageFlags.DockingAllowFloating)));
                     options.Items.Add(floatingItem);
                     retDisplay = true;
@@ -1935,7 +1935,7 @@ namespace ComponentFactory.Krypton.Docking
                     {
                         Tag = page.UniqueName
                     };
-                    dockedItem.Click += new EventHandler(OnDropDownDockedClicked);
+                    dockedItem.Click += OnDropDownDockedClicked;
                     dockedItem.Enabled = ((location != DockingLocation.Docked) && (page.AreFlagsSet(KryptonPageFlags.DockingAllowDocked)));
                     options.Items.Add(dockedItem);
                     retDisplay = true;
@@ -1949,7 +1949,7 @@ namespace ComponentFactory.Krypton.Docking
                     {
                         Tag = page.UniqueName
                     };
-                    workspaceItem.Click += new EventHandler(OnDropDownWorkspaceClicked);
+                    workspaceItem.Click += OnDropDownWorkspaceClicked;
                     workspaceItem.Enabled = ((location != DockingLocation.Workspace) && (page.AreFlagsSet(KryptonPageFlags.DockingAllowWorkspace)));
                     options.Items.Add(workspaceItem);
                     retDisplay = true;
@@ -1964,7 +1964,7 @@ namespace ComponentFactory.Krypton.Docking
                         {
                             Tag = page.UniqueName
                         };
-                        workspaceItem.Click += new EventHandler(OnDropDownNavigatorClicked);
+                        workspaceItem.Click += OnDropDownNavigatorClicked;
                         workspaceItem.Enabled = ((location != DockingLocation.Navigator) && (page.AreFlagsSet(KryptonPageFlags.DockingAllowNavigator)));
                         options.Items.Add(workspaceItem);
                         retDisplay = true;
@@ -1979,7 +1979,7 @@ namespace ComponentFactory.Krypton.Docking
                     {
                         Tag = page.UniqueName
                     };
-                    autoHiddenItem.Click += new EventHandler(OnDropDownAutoHiddenClicked);
+                    autoHiddenItem.Click += OnDropDownAutoHiddenClicked;
                     autoHiddenItem.Enabled = ((location != DockingLocation.AutoHidden) && (page.AreFlagsSet(KryptonPageFlags.DockingAllowAutoHidden)));
                     options.Items.Add(autoHiddenItem);
                     retDisplay = true;
@@ -1993,7 +1993,7 @@ namespace ComponentFactory.Krypton.Docking
                     {
                         Tag = page.UniqueName
                     };
-                    closeItem.Click += new EventHandler(OnDropDownCloseClicked);
+                    closeItem.Click += OnDropDownCloseClicked;
                     options.Items.Add(closeItem);
                     retDisplay = true;
                 }
@@ -2865,7 +2865,7 @@ namespace ComponentFactory.Krypton.Docking
         /// <param name="path">Path for finding the target KryptonDockingWorkspace.</param>
         /// <param name="pages">Array of pages to be added.</param>
         /// <returns>KryptonDockingWorkspace reference.</returns>
-        protected virtual KryptonDockingWorkspace AddToWorkspace(string path, KryptonPage[] pages)
+        public virtual KryptonDockingWorkspace AddToWorkspace(string path, KryptonPage[] pages)
         {
             // Cannot add a null array
             if (pages == null)
@@ -3767,6 +3767,39 @@ namespace ComponentFactory.Krypton.Docking
                 return cells.ToArray();
             }
         }
+
+        /// <summary>
+        /// Return the cell the page belongs to, when available (JDH Software add)
+        /// </summary>
+        /// <param name="uniqueName">The uniqueName of the page.</param>
+        /// <returns>The KryptonWorkspaceCell.</returns>
+        public KryptonWorkspaceCell DockingCellForPage(string uniqueName)
+        {
+            //Action depends on current location of the page
+            switch (this.FindPageLocation(uniqueName))
+            {
+                case DockingLocation.Docked:
+                    // Unique name page must be inside a Dockspace instance
+                    KryptonDockingDockspace dockspace = this.FindPageElement(uniqueName) as KryptonDockingDockspace;
+                    // Find the cell containing the unique name page
+                    return dockspace.CellForPage(uniqueName);
+                case DockingLocation.Floating:
+                    // Unique name page must be inside a Dockspace instance
+                    KryptonDockingFloatspace floatspace = this.FindPageElement(uniqueName) as KryptonDockingFloatspace;
+                    // Find the cell containing the unique name page
+                    return floatspace.CellForPage(uniqueName);
+                case DockingLocation.Workspace:
+                    KryptonDockingWorkspace workspace = this.FindPageElement(uniqueName) as KryptonDockingWorkspace;
+                    // Find the cell containing the unique name page
+                    return workspace.CellForPage(uniqueName);
+                case DockingLocation.AutoHidden:
+                case DockingLocation.Navigator:
+                case DockingLocation.Custom:
+                case DockingLocation.None:
+                default:
+                    return null;
+            }
+        }
         #endregion
 
         #region Protected
@@ -4322,7 +4355,7 @@ namespace ComponentFactory.Krypton.Docking
         private void InitializeManager()
         {
             Strings = new DockingManagerStrings(this);
-            Strings.PropertyChanged += new PropertyChangedEventHandler(OnStringPropertyChanged);
+            Strings.PropertyChanged += OnStringPropertyChanged;
             DefaultCloseRequest = DockingCloseRequest.HidePage;
         }
 
