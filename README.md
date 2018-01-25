@@ -2,6 +2,16 @@
 
 =======
 
+## NOTE: In order to use this toolkit, please ensure that you reference 'ComponentFactory.Krypton.Design.dll' in ALL of your projects at ALL times!
+
+=======
+
+## 2018-01-25 KryptonTextBox.cs descriptions
+* Added descriptions to 'OnTrackMouseEnter' and 'OnTrackMouseLeave' events to make more sense
+* Added raw '.cab' and '.mshc' help files
+
+=======
+
 ## 2018-01-21 Nuget package update
 * Fixed Nuget package specification to show the true file assembly number, i.e 4.62.533.0 (build date January 21st, 2018) 
 * All new releases of packages will no longer have a dedicated changelog. Instead, it will point users back to [this repository](https://github.com/Wagnerp/Krypton-NET-4.6.2) for more information.
